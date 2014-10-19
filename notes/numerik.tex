@@ -1,0 +1,92 @@
+ %  DOCUMENT CLASS
+\documentclass[11pt]{scrartcl}
+
+%PACKAGES
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[reqno,fleqn]{amsmath}
+\setlength\mathindent{10mm}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{units}
+\usepackage{times, eurosym}
+\usepackage{lmodern}
+
+% FORMATIERUNG
+\usepackage[paper=a4paper,left=25mm,right=25mm,top=25mm,bottom=25mm]{geometry}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1mm plus1mm minus1mm}
+
+%MATH SHORTCUTS
+\newcommand*{\T}{\mathrm T}
+\renewcommand{\d}{\,\mathrm d}
+\newcommand*{\NN}{\mathbb N}
+\newcommand*{\RR}{\mathbb R}
+\newcommand*{\PP}{\mathbb P}
+\newcommand*{\one}{\mathbbm 1}
+\newcommand*{\eqx}{\mathbin{\overset{!}{=}}}
+\newcommand*{\Gl}{\mathrm{Gl}}
+\newcommand{\e}[1]{\cdot 10^{#1}}
+\DeclareMathOperator*{\sign}{\mathrm{sign}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Beispiel}
+\theoremstyle{remark}
+\newtheorem{beh}{Behauptung}
+
+
+\title{Numerische Mathematik}
+\subtitle{Notizen zur Vorlesung von Prof. Dr. Timo Reis, WiSe 2014/15}
+\author{Damian Hofmann\footnote{\texttt{2hofmann@informatik.uni-hamburg.de}}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Einleitung}
+Was ist \emph{numerische Mathematik}? Bereitstellung konstruktiver Verfahren zur approximativen Berechnung mathematischer Sachverhalte.
+
+Konstruktiv: Am Computer.
+
+Mathematischer Sachverhalt: Zum Beispiel das Lösen linearer Gleichungssysteme.
+
+\begin{example}[Lineares Gleichungssystem, LGS]
+
+Gegeben: $A \in \RR^{n\times n} \text{ invertierbar } \Leftrightarrow A \in \Gl_n(\RR)$,
+$b \in \RR^n$.
+Gesucht: $x \in \RR^n$, so dass $Ax = b \Leftrightarrow x = A^{-1} b$ gilt.
+
+Naive Methode: Lösung über Cramersche Regel.
+
+$$x = \begin{pmatrix}x_1 \\ \vdots \\ x_n \end{pmatrix}, \qquad x_i = \frac{\det(A_i)}{\det(A)}$$
+mit $$A_i :=
+\begin{pmatrix}
+  a_{11} & \cdots & a_{1,i-1} & b_1 & a_{1,i+1} & \cdots & a_{1n} \\
+  \vdots & & & \ddots & & & \vdots \\
+  a_{n1} & \cdots & a_{n,i-1} & b_n & a_{n.i+1} & \cdots & a_{nn}
+\end{pmatrix}.$$
+
+In der Leibnitz-Darstellung ist $$\det(A) = \sum_{\sigma\in S_n} \sign(\sigma) a_{1\sigma(1)} \cdots a_{n\sigma(n)}.$$
+
+Fakten:
+\begin{enumerate}
+\item Die Leibnitz-Darstellung von $\det(A)$ benötigt $n! (n-1)$ Multiplikationen.
+\item Aus 1. folgt: Die Lösung von $Ax=b$ mit der Cramerschen Regel benötigt $2n!(n-1)n + n$
+      Multiplikationen.
+\end{enumerate}
+
+Eine Intel-Core-i7-CPU berechnet etwa $3.3\e{10}$ Multiplikationen pro Sekunde.
+Für ein System mit 20 Unbekannten benötigt die Cramersche Regel daher 1776.3 Jahre.
+
+Mithilfe geschickterer Verfahren lassen sich heute LGS mit heutzutage bis zu $10^9$
+Unbekannten in vernüftiger Zeit lösen.
+\end{example}
+
+\begin{definition}
+Sei ein numerisches Verfahren abhängig von den Größen $n_1, \ldots, n_l \in \NN$.
+\end{definition}
+
+\end{document}

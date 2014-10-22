@@ -14,6 +14,8 @@
 \usepackage{units}
 \usepackage{times, eurosym}
 \usepackage{lmodern}
+%Querverweise innerhalb der Datei und des Inhaltsverzeichnisses. Hyperlinks!
+\usepackage[pagebackref=true,linktoc=all,bookmarks=true,bookmarksopen=true,pdfstartview={FitV}]{hyperref}
 
 % FORMATIERUNG
 \usepackage[paper=a4paper,left=25mm,right=25mm,top=25mm,bottom=25mm]{geometry}
@@ -27,7 +29,9 @@
 \newcommand*{\RR}{\mathbb R}
 \newcommand*{\CC}{\mathbb C}
 \newcommand*{\KK}{\mathbb K}
+\newcommand*{\U}{\mathbb O}
 \newcommand*{\PP}{\mathbb P}
+
 \newcommand*{\one}{\mathbbm 1}
 \newcommand*{\eqx}{\mathbin{\overset{!}{=}}}
 \newcommand*{\Gl}{\mathrm{Gl}}
@@ -49,15 +53,17 @@
 \declaretheorem[style=theorem,sibling=Beispiel]{Satz}
 \declaretheorem[style=theorem,sibling=Beispiel]{Korollar}
 \declaretheorem[style=theorem,sibling=Beispiel]{Lemma}
-
+% Funktioneirt nicht richtig
+% \declaretheorem[style=theorem,sibling=Beispiel]{Bemerkung}
 
 \title{Numerische Mathematik}
 \subtitle{Notizen zur Vorlesung von Prof. Dr. Timo Reis, WiSe 2014/15}
-\author{Laura Schüttpelz, Damian Hofmann}
+\author{Laura Schüttpelz, Damian Hofmann, Michael Hufschmidt}
 \date{\today}
 
 \begin{document}
 \maketitle
+\tableofcontents
 
 \input{vorlesung2014-10-13}
 \input{vorlesung2014-10-16}
@@ -73,7 +79,5 @@
 \input{vorlesung2014-11-20}
 \input{vorlesung2014-11-24}
 \input{vorlesung2014-11-27}
-
-
 
 \end{document}

@@ -22,34 +22,37 @@ Im Folgenden sei $A$ eine hermitesche Matrix.
   \item[c)] $A$ heißt "`negativ (semi-) definit"': Analog.
 \end{enumerate}
 
-\subsubsection{Wurzel}
+\subsubsection{Wurzel einer Matrix}
 Sei $A \in \KK^{n \times n}$ ; $A \ge 0$ (das beinhaltet $A = A^*$). Dann ist
 $\sqrt{A} = A^{\frac{1}{2}}$ definiert als eine Matrix $\sqrt{A} \ge 0$ mit
 $\left(\sqrt{A} \right)^2 = A$.
 
-Existenszbeweis: $A \ge 0 \Rightarrow \exists \; U \in \U_n(\KK)$ ($\U_n = $ Menge
+\begin{proof}[Existenzbeweis]
+$A \ge 0 \Rightarrow \exists \; U \in \U_n(\KK)$ ($\U_n = $ Menge
 der unitären Matrizen), so dass  \newline
 $A = U^* \cdot \diag(\lambda_1, \dots \lambda_n) \cdot U$ mit den Eigenwerten
 $\lambda_1, \dots \lambda_n \in [0, \infty)$. \newline
-Betrachte dazu $\sqrt{A} = U^* \cdot \diag(\sqrt{\lambda_1}, \dots \sqrt{\lambda_n}) \cdot U$.
+Betrachte nun $\sqrt{A} = U^* \cdot \diag(\sqrt{\lambda_1}, \dots, \sqrt{\lambda_n}) \cdot U$.
+\end{proof}
 
 \subsection{Vektor- und Matrixnormen}
 \begin{Definition} [Norm]
   Sei $X$ ein $\KK$-Vektrorraum. Eine Abbildung $\| \cdot \| \rightarrow [0, \infty)$
   heißt Norm wenn
   \begin{enumerate}
-    \item[(i)]    $\|x\| > 0 \quad \forall \; x \in X \setminus \lbrace 0 \rbrace$
-    \item[(ii)]   $\| \lambda \cdot x\| = |\lambda| \cdot \|x\| \quad \forall \; \lambda \in \KK, \forall x \in X$
-    \item[(iii)]  $\|x + y \| \le \|x\| + \|y\| \quad \forall \; x, y \in X$
+    \item[(i)]    $\|x\| > 0 \quad \forall \; x \in X \setminus \lbrace 0 \rbrace$ (Positivität)
+    \item[(ii)]   $\| \lambda \cdot x\| = |\lambda| \cdot \|x\| \quad \forall \; \lambda \in \KK, \forall x \in X$ (absolute Homogenität)
+    \item[(iii)]  $\|x + y \| \le \|x\| + \|y\| \quad \forall \; x, y \in X$ (Dreiecksungleichung)
   \end{enumerate}
 \end{Definition}
 
-% \begin{Bemerkung}  %funktioniert nicht richtig
-\textbf{Bemerkungen:}
-\begin{enumerate}
+\begin{Bemerkungen}
+\quad
+  \begin{enumerate}
     \item[a)] Konvergenz $(x_n) \rightarrow x$ bedeutet $\|x_n - x\| \rightarrow 0$.
     \item[b)] Wenn zusätzlich $\dim (X) < \infty$, dann sind alle Normen auf $X$
     äquivalent, d.h.für jede Norm $\| \cdot \|_a$ und $\| \cdot \|_b$ auf $X$ gibt
     es Konstanten $c_1, c_1 > 0$, so dass
     $c_1 \cdot \| x \|_a \le \| x \|_b \le c_2 \cdot \| x \|_a \; \forall x \in X$.
   \end{enumerate}
+\end{Bemerkungen}

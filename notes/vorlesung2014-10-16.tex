@@ -54,5 +54,29 @@ Betrachte nun $\sqrt{A} = U^* \cdot \diag(\sqrt{\lambda_1}, \dots, \sqrt{\lambda
     äquivalent, d.h.für jede Norm $\| \cdot \|_a$ und $\| \cdot \|_b$ auf $X$ gibt
     es Konstanten $c_1, c_1 > 0$, so dass
     $c_1 \cdot \| x \|_a \le \| x \|_b \le c_2 \cdot \| x \|_a \; \forall x \in X$.
+    Es ist klar, dass $\dim(\KK^n) = n < \infty$ und
+    $\dim(\KK^{m \times n}) = m \cdot n  < \infty$ .
+    \item[c)] Beispiele für Normen auf $\KK^n$:
+    \begin{enumerate}
+      \item[(i)] $\|x\|_\infty := \max_{i = 1, \cdots , n} |x_i| \quad $Maximums-Norm
+      \item[(ii)] $\|x\|_p := \left( \sum_{i = 1}^n |x_i|^p \right)^\frac{1}{p} \quad$
+      $p$-Norm; $p \in [1, \cdots , \infty)$. Für $p = 2$ Euklidische Norm.
+    \end{enumerate}
+    Es gilt:
+    $\|x\|_\infty \le \|x\|_2 < \|x\|_1 \le \sqrt{n} \cdot \|x\|_2 < n \cdot \|x\|_\infty
+    \quad \forall \; x \in \KK^n$
   \end{enumerate}
 \end{Bemerkungen}
+
+Beispiele für Matrix-Normen ($A \in X = \KK^{m \times n})$:
+\begin{enumerate}
+  \item[a)] $\|A\|_1 :=  \max_{j = 1, \cdots , n} \left( \sum_{i = 1}^m |a_{ij}| \right) \quad$ Spaltensummen-Norm
+  \item[b)] $\|A\|_\infty :=  \max_{i = 1, \cdots , m} \left( \sum_{j = 1}^n |a_{ij}| \right) \quad$ Zeilensummen-Norm
+  \item[c)] $\|A\|_F :=  \left(\sum_{i = 1}^m  \sum_{j = 1}^n |a_{ij}|^2 \right)^{\frac{1}{2}} \quad$
+  Frobenius-Norm
+\end{enumerate}
+
+
+
+
+

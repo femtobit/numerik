@@ -1,0 +1,151 @@
+\begin{Beispiele}[Elementarmatrizen]
+\quad
+\begin{itemize}
+\item[a)] \emph{Vertauschungsmatrix.}
+  $P_{rs} := (e_1,\ldots,e_{r-1},e_s,e_{r+1},\ldots,e_{s-1},e_r,e_{s+1},\ldots,e_n).$
+
+  Einheitsmatrix mit $r$-ter und $s$-ter Spalte vertauscht.
+
+  Es gilt $P_{rs} = I - (e_r - e_s)(e_r - e_s)^\T$ und $P_{rs} = R_{rs}^\T$,
+  $P_{rs}^2 = P_{rs}$.
+  
+  $P_{rs} A$ vertauscht $r$-te und $s$-te Spalte in A. Aufwand: 0 Mult.
+  
+  Es gilt $\det P_{rs} = -1$, es handelt sich also um eine Spiegelung.
+
+\item[b)] \emph{Gauß-Matrix.}
+  Sei $1 \le k \le n$, $u = (0, \ldots, 0, u_{k+1}, \ldots, u_n)^\T$.
+  \[
+    G_k := I - ue_k^\T = \begin{pmatrix}
+      1 & & & \\
+      & \ddots & & & \\
+      & & 1 & & \\
+      & & -u_{k+1} & \ddots & \\
+      & & \vdots & & \\
+      & & -u_n & & 1 \\
+    \end{pmatrix}.
+  \]
+
+  Beachte: $G^{-1}_k = (I - ue_k^\T)^{-1} = I + ue_k^\T$.
+
+  Für $A = \begin{pmatrix} a_1 \\ \vdots \\ a_n \end{pmatrix} \in \KK^{n\times n}$
+  gilt \[
+    G_k A = (I - ue_k^\T) A = A - u(e_k^\T A) = A - ua_k
+          = \begin{pmatrix} a_1 \\ \vdots \\ a_k \\ a_{k+1} - u_{k+1} a_k \\ \vdots \\ a_n - u_n a_k \end{pmatrix}.
+  \]
+  Für $j = k+1, \ldots, n$ Subtraktion von $a_j$ mit $u_j a_k$.
+
+  Aufwand (für $A \in \RR^{n\times m}$): $(n-k) \cdot m$ Mult.
+
+\item[c)] \emph{Householder-Spiegelung.}
+  $v \in \KK^n \setminus \{0\}$, $Q_v := I - \frac{2}{v^{*}v}vv^{*}.$
+  Es gilt $Q_v^{*} = Q_v$ und \[
+    Q_v^2 = (I - \frac{2}{v^{*}v}vv^{*})(I - \frac{2}{v^{*}v}vv^{*})
+          = I - \frac{4}{v^*v}vv^* + \frac{4}{(v^*v)^2}vv^*vv^* = I.    
+  \]
+
+  Also ist $Q_v$ hermitesch und unitär (denn die Eigenwerte sind reell und
+  haben Betrag 1).
+
+  Es gilt $Q_v v = -v$ und $Q_v w = w$ für alle $w \in \vspan\{v\}^\perp$.
+  Es handelt sich bei $Q_v$ also um eine Spiegelung an der Hyperebene
+  $\vspan\{v\}^\perp$.
+
+  \item[d)] \(
+    \lambda \in \KK \setminus \{0\}$, $S_k := I + (\lambda - 1)e_ke_k^\T
+      = \diag(1, \ldots, \underset{k-1}{1}, \underset{k}{\lambda}, \underset{k+1}{1}, \ldots, 1)
+    \).
+
+    $S_k^{-1} = I + (\frac{1}{\lambda} - 1) e_k e_k^\T.$
+
+    \[
+      S_k \begin{pmatrix} a_1 \\ \vdots \\ a_n \end{pmatrix}
+        = \begin{pmatrix} a_1 \\ \vdots \\ a_{k-1} \\ \lambda a_k \\ a_{k+1} \\ \vdots \\ a_n \end{pmatrix}.
+    \]
+
+    Aufwand: $m$ Mult. für $A \in \KK^{n\times m}$.
+\end{itemize}
+\end{Beispiele}
+
+\subsection{Gaußsches Eliminationsverfahren}
+
+Gegeben: LGS $Ax = b$, $A \in \Gl_n(\KK)$, $b \in \KK^n$.
+
+Ziel: Sukzessive Multiplikation von links mit Gaußmatrizen $G_i$ und Vertauschungsmatrizen $P_i$ ($i \in \{1, \ldots, n\}$),
+so dass \[
+  \underset{=: R\text{ (obere Dreiecksmatrix)}}{\underbrace{
+    G_nP_n \cdots G_1 P_1 A x}}
+  = \underset{=: c \in \KK^n}{\underbrace{
+    G_nP_n \cdots G_1 P_1 b}}.
+\]
+
+Danach: Lösung von $Rx = c$ durch \emph{Rückwärtseinsetzen}:
+\begin{codebox}
+  \li \For $i = n, n-1, \ldots, 1$:
+    \Do
+      \li $x_i \gets \frac{1}{r_{ij}} \left( c_i - \sum_{j=i+1}^n r_{ij} x_j \right)$
+    \End
+\end{codebox}
+
+Das Rückeinsetzen benötigt insgesamt \[
+  \sum_{i=1}^n (n - i + 1) = n^2 + n - \frac{n(n+1)}{2} = \frac{n(n+1)}{2}
+    = O(n^2)
+\] Multiplikationen.
+
+Transformation $(A \mid b) \to (R \mid c)$ über folgenden Prozess:
+% TODO
+
+Anschaulich: %TODO
+
+Nach $n-1$ Schritten erhalten wir eine obere Dreiecksmatrix.
+
+\begin{Bemerkung}
+Das Verfahren ist für $A \in \Gl_n(\KK)$ immer durchführbar.
+Wäre dies nämlich im $k$-ten Schritt ($1 \le k < n$) nicht der Fall, so
+hätte die zugehörige Matrix $A^{(k)}$ die Form \[
+  A^{(k)} = \left( \begin{array}{ccc|cccc}
+  a_{11} & \cdots & a_{1k} & a_{1,k+1} & a_{1,k+2} & \cdots & a_{1n} \\
+  & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+  0 & & a_{kk} & a_{k,k+1} & a_{k,k+2} & \cdots & a_{kn} \\ \hline
+  0 & \cdots & 0 & 0 & a_{k+1,k+2} & \cdots & a_{k+1,n} \\
+  \vdots & \ddots & \vdots & \vdots & \vdots & \ddots &  \vdots \\
+  0 & \cdots & 0 & 0 & a_{n,k+1} & \cdots & a_{nn}
+  \end{array} \right)
+\] also \(
+  A^{(k)} = \left( \begin{array}{c|c} \Lambda_1 & \Lambda_2 \\\hline 0 & \Lambda_3 \end{array} \right)
+\) und damit
+$$\pm \det(A) = \det(A^{(k)}) = \det(\Lambda_1) \det(\Lambda_3) = 0\text{, da }\det (\Lambda_3) = 0.$$
+\end{Bemerkung}
+
+\begin{Algorithmus}[Gauß-Verfahren]
+\quad
+\begin{codebox}
+\Procname{$\proc{Gauss-Elimination}(A,b)$}
+\li \For $k = 1, \ldots, n$:
+\Do
+  \li Bestimme $r(k) \in \{k, \ldots, n\}$, so dass
+      $|a_{r(k),k}| = \max_{i=k,\ldots,n} |a_{ik}|.$
+  \li Vertausche $k$-te und $r(k)$-te Zeile von $(A \mid b)$.
+  \li \For $i \gets k + 1, \ldots, n$:
+  \Do
+    \li $b_i \gets b_i - \frac{a_{ik}}{a_{kk}} b_k$.
+    \li \For $j \gets k+1, \ldots, n$:
+    \Do
+      \li $a_{ij} \gets a_{ij} - \frac{a_{ik}}{a_{kk}} a_{kj}$.
+    \End
+    \li $a_{ik} \gets 0$.
+  \End
+\End
+\end{codebox}
+\end{Algorithmus}
+
+\begin{Bemerkungen}
+\begin{itemize}
+  \item[a)] Das Gauß-Verfahren ist genau dann ohne Pivotisierung möglich,
+    wenn alle Hauptabschnittsdeterminanten von 0 verschieden sind. (Beweis in den Übungen.)
+
+  \item[b)] Die Pivotisierung trägt zur numerischen Stabilität bei.
+
+  Beispiel: Betrachte 
+\end{itemize}
+\end{Bemerkungen}

@@ -74,7 +74,7 @@ Gegeben: LGS $Ax = b$, $A \in \Gl_n(\KK)$, $b \in \KK^n$.
 Ziel: Sukzessive Multiplikation von links mit Gaußmatrizen $G_i$ und Vertauschungsmatrizen $P_i$ ($i \in \{1, \ldots, n\}$),
 so dass \[
   \underset{=: R\text{ (obere Dreiecksmatrix)}}{\underbrace{
-    G_nP_n \cdots G_1 P_1 A x}}
+    G_nP_n \cdots G_1 P_1 A}x}
   = \underset{=: c \in \KK^n}{\underbrace{
     G_nP_n \cdots G_1 P_1 b}}.
 \]
@@ -93,7 +93,6 @@ Das Rückeinsetzen benötigt insgesamt \[
 \] Multiplikationen.
 
 Transformation $(A \mid b) \to (R \mid c)$ über folgenden Prozess:
-
 Für $k=n-1, \ldots, 1$:
 \begin{itemize}
   \item[a)] Bestimme $r(k) \in \{k, \ldots, n\}$, so dass
@@ -108,7 +107,7 @@ Für $k=n-1, \ldots, 1$:
     und $(A \mid b) := (G_k A \mid G_k b)$.
 \end{itemize}
 
-Anschaulich: %TODO
+% Anschaulich: TODO
 
 Nach $n-1$ Schritten erhalten wir eine obere Dreiecksmatrix.
 
@@ -153,6 +152,7 @@ $$\pm \det(A) = \det(A^{(k)}) = \det(\Lambda_1) \det(\Lambda_3) = 0\text{, da }\
 \end{Algorithmus}
 
 \begin{Bemerkungen}
+\quad
 \begin{itemize}
   \item[a)] Das Gauß-Verfahren ist genau dann ohne Pivotisierung möglich,
     wenn alle Hauptabschnittsdeterminanten von 0 verschieden sind. (Beweis in den Übungen.)
@@ -190,4 +190,3 @@ $$\pm \det(A) = \det(A^{(k)}) = \det(\Lambda_1) \det(\Lambda_3) = 0\text{, da }\
   Die tatsächliche Lösung ist $x_1 = 1.00101\ldots$, $x_2 = 0.99899\ldots$.
 \end{itemize}
 \end{Bemerkungen}
-

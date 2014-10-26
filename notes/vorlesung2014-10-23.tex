@@ -93,7 +93,20 @@ Das Rückeinsetzen benötigt insgesamt \[
 \] Multiplikationen.
 
 Transformation $(A \mid b) \to (R \mid c)$ über folgenden Prozess:
-% TODO
+
+Für $k=n-1, \ldots, 1$:
+\begin{itemize}
+  \item[a)] Bestimme $r(k) \in \{k, \ldots, n\}$, so dass
+    $$|a_{r(k),k}| = \max_{i=k,\ldots,n}|a_ik|.$$
+    $a_{r(k),k}$ heißt \emph{Pivotelement}.
+
+    Es ist $a_{r(k),k} \ne 0$, da sonst $A \notin \Gl_n(\KK)$.
+    Vertausche die Spalten $k$ und $r(k)$ (\emph{Pivotisierung}).
+
+    \item[b)] Für $$l_k := (0, \ldots, 0, l_{k+1,k}, \ldots, l_{n,k})^\T$$
+    mit $l_{ik} := \frac{a_{ik}}{a_{kk}}$, setze $G_k := I - l_ke_k^\T$
+    und $(A \mid b) := (G_k A \mid G_k b)$.
+\end{itemize}
 
 Anschaulich: %TODO
 
@@ -146,6 +159,35 @@ $$\pm \det(A) = \det(A^{(k)}) = \det(\Lambda_1) \det(\Lambda_3) = 0\text{, da }\
 
   \item[b)] Die Pivotisierung trägt zur numerischen Stabilität bei.
 
-  Beispiel: Betrachte 
+  Beispiel: Löse \[
+    A = \left( \begin{array}{ll}
+      1.00\e{-3} & 1.00\e{0} \\
+      1.00\e{0} &  1.00\e{0}
+    \end{array} \right),
+    \qquad
+    b = \begin{pmatrix}
+      1.00\e{0} \\
+      2.00\e{0}
+    \end{pmatrix}
+  \]
+  mit zweistelliger Gleitpunktarithmetik (d.h. schneide nach zweiter Stelle ab).
+
+  \begin{itemize}
+    \item[(i)] Ohne Pivotisierung: \[
+        \rightsquigarrow \left( \begin{array}{lr|r}
+          1.00\e{-3} & 1.00\e{0} & 1.00\e{0} \\
+          0         & -9.99\e{3} & -9.98\e{3}
+        \end{array} \right)
+      \] also $x_2 = 1.00\e{0}$, $x_1 = 0$.
+
+    \item[(ii)] Mit Pivotisierung: \[
+        \rightsquigarrow \left( \begin{array}{ll|l}
+          1.00\e{0} & 1.00\e{0} & 2.00\e{0} \\
+          0         & 1.00\e{0} & 1.00\e{0}
+        \end{array} \right)
+      \] also $x_2 = 1.00\e{0}$, $x_1 = 1.00\e{0}$.
+  \end{itemize}
+  Die tatsächliche Lösung ist $x_1 = 1.00101\ldots$, $x_2 = 0.99899\ldots$.
 \end{itemize}
 \end{Bemerkungen}
+

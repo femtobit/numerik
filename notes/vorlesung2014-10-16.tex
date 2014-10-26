@@ -72,7 +72,7 @@ Beispiele für Matrix-Normen ($A \in X = \KK^{m \times n})$:
 \begin{enumerate}
   \item[a)] $\|A\|_1 :=  \max_{j = 1, \cdots , n} \left( \sum_{i = 1}^m |a_{ij}| \right) \quad$ Spaltensummen-Norm
   \item[b)] $\|A\|_\infty :=  \max_{i = 1, \cdots , m} \left( \sum_{j = 1}^n |a_{ij}| \right) \quad$ Zeilensummen-Norm
-  \item[c)] $\|A\|_F :=  \left(\sum_{i = 1}^m  \sum_{j = 1}^n |a_{ij}|^2 \right)^{\frac{1}{2}} \quad$
+  \item[c)] $\|A\|_{\text{F}} :=  \left(\sum_{i = 1}^m  \sum_{j = 1}^n |a_{ij}|^2 \right)^{\frac{1}{2}} \quad$
   Frobenius-Norm
 \end{enumerate}
 
@@ -86,7 +86,24 @@ Beispiele für Matrix-Normen ($A \in X = \KK^{m \times n})$:
 \end{enumerate}
 \end{Definition}
 
-
+Beispiele:
+\begin{enumerate}
+  \item[(i)] $\|A\| := \max_{\substack{i = 1 \cdots m\\j = 1 \cdots n}}|a_{ij}|$
+  ist Matrix-Norm, jedoch nicht sub.multiplikativ, denn für \\
+  $A = B = \left( \begin{smallmatrix}1 & 1 \\1 & 1 \end{smallmatrix} \right)$ gilt
+  $\|A\| = \|B\| = 1$, aber
+  $\|A \cdot B\| = \left \| \left(\begin{smallmatrix}2 & 2 \\2 & 2 \end{smallmatrix}\right) \right\| =
+  2 \nleq 1 = \|A\| \cdot \|B\|$
+  \item[(ii)] Die Frobenius-Norm ist mit der euklidischen Norm verträglich:
+  \begin{align*}
+    & |(A \cdot x)_i|^2 = \sum_{j = 1}^n |a_{ij} \cdot x_j |^2 \overset{(*)}{\le}
+    \left( \sum_{j = 1}^n |a_{ij}|^2  \right) \cdot \left( \sum_{i = 1}^n |x_i |^2  \right) =
+    \sum_{j = 1}^n |a_{ij}|^2 \cdot |x|^2
+    & \intertext{Bei (*) wurde die Cauchy-Schwarzsche Ungleichung angewendet}
+    & \Rightarrow \|A \cdot x\|_2 \le \|A\|_{\text{F}} \cdot \|x\|_2 \quad
+    \forall \; A \in \KK^{m \times n} \; , \; x \in \KK^n
+  \end{align*}
+\end{enumerate}
 
 
 

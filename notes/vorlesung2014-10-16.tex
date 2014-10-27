@@ -77,33 +77,34 @@ Beispiele für Matrix-Normen ($A \in X = \KK^{m \times n})$:
 \end{enumerate}
 
 \begin{Definition}
-\quad \\
+Eine Matrix-Norm $\|\cdot\|$ heißt
 \begin{enumerate}
-  \item[(i)] Eine Matrix-Norm $\|\cdot\|$ heißt \textit{sub-multiplikativ}, wenn
-  $\|A \cdot B\| \le \|A\| \cdot \|B\| \newline \forall \; A \in \KK^{m \times k}, \; B \in \KK^{k \times n}$
+  \item[(i)] \textit{sub-multiplikativ}, wenn
+  $$\|A \cdot B\| \le \|A\| \cdot \|B\|$$
+  für alle $A \in \KK^{m \times k}, \; B \in \KK^{k \times n}$
   \item[(ii)] \textit{verträglich mit der Vektor-Norm $\| \cdot \|_V$}, wenn
-  $\|A \cdot x\| \le \|A\| \cdot \|x\|_V \quad \forall \; A \in \KK^{m \times n}, \; x \in \KK^n$
+  $$\|A \cdot x\| \le \|A\| \cdot \|x\|_V$$
+  für alle $A \in \KK^{m \times n}, \; x \in \KK^n$.
 \end{enumerate}
 \end{Definition}
 
-Beispiele:
+\begin{Beispiele}
+\quad
 \begin{enumerate}
-  \item[(i)] $\|A\| := \max_{\substack{i = 1 \cdots m\\j = 1 \cdots n}}|a_{ij}|$
-  ist Matrix-Norm, jedoch nicht sub.multiplikativ, denn für \\
+  \item[(i)] $$\|A\| := \max_{\substack{i = 1 \cdots m\\j = 1 \cdots n}}|a_{ij}|$$
+  ist eine Matrix-Norm, jedoch nicht submultiplikativ, denn für \\
   $A = B = \left( \begin{smallmatrix}1 & 1 \\1 & 1 \end{smallmatrix} \right)$ gilt
   $\|A\| = \|B\| = 1$, aber
   $\|A \cdot B\| = \left \| \left(\begin{smallmatrix}2 & 2 \\2 & 2 \end{smallmatrix}\right) \right\| =
-  2 \nleq 1 = \|A\| \cdot \|B\|$
+  2 \nleq 1 = \|A\| \cdot \|B\|$.
   \item[(ii)] Die Frobenius-Norm ist mit der euklidischen Norm verträglich:
   \begin{align*}
     & |(A \cdot x)_i|^2 = \sum_{j = 1}^n |a_{ij} \cdot x_j |^2 \overset{(*)}{\le}
     \left( \sum_{j = 1}^n |a_{ij}|^2  \right) \cdot \left( \sum_{i = 1}^n |x_i |^2  \right) =
-    \sum_{j = 1}^n |a_{ij}|^2 \cdot |x|^2
-    & \intertext{Bei $(*)$ wurde die Cauchy-Schwarzsche Ungleichung angewendet}
-    & \Rightarrow \|A \cdot x\|_2 \le \|A\|_{\text{F}} \cdot \|x\|_2 \quad
-    \forall \; A \in \KK^{m \times n} \; , \; x \in \KK^n
+    \sum_{j = 1}^n |a_{ij}|^2 \cdot |x|^2.
+    & \intertext{Bei $(*)$ wurde die Cauchy-Schwarzsche Ungleichung angewendet. Es folgt}
+    & \|A \cdot x\|_2 \le \|A\|_{\text{F}} \cdot \|x\|_2 \quad
+    \forall \; A \in \KK^{m \times n} \; , \; x \in \KK^n.
   \end{align*}
 \end{enumerate}
-
-
-
+\end{Beispiele}

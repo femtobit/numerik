@@ -20,9 +20,9 @@
       1 & & & \\
       & \ddots & & & \\
       & & 1 & & \\
-      & & -u_{k+1} & \ddots & \\
-      & & \vdots & & \\
-      & & -u_n & & 1 \\
+      & & -u_{k+1} & 1 & \\
+      & & \vdots & & & \ddots \\
+      & & -u_n & & & & 1 \\
     \end{pmatrix}.
   \]
 
@@ -40,7 +40,8 @@
 \item[c)] \emph{Householder-Spiegelung.}
   $v \in \KK^n \setminus \{0\}$, $Q_v := I - \frac{2}{v^{*}v}vv^{*}.$
   Es gilt $Q_v^{*} = Q_v$ und \[
-    Q_v^2 = (I - \frac{2}{v^{*}v}vv^{*})(I - \frac{2}{v^{*}v}vv^{*})
+    Q_v^2 =  \left( I - \frac{2}{v^{*}v}vv^{*} \right)
+             \left( I - \frac{2}{v^{*}v}vv^{*} \right)
           = I - \frac{4}{v^*v}vv^* + \frac{4}{(v^*v)^2}vv^*vv^* = I.    
   \]
 
@@ -48,7 +49,8 @@
   haben Betrag 1).
 
   Es gilt $Q_v v = -v$ und $Q_v w = w$ für alle $w \in \vspan\{v\}^\perp$.
-  Es handelt sich bei $Q_v$ also um eine Spiegelung an der Hyperebene
+  Es handelt sich bei $Q_v$ also um eine Spiegelung an der Hyperebene\footnote{
+  Eine Hyperebene ist eine $(n-1)$-dimensionale Untermannigfaltigkeit des $\KK^n$.}
   $\vspan\{v\}^\perp$.
 
   \item[d)] \(

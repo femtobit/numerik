@@ -1,219 +1,242 @@
+\documentclass[a4paper]{scrartcl}
+
+\usepackage[utf8]{inputenc} \usepackage[ngerman]{babel}
+
+\usepackage{amssymb} \usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+
+\newcounter{mydefctr}
+\newtheorem{mydef}[mydefctr]{Definition}
+\newtheorem{vmydef}[mydefctr]{(vage) Definition}
+
+\newcommand{\rang}{\mathop{\mathrm{rang}}}
+\newcommand{\loes}{\mathop{\mathrm{L\ddot{o}s}}}
+\newcommand{\diag}{\mathop{\mathrm{diag}}}
+
+\parindent 0pt
+\parskip 0.25\baselineskip
+
+\title{Numerik-Skript Teil 1}
+
+\author{Laura Schüttpelz}
+
+\begin{document}
+
+\maketitle
+
 \section{Einleitung}
-Was ist \emph{numerische Mathematik}? Bereitstellung konstruktiver Verfahren zur approximativen Berechnung mathematischer Sachverhalte.
+Was ist numerische Mathematik?
+$\rightarrow$ Bereitstellung konstruktiver Verfahren zur 
+approximativen Berechnung mathematischer Sachverhalte.
 
-Konstruktiv: Am Computer.
+\subsubsection*{Bsp: Lineares Gleichungssystem (LGS) Ax = b}
+\textbf{gegeben:} $A \in \mathbb{R}^{n \times n}$ invertierbar 
+$(A \in GI_{\sim} (\mathbb{R})), b \in \mathbb{R}^n$ \\
+\textbf{gesucht:} $x \in \mathbb{R}^n$, so dass $Ax = b$ (also $x = A^{-1} b$)
 
-Mathematischer Sachverhalt: Zum Beispiel das Lösen linearer Gleichungssysteme.
+"`Naive Möglichkeit"': Lösung über Cramersche Regel
 
-\begin{Beispiel}[Lineares Gleichungssystem, LGS]
+\begin{displaymath}
+x = \begin{pmatrix} x_a \\ \vdots \\ x_n \end{pmatrix}, 
+~ x_i = \frac{1}{\det (A)},\\~ \det(A_i)~ mit~ 
+A_i = \begin{pmatrix} a_{11} & \dots & b_1 & \dots & a_{n1} 
+\\ \vdots & & \vdots & & \vdots \\ a_{n1} & \dots & b_n & 
+\dots & a_{nn} \end{pmatrix}
+\end{displaymath}
 
-Gegeben: $A \in \RR^{n\times n} \text{ invertierbar } \Leftrightarrow A~\in~\Gl_n(\RR)$,
-$b \in \RR^n$.
-Gesucht: $x \in \RR^n$, so dass $Ax = b \Leftrightarrow x = A^{-1} b$ gilt.
+Leibnitz-Darstellung von $\det(A)$:
+\begin{displaymath}
+\det(A) = \sum_{\sigma \in S_n} sign (\sigma) a_{1\sigma(1)} 
+\dots a_{n\sigma(n)}
+\end{displaymath}
 
-Naive Methode: Lösung über Cramersche Regel.
-
-$$x = \begin{pmatrix}x_1 \\ \vdots \\ x_n \end{pmatrix}, \qquad x_i = \frac{\det(A_i)}{\det(A)}$$
-mit $$A_i :=
-\begin{pmatrix}
-  a_{11} & \cdots & a_{1,i-1} & b_1 & a_{1,i+1} & \cdots & a_{1n} \\
-  \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
-  a_{n1} & \cdots & a_{n,i-1} & b_n & a_{n.i+1} & \cdots & a_{nn}
-\end{pmatrix}.$$
-
-In der Leibnitz-Darstellung ist $$\det(A) = \sum_{\sigma\in S_n} \sgn(\sigma)\, a_{1\sigma(1)} \cdots a_{n\sigma(n)}.$$
-
-Fakten:
-\begin{enumerate}
-\item Die Leibnitz-Darstellung von $\det(A)$ benötigt $n! (n-1)$ Multiplikationen.
-\item Aus 1. folgt: Die Lösung von $Ax=b$ mit der Cramerschen Regel benötigt $2n!(n-1)n + n$
-      Multiplikationen.
+\subsubsection*{Fakten:}
+\begin{enumerate}[(a)]
+\item\label{leibnitz:multi}
+Leibnitz-Darstellung von $\det(A)$ benötigt $n! \cdot (n-1)$ Multiplikationen
+\item
+Aus (\ref{leibnitz:multi}) folgt: Lösungen von $Ax=b$ mit Cramerschen Regel benötigt \\
+$2 \cdot  n!\cdot(n-1) \cdot n + n$ Multiplikationen 
 \end{enumerate}
 
-Eine Intel-Core-i7-CPU berechnet etwa $3.3\e{10}$ Multiplikationen pro Sekunde.
-Für ein System mit 20 Unbekannten benötigt die Cramersche Regel daher
-$ \frac{20! \cdot 2 \cdot 19 \cdot +20}{3.3 \cdot 10^{10}
-\cdot 60 \cdot 60 \cdot 24 \cdot 365} = 1776.3$ Jahre.
-Andere Fälle:
-\begin{align*}
-n = 15\colon & 4.6\text{ Std}\\
-n = 10\colon & 0.2\text{ Sek.}\\
-n = 25\colon & 17.8\text{ Mrd. Jahre}
-\end{align*}
+Rechenleistung einer moderaten Maschine Intel Core i7: $3.3 \cdot 10^{10} 
+\frac{\text{Multiplikationen}}{\text{Sekunde}}$ 
 
-Mithilfe "`geschickterer"' Verfahren lassen sich heute LGS mit heutzutage bis zu $10^9$
-Unbekannten in vernüftiger Zeit lösen.
-\end{Beispiel}
+\begin{description}
+\item[\rm Fall $n = 20$:] $\frac{2 \cdot 20! \cdot 19 + 20}{3.3 \cdot 10^{10} 
+\cdot 60 \cdot 60 \cdot 24 \cdot 365} = 1776.3$ Jahre
+\item[$n = 15$:] 4.6 Std
+\item[$n = 10$:] 0.2 Sek.
+\item[$n = 25$:] 17.8 Mrd. Jahre
+\end{description}
 
-Eine vage Definition:
+Mithilfe anderer "`geschickter Verfahren"' kann man solche LSG 
+(heutzutage bis zu $10^9$) in vernünftiger Zeit lösen.
 
-\begin{Definition}[Aufwand]
-Sei ein numerisches Verfahren abhängig von den Größen $n_1, \ldots, n_l~\in~\NN$.
-Man spricht vom
-\emph{Aufwand von $O(f(n_1, \dots, n_l))$ Multiplikationen}
-(für $f\colon \mathbb{N}^l \to \mathbb{N}$) wenn es
-$c_1, c_2 > 0$ gibt, so dass das Verfahren für alle
+\begin{vmydef}
+Sei ein numerisches Verfahren abhängig von den 
+Größen $n_1, \dots, n_l \in \mathbb{N}$. Man spricht vom 
+"`Aufwand $O(f(n_1, \dots, n_l))$ Multiplikationen"'
+(für $f: \mathbb{N}^l \rightarrow \mathbb{N}$) wenn es 
+$c_1, c_2 > 0$ gibt, sodass das Verfahren für alle 
 $n_1, \dots, n_l > c_1$ mit maximal $c_2 \cdot f(n_1, \dots n_l)$
-Multiplikationen auskommt (Divisionen zählen als Multiplikationen,
+Multiplikationen auskommt (Divisionen zählen als Multiplikationen, 
 Additionen zählen gar nicht).
-\end{Definition}
+\end{vmydef}
 
-\begin{Beispiel}[name=Zahl der Multiplikationen in verschiedenen Rechnungen,listhack]
-\quad
-\begin{enumerate}
-\item[(a)]
-Cramersche Regel zur Lösung von $Ax = b$ mit $A \in \Gl_n(\RR),
-b \in \mathbb{R}^n$: \\
-$O(n! \cdot (n-1)\cdot n)$ Multiplikationen.
-\item[(b)]
-Euklidisches Skalarprodukt:
-$$\langle x,y \rangle = \sum_{k=1}^n x_k y_k \qquad x,y \in \mathbb{R}^n:$$ \\
-$O(n)$ Multiplikationen
-\item[(c)]
-Matrixmultiplikation: $A \cdot B \text{ für } A\in
-\mathbb{R}^{n \times m}$, $B \in \mathbb{R}^{m \times k}$: \\
-$O(n \cdot m \cdot k ) $ Multiplikationen
-\end{enumerate}
-\end{Beispiel}
+\subsubsection*{Beispiele:}
 
-Weitere Fragestellungen der Numerik:
-\begin{enumerate}
-\item[(a)]
-Numerische Integration: Berechne $\int_a^b f(x) \d x$ numerisch
-\item[(b)]
-Lösung nichtlinearer Gleichungssysteme: \\
-$F(x) = 0$ für gegebenes $F\colon \RR^n \supset U \rightarrow \mathbb{R}^k$. \\
-Beispiel:
-\begin{enumerate}
-\item[(i)]
-$F(x)=e^x-y = 0,\; y \in \mathbb{R}$ gegeben. \\
-$\rightarrow$ geschlossene Lösung $x = \log y.$
-\item[(ii)]
-$F(x)=x \cdot e^x -1 = 0$ ist nicht geschlossen lösbar. \\
-Eine Lösung existiert jedoch in $(0,1)$, da $f(0) = -1 < 0$, \\
-$f(1)= e-1>0 $ (Rest folgt aus Zwischenwertsatz).
+\begin{enumerate}[(a)]
+\item Cramersche Regel zur Lösung von
+      $Ax = b$ mit $A \in GI_{\sim}(\mathbb{R}), 
+      b \in \mathbb{R}^n$ : \\
+      O($n! \cdot (n-1)\cdot n$) Multiplikationen
+\item Euklidisches Skalarprodukt:
+      $\langle x,y\rangle = \sum_{k=1}^n x_k y_k$, $x,y \in \mathbb{R}^n$ :\\
+      O(n) Multiplikationen
+\item Matrixmultiplikation: $A \cdot B \text{ für } A\in 
+      \mathbb{R}^{n \times m}, B \in \mathbb{R}^{m \times k}$ : \\
+      $O(n \cdot m \cdot k ) $ Multiplikationen
+\end{enumerate}  
+
+\subsubsection*{Weitere Fragestellungen der Numerik:}
+
+\begin{enumerate}[(a)]
+\item
+Numerische Integration, Berechne $\int_a^b f(x) dx$ numerisch
+\item
+Lösung nichtliearer Gleichungssysteme \\
+$F(x) = 0$, $F: U \subset \mathbb{R}^n \rightarrow \mathbb{R}^k$ gegeben \\
+Bsp.:
+\begin{enumerate}[(i)]
+\item
+$f(x)=e^x-y$, $y \in \mathbb{R}$ gegeben. \\
+$\rightarrow$ gesch! Lösung $x = \log y$ 
+\item
+$f(x)=x \cdot e^x -1 = 0$ nicht gesch! lösbar. \\
+Lösung existiert jedoch in $(0,1)$, da $f(0) = -1 < 0$, \\
+$f(1)= e-1>0 $ (Rest folgt aus Zwischenwertsatz)
 \end{enumerate}
-\item[(c)]
-Interpolation: \\
-Gegeben: $(x_1,y_1), \dots, (x_n,y_n) \in \mathbb{R}^2$. \\
-Finde $f: \RR \supset I \to \RR$, so dass
-$f(x_1) = y_1, \dots , f(x_n)=y_n$.
-\item[(d)]
-Numerische Berechnung von Eigenwerten
-\item[(e)]
-Numerische Lösung gewöhnlicher Differentialgleichungen $\dot x(t)=f(t,x(t))$).
-\item[(f)]
-Lineare Optimierung.
+\item
+Interpolation \\
+Gegeben: $(x_1,y_1), \dots (x_n,y_n) \in \mathbb{R}^2$\\
+Finde $f: I \subset \mathbb{R} \rightarrow \mathbb{R}$, so dass 
+$f(x_1) = y_1, \dots , f(x_n)=y_n$
+\item
+numerische Berechnung von Eigenwerten
+\item
+numerische Lösung gew. Differentialgleichungen $x(t)=f(t,x(t))$
+\item
+lineare Optimierung
 \end{enumerate}
 
-\newpage
 \section{Lineare Gleichungssysteme}
-
 \subsection{Grundlagen}
+Notation: $\mathbb{K} \in \{\mathbb{R}, \mathbb{C}\}$ \\
 
-\subsubsection{Notation}
-$\mathbb{K} \in \{\mathbb{R}, \mathbb{C}\}$ \\
 \begin{align*}
-x &= \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix}
-\in \mathbb{K}^n \widehat{=} \mathbb{K}^{n \times 1},
+x &= \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} 
+\in \mathbb{K}^n \widehat{=} \mathbb{K}^{n \times 1},  
 ~ A=(a_{ij}) \in \mathbb{K}^{m \times n}  \\
-x^\T &= (x_1, \dots, x_n) \in \mathbb{K}^{1 \times n},\;
-A^\T = (a_{ji}) \in \mathbb{K}^{n \times m}  \\
-x^{\ast} &= (\bar{x}_1, \dots, \bar{x}_n),
-~A^{\ast} = (\bar{a}_{ji}) \in \mathbb{K}^{n \times m}  \\
-\Gl_n(\mathbb K) &= \{A \in \mathbb{K}^{n \times n}: A
-\text{ invertiertbar} \} & \text{"`General Linear Group"'}  \\
-O_n (\mathbb{K})&= \{ U \subset \mathbb{K}^{n \times n}:
-U^{\ast} U = I \} & \text{"`Orthogonale Gruppe"'} \\
-& I \text{ ist die Einheitsmatrix.} \\
-e_i &= \begin{pmatrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{pmatrix}
-\text{:  $i$-ter kanonischer Einheitsvektor } \\
+x^T &= \begin{pmatrix} x_1 & \dots & x_n \end{pmatrix} 
+\in \mathbb{K}^{1 \times n}, ~A^T = (a_{ij}) \in \mathbb{K}^{n \times n}  \\ 
+x^{\ast} &= \begin{pmatrix}\overline{x_1} & \dots & \overline{x_n} \end{pmatrix}, 
+~A^{\ast} = (\overline{a_{ij}}) \in \mathbb{K}^{n \times m}  \\
+GI_{\sim} (\mathbb{k}) &= \{A \in \mathbb{K}^{n \times n}: A 
+\text{ invertierbar} \}  \\
+O_n (\mathbb{K})&= \{ U \subset \mathbb{K}^{n \times n}: 
+U^{\ast} U = I \} , \text{ $I$ ist Einheitsmatrix.} \\
+e_i &= \begin{pmatrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{pmatrix} 
+\text{: $i$-ter kanonischer Einheitsvektor } \\
 \end{align*}
 
-\subsubsection{Grundlagen der linearen Algebra}
+\subsubsection*{Lineares Gleichungssystem (LGS): Ax=b}
 
-Lineares Gleichungssystem (LGS): $Ax=b$
 
-gegeben: $A \in \mathbb{K}^{m \times n}$, $b \in \mathbb{K}^m$
+\textbf{gegeben:} $A \in \mathbb{K}^{m \times n}, b \in \mathbb{K}^m$
 
-gesucht: Lösungsmenge $\Loes(A,b) := \{x \in \mathbb{K}^n : Ax=b\} $
+\textbf{gesucht:} Lösungsmenge $\loes(A,b) = \{x \in \mathbb{K}^n : Ax=b\} $
 
-Def.: $r := \rang(A),\quad s := \rang(A,b)$
+
+Def.: $r:=\rang(A), ~ s := \rang(A,b)$
 \begin{align*}
-\text{Fälle: } b =0 : r = n &\Rightarrow \Loes(A,b)=\Ker(A)=\{0\}\\
-r<n &\Rightarrow \Loes(A,b) \text{ ist $(n-r)$-dimensionaler Unterraum
+\text{Fälle: } b =0 : r = n &\Rightarrow \loes (A,b)= \ker(A)=\{0\}\\
+r<n &\Rightarrow \loes (A,b) \text{ ist $n-r$ dimensional, Unterraum 
 von } \mathbb{K}^n \\
-b \neq 0: r<s &\Rightarrow \Loes(A,b) = \emptyset \\
-r=s=n &\Rightarrow \Loes(A,b) \text{ einelementig }\\
-r=s<n &\Rightarrow \Loes(A,b) = x + \Ker(A)
-\text{ (mit $n-r$ Parametern), $(n-r)$-dim. } \\
-\text{Speziell: } n=m: b=0 &\Rightarrow r=n: \Loes(A,b) = \{0\}\\
-&\Rightarrow r<n: \Loes(A,b) = \Ker(A)\\
-b \neq 0: r=n &\Rightarrow \Loes(A,b) = \{A^{-1}b\}\\
-	r<n, r<s &\Rightarrow \Loes(A,b) = \emptyset \\
-	 r=s &\Rightarrow \text{ Lösung mit $n-r$ Parametern } \\
-\end{align*}
+b \neq 0: r<s &\Rightarrow \loes (A,b) = \emptyset \\
+r=s=n &\Rightarrow \loes (A,b) \text{ einelementig }\\
+r=s<n &\Rightarrow \loes (A,b) = x + \ker(A) () \loes  
+\text{ (mit $n-r$ Parametern), $n-r$-dim. } \\
+\text{Speziell: } n=m: b=0 &\Rightarrow r=n :  \loes (A,b) = \{0\}\\
+&\Rightarrow r<n : \loes (A,b) = \ker(A)\\
+b \neq 0: r=n &\Rightarrow \loes (A,b) = \{A^{-1}b\}\\ 
+	r<n, r<s &\Rightarrow \loes (A,b) = \emptyset \\
+	 r=s &\Rightarrow \text{Lösung mit $n-r$ Parametern}
+\end{align*} 
 
-Bekannte Lösungsmethode: Gaußsches Eliminationsverfahren
+\paragraph{Bekannte Lösungsmethode:} Gaußsches Eliminationsverfahren
 
-$Ax=b \rightsquigarrow \tilde{A}x = \tilde{b} \\$
+$Ax=b \rightarrow \tilde{A}x= \tilde{b} \\$
 
-\(
-(\tilde{A},\tilde{b})=
-\begin{pmatrix}
-\tilde{a_{11}} & &\dots  &  & \tilde{a_{1n}} & \tilde{b_1} \\
+$(\tilde{A},\tilde{b})=
+\begin{pmatrix} 
+\widetilde{a_{11}} & &\dots  &  & \widetilde{a_{1n}} & \widetilde{b_1} \\
 0 & & \ddots &  & \vdots & \vdots \\
-0 & \dots & a_{rr} & \dots & a_{rn} & \tilde{b_r} \\
-0 & & \dots & & 0 & \tilde{b_n} \end{pmatrix}
-\)
-mit $\tilde{a_{11}}, \dots, a_{rr} \in \mathbb{K} \backslash \{0\} $
+0 & \dots & a_{rr} & \dots & a_{rn} & \widetilde{b_r} \\
+0 & & \dots & & 0 & \widetilde{b_n} \end{pmatrix} $
+mit $\widetilde{a_{11}}, \dots, a_{rr} \in \mathbb{K} \backslash \{0\} $
 
-Es gilt $\rang(A)= \rang(A,b) \Leftrightarrow
-\tilde{b_{r+1}} = \dots = \tilde{b_n} = 0$
+Es gilt $\rang(A)= \rang (A,b) \Leftrightarrow 
+\widetilde{b_{r+1}} = \dots = \widetilde{b_n} = 0 $
 
-\begin{enumerate}
-\item[(i)]
+\subsubsection*{Grundlagen der linearen Algebra:}
+
+\begin{enumerate}[(i)]
+\item
 \[
-\lambda \in \mathbb{C}\text{ heißt "`Eigenwert von } A \in
+\lambda \in \mathbb{C}\text{ heißt "`Eigenwert von } A \in 
 \mathbb{K}^{n \times n} \text{ "'.} \]
 \[
 : \Leftrightarrow \exists x \in \mathbb{C}^n \backslash \{0\}: Ax = \lambda x \\
 \]\[
-\Leftrightarrow \Ker (\lambda I -A) \neq \{0\} \Leftrightarrow
-\det (\lambda I -A) = 0, \Ker (\lambda I-A) = \Eig(A, \lambda)
+\Leftrightarrow \ker (\lambda I -A) \neq \{0\} \Leftrightarrow 
+\det (\lambda I -A) =0, \ker (\lambda I-A) = Eig (A, \lambda)
 \]\[
-A \in \mathbb{K}^{n \times n} \text{ besitzt Eigenwerte (Korollar des
+A \in \mathbb{K}^{n \times n} \text{ besitzt Eigenwerte (Korollar des 
 Fundamentalsatzes der Algebra)}
 \]\[
-\sigma (A) = \{ \lambda \in~ \mathbb{C}: \lambda \text{ ist Eigenwert
-von A } \} \text{ "`Spektrum von A"' }
+\sigma (A) = \{ \lambda \ in~ \mathbb{C}: \lambda \text{ ist Eigenwert 
+von A}\} \text{ "`Spektrum von A"' }
 \]
-\item[(ii)]
+\item
 \[
-A \in \mathbb{K}^{n \times n} \text{ Hermitesch (dh. } A = A^\ast \text{) } a_{ij} = \bar{a_{ji}}
+A \in \mathbb{K}^{n \times n} \text{ Hermitesch (dh. } A = A^\ast \text{) } a_{ij} = \overline{a_{ji}}
 \]
-Dann gilt
-\begin{enumerate}
-\item[(a)]
+Dann gilt 
+\begin{enumerate}[(a)]
+\item
 $ \sigma(A) \in \mathbb{R}$
-\item[(b)]
-Es gibt eine Orthonormalbasis (ONB) aus Eigenvektoren von $A$, also  $u_1, \dots, u_n \in \mathbb{K}^n$ mit $u_i^{*} u_j = \delta_{ij}$
-und $Au_i = \lambda_i u_i$ für ein $\lambda_i \in \sigma(A)$
-($\forall i \in \{1, \dots, n\}$).
+\item
+$\exists$ Orthonormalbasis (ONB) aus Eigenvektoren von A. D.h. $\exists u_1, \dots, u_n \in \mathbb{K}^n \text{ mit } u_i^\ast u_j = \delta_{ij}$
+$\land A~u_i = \lambda_i~u_i$ für ein $\lambda_i \in \sigma(A) 
+(\forall i \in \{1, \dots, n\})$  
 \end{enumerate}
-$\Leftrightarrow$ Für $U = (u_1, \dots, u_n) \in \mathbb{K}^{n\times n}$ gilt $U^\ast U = I$,
-d.h. $U \in O_n(\mathbb{K})$, und
-$U^\ast A U = \diag(\lambda_1, \dots, \lambda_n).$
-\item[(iii)]
-$P \in \mathbb{R}^{n \times n}$ heißt "`Permutationsmatrix"',
-falls $P=(e_{\sigma(1)}, \dots, e_{\sigma(n)})$ für ein $\sigma \in S_n$.
-Dann gilt:
-\begin{enumerate}
-  \item[(a)] Für $A = (a_1, \dots, a_n) \in \mathbb{R}^{m \times n}$ ist
-  $AP = (a_{\sigma(1)},\dots, a_{\sigma(n)}).$
-  \item[(b)]
-  Für $A = \begin{pmatrix} a_1 \\ \vdots \\ a_m \end{pmatrix}$,
-      $P = (e_{\sigma(1)}, \dots, e_{\sigma(m)})$
-  ist $P^\T A = \begin{pmatrix} a_{\sigma(1)} \\ \vdots \\ a_{\sigma(n)} \end{pmatrix}.$
+$\Leftrightarrow$ Für $U = [u_1, \dots, u_n] \in \mathbb{K}^{n\times n}$ gilt $U^\ast U \in I$
+(dh. $U \in \sigma_n(\mathbb{K})$) und 
+$U^\ast AU = \diag(\lambda_1, \dots, \lambda_n)$  
+
+\item
+	$P \in \mathbb{R}^{n \times n}$ heißt "`Permutationsmatrix"' , falls $P=(e_{\sigma(1)} \dots e_{\sigma(n)})$ für ein $\sigma \in S_n$
+	Dann 
+	\begin{enumerate}[(a)]
+	\item Für $A = (a_1, \dots, a_n) \in \mathbb{R}^{m \times n}$ gilt
+	$AP = \begin{pmatrix} a_{\sigma(1)} & \dots & a_{\sigma(n)}\end{pmatrix}$
+	\item
+	Für $A = \begin{pmatrix} a_1 \\ \vdots \\ a_m \end{pmatrix}, P = (e_{\sigma(1)} \dots e_{\sigma(m)})$
+	$\Rightarrow P^T A = \begin{pmatrix} a_{\sigma(1)} \\ \cdots \\ a_{\sigma(n)}  \end{pmatrix}$
 \end{enumerate}
 \end{enumerate}
+
+\end{document}
+

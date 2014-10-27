@@ -21,9 +21,24 @@
 
 \author{Laura Schüttpelz}
 
-\begin{document
+\begin{document}
 
+\maketitle
 
+\section{II.6 LR-Zerlegung}
+Gauß-Verfahren (formal) \\
+$G_{n-1} P_{n-1~r(n-1)}G_{n-2}P_{n-2~r(n-2)} \dots G_1P_{1~r(1)}(A|b) = (R|c)$ \\
+Nachrechnen ergibt: Für $i>j$ ist $P_{i~r(i)} G_jP_{i~r(i)}$ eine Gauß-Matrix \\
+(vertausche $l_{ij} ~~ l_{r(i)j}$)
+
+\begin{align*}
+\Rightarrow &\text{ Für } P = P_{n-1~r(n-1)} \dots P_{1r(1)} \\
+&\text{gilt } \widetilde{G}_{n-1} \dots \widetilde{G}_1 P (A|b) = (R|c) \\
+&\text{für Gauß-Matrizen } \widetilde{G}_{n-1}, \dots, \widetilde{G}_1 \\
+\Rightarrow &P (A|b) = \widetilde{G}_1^{-1}, \dots, \widetilde{G}_{n-1}^{-1} (R|c) \\
+&\widetilde{G}_i = I - \widetilde{l_i} e_i^T \Rightarrow \widetilde{G}_i^{-1} = I + \widetilde{l_i} e_i^T\\
+ \end{align*}
 \end{document}
+
 
 

@@ -1,44 +1,17 @@
-\documentclass[a4paper]{scrartcl}
+\subsection{LR-Zerlegung}
 
-\usepackage[utf8]{inputenc} \usepackage[ngerman]{babel}
+\paragraph{Gauß-Verfahren (formal)}
+$$G_{n-1} P_{n-1,r(n-1)}G_{n-2}P_{n-2,r(n-2)} \cdots G_1P_{1,r(1)}(A \mid b) = (R \mid c)$$
+Nachrechnen ergibt: Für $i>j$ ist $P_{i,r(i)} G_jP_{i,r(i)}$ eine Gauß-Matrix
+(vertausche $l_{ij}$ und $l_{r(i),j}$).
 
-\usepackage{amssymb} \usepackage{amsmath}
-\usepackage{latexsym}
-\usepackage{enumerate}
+\begin{itemize}
+\item[$\Rightarrow$] Für $P = P_{n-1,r(n-1)} \dots P_{1,r(1)}$ gilt 
+    $$\widetilde{G}_{n-1} \cdots \widetilde{G}_1 P (A \mid b) = (R \mid c)$$
+    mit Gauß-Matrizen $\widetilde{G}_{n-1}, \dots, \widetilde{G}_1$.
 
-\newcounter{mydefctr}
-\newtheorem{mydef}[mydefctr]{Definition}
-%\newtheorem{vmydef}[mydefctr]{(vage) Definition}
-
-%\newcommand{\rang}{\mathop{\mathrm{rang}}}
-%\newcommand{\loes}{\mathop{\mathrm{L\ddot{o}s}}}
-%\newcommand{\diag}{\mathop{\mathrm{diag}}}
-
-\parindent 0pt
-\parskip 0.25\baselineskip
-
-\title{Vorlesung Numerik 27.10.2014}
-
-\author{Laura Schüttpelz}
-
-\begin{document}
-
-\maketitle
-
-\section{II.6 LR-Zerlegung}
-Gauß-Verfahren (formal) \\
-$G_{n-1} P_{n-1~r(n-1)}G_{n-2}P_{n-2~r(n-2)} \dots G_1P_{1~r(1)}(A|b) = (R|c)$ \\
-Nachrechnen ergibt: Für $i>j$ ist $P_{i~r(i)} G_jP_{i~r(i)}$ eine Gauß-Matrix \\
-(vertausche $l_{ij} ~~ l_{r(i)j}$)
-
-\begin{align*}
-\Rightarrow &\text{ Für } P = P_{n-1~r(n-1)} \dots P_{1r(1)} \\
-&\text{gilt } \widetilde{G}_{n-1} \dots \widetilde{G}_1 P (A|b) = (R|c) \\
-&\text{für Gauß-Matrizen } \widetilde{G}_{n-1}, \dots, \widetilde{G}_1 \\
-\Rightarrow &P (A|b) = \widetilde{G}_1^{-1}, \dots, \widetilde{G}_{n-1}^{-1} (R|c) \\
-&\widetilde{G}_i = I - \widetilde{l_i} e_i^T \Rightarrow \widetilde{G}_i^{-1} = I + \widetilde{l_i} e_i^T\\
- \end{align*}
-\end{document}
-
-
-
+\item[$\Rightarrow$] $P (A \mid b) = 
+    \widetilde{G}_1^{-1} \cdots \widetilde{G}_{n-1}^{-1} (R \mid c)$
+    mit $\widetilde{G}_i = I - \widetilde{l_i} e_i^\T 
+         \Rightarrow \widetilde{G}_i^{-1} = I + \widetilde{l_i} e_i^\T$
+\end{itemize}

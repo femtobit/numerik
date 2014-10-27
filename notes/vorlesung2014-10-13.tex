@@ -1,30 +1,3 @@
-\documentclass[a4paper]{scrartcl}
-
-\usepackage[utf8]{inputenc} \usepackage[ngerman]{babel}
-
-\usepackage{amssymb} \usepackage{amsmath}
-\usepackage{latexsym}
-\usepackage{enumerate}
-
-\newcounter{mydefctr}
-\newtheorem{mydef}[mydefctr]{Definition}
-\newtheorem{vmydef}[mydefctr]{(vage) Definition}
-
-\newcommand{\rang}{\mathop{\mathrm{rang}}}
-\newcommand{\loes}{\mathop{\mathrm{L\ddot{o}s}}}
-\newcommand{\diag}{\mathop{\mathrm{diag}}}
-
-\parindent 0pt
-\parskip 0.25\baselineskip
-
-\title{Numerik-Skript Teil 1}
-
-\author{Laura Schüttpelz}
-
-\begin{document}
-
-\maketitle
-
 \section{Einleitung}
 Was ist numerische Mathematik?
 $\rightarrow$ Bereitstellung konstruktiver Verfahren zur 
@@ -74,7 +47,9 @@ Rechenleistung einer moderaten Maschine Intel Core i7: $3.3 \cdot 10^{10}
 Mithilfe anderer "`geschickter Verfahren"' kann man solche LSG 
 (heutzutage bis zu $10^9$) in vernünftiger Zeit lösen.
 
-\begin{vmydef}
+Eine vage Definition
+
+\begin{Definition}
 Sei ein numerisches Verfahren abhängig von den 
 Größen $n_1, \dots, n_l \in \mathbb{N}$. Man spricht vom 
 "`Aufwand $O(f(n_1, \dots, n_l))$ Multiplikationen"'
@@ -83,7 +58,7 @@ $c_1, c_2 > 0$ gibt, sodass das Verfahren für alle
 $n_1, \dots, n_l > c_1$ mit maximal $c_2 \cdot f(n_1, \dots n_l)$
 Multiplikationen auskommt (Divisionen zählen als Multiplikationen, 
 Additionen zählen gar nicht).
-\end{vmydef}
+\end{Definition}
 
 \subsubsection*{Beispiele:}
 
@@ -156,22 +131,22 @@ e_i &= \begin{pmatrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{pmatrix}
 
 \textbf{gegeben:} $A \in \mathbb{K}^{m \times n}, b \in \mathbb{K}^m$
 
-\textbf{gesucht:} Lösungsmenge $\loes(A,b) = \{x \in \mathbb{K}^n : Ax=b\} $
+\textbf{gesucht:} Lösungsmenge $\Loes(A,b) = \{x \in \mathbb{K}^n : Ax=b\} $
 
 
 Def.: $r:=\rang(A), ~ s := \rang(A,b)$
 \begin{align*}
-\text{Fälle: } b =0 : r = n &\Rightarrow \loes (A,b)= \ker(A)=\{0\}\\
-r<n &\Rightarrow \loes (A,b) \text{ ist $n-r$ dimensional, Unterraum 
+\text{Fälle: } b =0 : r = n &\Rightarrow \Loes (A,b)= \ker(A)=\{0\}\\
+r<n &\Rightarrow \Loes (A,b) \text{ ist $n-r$ dimensional, Unterraum 
 von } \mathbb{K}^n \\
-b \neq 0: r<s &\Rightarrow \loes (A,b) = \emptyset \\
-r=s=n &\Rightarrow \loes (A,b) \text{ einelementig }\\
-r=s<n &\Rightarrow \loes (A,b) = x + \ker(A) () \loes  
+b \neq 0: r<s &\Rightarrow \Loes (A,b) = \emptyset \\
+r=s=n &\Rightarrow \Loes (A,b) \text{ einelementig }\\
+r=s<n &\Rightarrow \Loes (A,b) = x + \ker(A) () \Loes  
 \text{ (mit $n-r$ Parametern), $n-r$-dim. } \\
-\text{Speziell: } n=m: b=0 &\Rightarrow r=n :  \loes (A,b) = \{0\}\\
-&\Rightarrow r<n : \loes (A,b) = \ker(A)\\
-b \neq 0: r=n &\Rightarrow \loes (A,b) = \{A^{-1}b\}\\ 
-	r<n, r<s &\Rightarrow \loes (A,b) = \emptyset \\
+\text{Speziell: } n=m: b=0 &\Rightarrow r=n :  \Loes (A,b) = \{0\}\\
+&\Rightarrow r<n : \Loes (A,b) = \ker(A)\\
+b \neq 0: r=n &\Rightarrow \Loes (A,b) = \{A^{-1}b\}\\ 
+	r<n, r<s &\Rightarrow \Loes (A,b) = \emptyset \\
 	 r=s &\Rightarrow \text{Lösung mit $n-r$ Parametern}
 \end{align*} 
 
@@ -237,6 +212,3 @@ $U^\ast AU = \diag(\lambda_1, \dots, \lambda_n)$
 	$\Rightarrow P^T A = \begin{pmatrix} a_{\sigma(1)} \\ \cdots \\ a_{\sigma(n)}  \end{pmatrix}$
 \end{enumerate}
 \end{enumerate}
-
-\end{document}
-

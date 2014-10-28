@@ -108,3 +108,80 @@ Eine Matrix-Norm $\|\cdot\|$ heißt
   \end{align*}
 \end{enumerate}
 \end{Beispiele}
+
+\begin{Definition} [zugeordnete Matrix-Norm]
+  Sei $\| \cdot \|$ eine Norm auf $\KK^{m \times n}$ bzw. auf $\KK^n$, dann ist
+  $\|A\| := \sup_{ x\ne 0} \frac{\| A x \|}{\| x \|} $ eine Norm auf $\KK^{m \times n}$,
+  die   sogenannte von $\| \cdot \|$ "`indizuzierte Matrixnorm"'.
+\end{Definition}
+
+\begin{Bemerkungen}
+\quad \\
+  \begin{enumerate}
+    \item[a)] Die Normeigenschaften lassen sich einfach nachprüfen.
+    \item[b)] $\|A\| := \sup_{ x\ne 0} \frac{\| A x \|}{\| x \|} =
+    \sup_{ x\ne 0}  A \frac{\| x \|}{\| x \|} = \sup_{ \|x \| = 1} \| A x \|
+   \overset{*}{=} \max_{ \|x \| = 1} \| A x \| \;$\\
+   (* gilt, weil $ \|x \| = 1$ kompakt ist.)
+  \end{enumerate}
+\end{Bemerkungen}
+
+\begin{Satz} Die von $\| \cdot \|$  induzierte Matrixnorm ist\\
+  \begin{enumerate}
+    \item [a)] eine Norm
+    \item [b)] verträglich mit $\| \cdot \|$
+    \item [c)] submultiplikativ.
+  \end{enumerate}
+\end{Satz}
+Beweis:
+\begin{enumerate}
+  \item [a)] Norm
+    \begin{itemize}
+      \item Positivität: $A \ne 0 \; \Rightarrow \; \exists x \text{ so dass }
+    A x \ne 0 \; \Rightarrow \; \frac{\| A x \|}{\| x \|} > 0
+    \; \Rightarrow \;  \sup_{ x\ne 0} \frac{\| A x \|}{\| x \|} > 0$
+      \item Homogenität: $\lambda \in \KK:\; \forall A \in \KK^{m \times n} \;
+      \Rightarrow \| \lambda A \| = \sup_{ x\ne 0} \frac{\| \lambda A x \|}{\| x \|} =
+      \sup_{ x\ne 0} |\lambda|  \frac{\| A x \|}{\| x \|} =
+      |\lambda| \sup_{ x\ne 0} \frac{\| A x \|}{\| x \|}$
+      \item Dreiecks-Ungleichung: $\forall A, B  \in \KK^{m \times n} \; \Rightarrow \;
+      \sup_{ x\ne 0} \frac{\| (A + B) x \|}{\| x \|} \le
+      \sup_{ x\ne 0} \frac{\| A x \| + \| B x \|}{\| x \|} \le
+      \sup_{ x\ne 0} \frac{\| A x \|}{\| x \|} + \sup_{ x\ne 0} \frac{\| B x \|}{\| x \|}$
+    \end{itemize}
+  \item [b)] Verträglichkeit: Sei $A \in \KK^{m \times n} \; , \; x \in \KK$.\\
+    1. Fall $x = 0  : \quad \Rightarrow \; \| A x \| = 0 = \|A \| $\\
+    2. Fall $x \ne 0  : \quad \Rightarrow \; \| A x \| =
+    \| A \frac{x}{\|x\|}\| \cdot \| x \| \le
+    \max_{y = 1} \| A y \| \cdot \| x \| = \| A \| \cdot \| x \|$
+  \item [c)] Submultiplikativität: $\forall A, B  \in \KK^{m \times n} \text{ gilt: }
+  \sup_{ x\ne 0} \frac{\| A \cdot B x \|}{\| x \|} =
+  \sup_{ x\ne 0} \| A \| \frac{\| B x \|}{\| x \|} = \\
+  \text{ (wegen Verträglichkeit) } = \| A \|  \sup_{ x\ne 0}  \| \frac{\| B x \|}{\| x \|}
+  = \|A\| \cdot \|B\|$
+\end{enumerate}
+
+\begin{Satz}
+  Die Spaltensummennorm wird durch $\| \cdot \|_1$ induziert, die Zeilensummennorm
+  wird durch $\| \cdot \|_\infty$ induziert.
+\end{Satz}
+Beweis: Übungsblatt 2
+
+\begin{Definition}[Spektralradius]
+Sei $A \in \KK^{m \times n} \; \\
+ \rho (A) = \max |\sigma(A)| =  max_{\lambda \in \sigma(A)} |\lambda|$
+ heißt Spektralradius.
+\end{Definition}
+
+Beachte: Für  $A \in \KK^{m \times n} \; \Rightarrow \; A^* A \ge 0 $ d. h.
+$A^* A$ ist positiv semidefinit,\\
+denn $x^* A^* A x = (A x)^* (A x) = \|A x\|_2^2 \ge 0  \; \Rightarrow \;
+\sigma(A^* A) \subset [0, \infty)$ d.h. das Spektrum ist nicht negativ.
+
+\begin{Satz}
+  Die der euklidischen Norm $\| \cdot \|_2$ zugeordnete Matrixnorm ist
+  $\|A\|_2 = (\rho(A^* A))^{1/2}$.
+\end{Satz}
+
+
+

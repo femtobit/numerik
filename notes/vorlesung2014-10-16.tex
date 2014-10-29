@@ -1,11 +1,15 @@
 \subsubsection{Definitheit von Matrizen}
 Im Folgenden sei $A$ eine hermitesche Matrix.
+\footnote{Das $A_i$ in diesem Abschnitt ist nicht zu verwechseln mit der Matrix $A_i$
+in der Einleitung, Formel (\ref{cramer2})}
 \begin{enumerate}
   \item [a)] $A$ heißt "`positiv definit"' (Schreibweise: $A > 0$) wenn
   \begin{align*}
     &\text{\textbullet} \quad \forall x \in \KK^n \setminus \{0\}: x^* A x > 0 \\
     \Leftrightarrow \quad &\text{\textbullet} \quad \det(A_i) > 0 \; \forall \; i = 1, \dots , n \\
-    \intertext{\qquad \qquad \qquad dabei ist $A_i$ der $i$-te Hauptminor von $A$, d.h. die $i\times i$ Teilmatrix}
+    \intertext{\qquad \qquad \qquad dabei ist $A_i$ der $i$-te Hauptminor
+    von $A$, d.h.
+    die $i\times i$ Teilmatrix}
     & \quad \quad A_i =
     \begin{pmatrix}
       a_{11} & \cdots  & a_{1i} \\
@@ -167,7 +171,7 @@ Eine Matrix-Norm $\|\cdot\|$ heißt
   Die Spaltensummennorm wird durch $\| \cdot \|_1$ induziert, die Zeilensummennorm
   wird durch $\| \cdot \|_\infty$ induziert.
 \end{Satz}
-\begin{proof}  Übungsblatt 2 \end{proof}
+\begin{proof}  Übungsblatt 2\footnote{Alternativ: J. Werner, Numerische Mathematik 1, Seite 19} \end{proof}
 
 \begin{Definition}[Spektralradius]
 Sei $A \in \KK^{m \times n} \;

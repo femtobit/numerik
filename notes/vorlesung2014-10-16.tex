@@ -1,20 +1,20 @@
 \subsubsection{Definitheit von Matrizen}
 Im Folgenden sei $A$ eine hermitesche Matrix.
 \begin{enumerate}
-  \item [a)] $A$ heißt "`positiv definit"' ($A > 0$) wenn
+  \item [a)] $A$ heißt "`positiv definit"' (Schreibweise: $A > 0$) wenn
   \begin{align*}
-    &\text{\textbullet} \quad \forall x \in \KK \setminus \{0\}: x^* A x > 0 \\
+    &\text{\textbullet} \quad \forall x \in \KK^n \setminus \{0\}: x^* A x > 0 \\
     \Leftrightarrow \quad &\text{\textbullet} \quad \det(A_i) > 0 \; \forall \; i = 1, \dots , n \\
     \intertext{\qquad \qquad \qquad dabei ist $A_i$ der $i$-te Hauptminor von $A$, d.h. die $i\times i$ Teilmatrix}
     & \quad \quad A_i =
     \begin{pmatrix}
-      a_{11} & \cdots  & a_{1n} \\
+      a_{11} & \cdots  & a_{1i} \\
       \vdots & \ddots & \vdots \\
       a_{i1} & \cdots & a_{ii}
     \end{pmatrix} \\
     \Leftrightarrow \quad &\text{\textbullet} \quad  \sigma (A) \subset (0, \infty)
   \end{align*}
-  \item[b)]$A$ heißt "`positiv semidefinit"' ($A \ge 0$) wenn
+  \item[b)]$A$ heißt "`positiv semidefinit"' (Schreibweise: $A \ge 0$) wenn
     \begin{align*}
     &\text{\textbullet} \quad \forall x \in \KK \setminus \{0\}: x^* A x \ge 0 \\
     \Leftrightarrow \quad &\text{\textbullet} \quad  \sigma (A) \subset [0, \infty)
@@ -30,9 +30,9 @@ $\left(\sqrt{A} \right)^2 = A$.
 \begin{proof}[Existenzbeweis]
 $A \ge 0 \Rightarrow \exists \; U \in \U_n(\KK)$ ($\U_n = $ Menge
 der unitären Matrizen), so dass  \newline
-$A = U^* \cdot \diag(\lambda_1, \dots \lambda_n) \cdot U$ mit den Eigenwerten
-$\lambda_1, \dots \lambda_n \in [0, \infty)$. \newline
-Betrachte nun $\sqrt{A} = U^* \cdot \diag(\sqrt{\lambda_1}, \dots, \sqrt{\lambda_n}) \cdot U$.
+$A = U^* \cdot \diag(\lambda_1, \cdots , \lambda_n) \cdot U$ mit den Eigenwerten
+$\lambda_1, \cdots , \lambda_n \in [0, \infty)$. \newline
+Betrachte nun $\sqrt{A} = U^* \cdot \diag(\sqrt{\lambda_1}, \cdots , \sqrt{\lambda_n}) \cdot U$.
 \end{proof}
 
 \subsection{Vektor- und Matrixnormen}
@@ -52,14 +52,14 @@ Betrachte nun $\sqrt{A} = U^* \cdot \diag(\sqrt{\lambda_1}, \dots, \sqrt{\lambda
     \item[a)] Konvergenz $(x_n) \rightarrow x$ bedeutet $\|x_n - x\| \rightarrow 0$.
     \item[b)] Wenn zusätzlich $\dim (X) < \infty$, dann sind alle Normen auf $X$
     äquivalent, d.h.für jede Norm $\| \cdot \|_a$ und $\| \cdot \|_b$ auf $X$ gibt
-    es Konstanten $c_1, c_1 > 0$, so dass
+    es Konstanten $c_1, c_2 > 0$, so dass
     $c_1 \cdot \| x \|_a \le \| x \|_b \le c_2 \cdot \| x \|_a \; \forall x \in X$.
     Es ist klar, dass $\dim(\KK^n) = n < \infty$ und
     $\dim(\KK^{m \times n}) = m \cdot n  < \infty$ .
     \item[c)] Beispiele für Normen auf $\KK^n$:
     \begin{enumerate}
       \item[(i)] $\|x\|_\infty := \max_{i = 1, \cdots , n} |x_i| \quad $Maximums-Norm
-      \item[(ii)] $\|x\|_p := \left( \sum_{i = 1}^n |x_i|^p \right)^\frac{1}{p} \quad$
+      \item[(ii)] $\|x\|_p := \left( \sum_{k = 1}^n |x_k|^p \right)^{1/p} \quad$
       $p$-Norm; $p \in [1, \cdots , \infty)$. Für $p = 2$ Euklidische Norm.
     \end{enumerate}
     Es gilt:
@@ -72,7 +72,7 @@ Beispiele für Matrix-Normen ($A \in X = \KK^{m \times n})$:
 \begin{enumerate}
   \item[a)] $\|A\|_1 :=  \max_{j = 1, \cdots , n} \left( \sum_{i = 1}^m |a_{ij}| \right) \quad$ Spaltensummen-Norm
   \item[b)] $\|A\|_\infty :=  \max_{i = 1, \cdots , m} \left( \sum_{j = 1}^n |a_{ij}| \right) \quad$ Zeilensummen-Norm
-  \item[c)] $\|A\|_{\text{F}} :=  \left(\sum_{i = 1}^m  \sum_{j = 1}^n |a_{ij}|^2 \right)^{\frac{1}{2}} \quad$
+  \item[c)] $\|A\|_{\text{F}} :=  \left(\sum_{i = 1}^m  \sum_{j = 1}^n |a_{ij}|^2 \right)^{1/2} \quad$
   Frobenius-Norm
 \end{enumerate}
 
@@ -120,7 +120,7 @@ Eine Matrix-Norm $\|\cdot\|$ heißt
   \begin{enumerate}
     \item[a)] Die Normeigenschaften lassen sich einfach nachprüfen.
     \item[b)] $\|A\| := \sup_{ x\ne 0} \frac{\| A x \|}{\| x \|} =
-    \sup_{ x\ne 0}  A \frac{\| x \|}{\| x \|} = \sup_{ \|x \| = 1} \| A x \|
+    \sup_{ x\ne 0} \| A \frac{ x}{\| x \|} \| = \sup_{ \|x \| = 1} \| A x \|
    \overset{*}{=} \max_{ \|x \| = 1} \| A x \| \;$\\
    (* gilt, weil $ \|x \| = 1$ kompakt ist.)
   \end{enumerate}
@@ -133,7 +133,7 @@ Eine Matrix-Norm $\|\cdot\|$ heißt
     \item [c)] submultiplikativ.
   \end{enumerate}
 \end{Satz}
-Beweis:
+\begin{proof}
 \begin{enumerate}
   \item [a)] Norm
     \begin{itemize}
@@ -150,7 +150,7 @@ Beweis:
       \sup_{ x\ne 0} \frac{\| A x \|}{\| x \|} + \sup_{ x\ne 0} \frac{\| B x \|}{\| x \|}$
     \end{itemize}
   \item [b)] Verträglichkeit: Sei $A \in \KK^{m \times n} \; , \; x \in \KK$.\\
-    1. Fall $x = 0  : \quad \Rightarrow \; \| A x \| = 0 = \|A \| $\\
+    1. Fall $x = 0  : \quad \Rightarrow \; \| A x \| = 0 = \|A \| \; \|x\| $\\
     2. Fall $x \ne 0  : \quad \Rightarrow \; \| A x \| =
     \| A \frac{x}{\|x\|}\| \cdot \| x \| \le
     \max_{y = 1} \| A y \| \cdot \| x \| = \| A \| \cdot \| x \|$
@@ -160,21 +160,23 @@ Beweis:
   \text{ (wegen Verträglichkeit) } = \| A \|  \sup_{ x\ne 0}  \| \frac{\| B x \|}{\| x \|}
   = \|A\| \cdot \|B\|$
 \end{enumerate}
+\end{proof}
+
 
 \begin{Satz}
   Die Spaltensummennorm wird durch $\| \cdot \|_1$ induziert, die Zeilensummennorm
   wird durch $\| \cdot \|_\infty$ induziert.
 \end{Satz}
-Beweis: Übungsblatt 2
+\begin{proof}  Übungsblatt 2 \end{proof}
 
 \begin{Definition}[Spektralradius]
-Sei $A \in \KK^{m \times n} \; \\
+Sei $A \in \KK^{m \times n} \;
  \rho (A) = \max |\sigma(A)| =  max_{\lambda \in \sigma(A)} |\lambda|$
  heißt Spektralradius.
 \end{Definition}
 
-Beachte: Für  $A \in \KK^{m \times n} \; \Rightarrow \; A^* A \ge 0 $ d. h.
-$A^* A$ ist positiv semidefinit,\\
+Beachte: Für  $A \in \KK^{m \times n} \; \Rightarrow \; A^* A \ge 0 $ d.h.
+$A^* A$ ist positiv semidefinit,
 denn $x^* A^* A x = (A x)^* (A x) = \|A x\|_2^2 \ge 0  \; \Rightarrow \;
 \sigma(A^* A) \subset [0, \infty)$ d.h. das Spektrum ist nicht negativ.
 
@@ -182,6 +184,34 @@ denn $x^* A^* A x = (A x)^* (A x) = \|A x\|_2^2 \ge 0  \; \Rightarrow \;
   Die der euklidischen Norm $\| \cdot \|_2$ zugeordnete Matrixnorm ist
   $\|A\|_2 = (\rho(A^* A))^{1/2}$.
 \end{Satz}
+\begin{proof}
+Sei $A^* A = U^* \diag(\lambda_1, \cdots , \lambda_n) U \text{ mit }
+U \in \U_n(\KK), \; \lambda_1 \ge  \lambda_2 \ge \cdots \ge \lambda_n \ge 0$. Dann gilt:
+\begin{align}
+  \nonumber
+  \| U x \|_2^2 &= (U x)^* (U x) = x^* U^* U x = x^* x = \| x \|_2^2
+  \intertext{Das bedeutet: Unitäre Transformationen erhalten die Länge. Daher gilt für}
+  \nonumber
+  \| A x \|_2^2 &= (A x)^* (A x) =  x^* A^* A x  =
+  (U x)^* \diag(\lambda_1, \cdots , \lambda_n) U x \\
+  \nonumber
+  &= \sum_{k = 1}^n \lambda_k \|(U x)_k\|_2^2 \le \lambda_1 \sum_{k = 1}^n \|(U x)_k\|_2^2 =
+  \lambda_1 \|U x \|_2^2 =  \lambda_1 \|x\|_2^2 = \rho(A^* A) \|x\|_2^2 \\
+  \nonumber
+  &\Rightarrow \quad \|A x \|_2 \le \rho(A^* A)^{1/2} \cdot \|x\|_2 \\
+ \label{euklid1}
+  &\Rightarrow \quad \rho(A^* A)^{\frac{1}{2}} \ge \|A \|_2 =
+  \sup_{x\ne 0} \frac{ \|A x\|_2}{ \|x\|_2}
+\intertext{ Sei nun $\hat x \in \KK^n$ mit $\|\hat x\|_2 = 1$ und
+  $A^* A \hat x = \lambda_1 \hat x$. Dann gilt:}
+  \nonumber
+  \|A\|_2^2 &\ge \| A \hat x\|_2^2 = \hat x^* A^* A \hat x =
+  \lambda_1 \hat x^* \hat x = \lambda_1 \| \hat x\|_2^2 = \lambda_1 = \rho(A) \\
+  \label{euklid2}
+  &\Rightarrow \quad \|A\|_2 \ge \rho(A^* A)^{1/2}
+\end{align}
+Aus (\ref{euklid1}) und (\ref{euklid2}) folgt $\|A\|_2 = \rho(A^* A)^{1/2}$
+\end{proof}
 
 
 

@@ -46,14 +46,43 @@ Konsequenz: $\cond(A) = \frac{\text{maximale Streckung des Einheitskreises}}
 {\text{minimale Streckung des Einheitskreises}}$
 
 \begin{Lemma}[Störungslemma]
-  TODO Michael
+  Sei $A \in \Gl_n(\KK), \; S \in \KK^{n \times n}$ so dass
+  $\|A^{-1}\| \cdot \|S\| < 1$. Dann gilt: $A + S \in \Gl_n(\KK)$ mit
+  $\|(A + S)^{-1}\| \le \frac{\|A^{-1}\|}{1 - \|A^{-1}\| \cdot \|S\|}$.
 \end{Lemma}
 \begin{proof}
-  TODO Michael
+Es gilt $A + S = A(I + A^{-1} S)$ und ferner:
+\begin{align}
+   \nonumber
+   \|(I + A^{-1} S) \cdot y\| &\ge \|y\| - \|A^{-1} \cdot S \cdot y\|  \ge \\
+   \label{stoer1}
+   & \ge \|y\| - \|A^{-1}\| \cdot \| S \| \cdot \|y\| =
+   \underbrace {\left( 1 - \|A^{-1}\| \cdot \|S\| \right)}_{> 0}  \cdot \|y\| \\
+   \nonumber
+   & \Rightarrow \quad I + A^{-1} \cdot S  \in \Gl_n(\KK) \; \text{ ist invertierbar}\\
+   \nonumber
+   & \Rightarrow \quad A + S \in \Gl_n(\KK) \; \text{ ist invertierbar}
+\end{align}
+Mit $y = (I + A^{-1} \cdot S) \cdot x$ folgt aus Gleichung (\ref{stoer1}:
+\begin{align*}
+   \|x\| & \ge \left( 1 - \|A^{-1}\| \cdot \|S\| \right) \cdot
+     \left\| (I + A^{-1} \cdot S)^{-1} \cdot x \right\| \\
+  & \Rightarrow \; \left\| (I + A^{-1} \cdot S)^{-1} \cdot x \right\| \le
+     \frac{1}{1 - \|A^{-1}\| \cdot \|S\|} \cdot \|x\|\\
+     \left\|(A+S)^{-1}\right\|  & = \left\| (I + A^{-1} \cdot S)^{-1} A^{-1} \right\| \le
+     \left\| (I + A^{-1} \cdot S)^{-1} \right\|\cdot \| A^{-1} \| \le
+       \frac{\|A^{-1}\|}{1 - \|A^{-1}\| \cdot \|S\|}
+\end{align*}
 \end{proof}
 
 \begin{Satz}
-  TODO Michael
+Sei $A \in \Gl_n(\KK), \; A_d \in \KK^{n \times n}$  mit  $\|A^{-1}\| \cdot \|A_d\| \le 1$.
+Seien $b, b_d \in \KK^n$  und  $x, x_d \in \KK^n$, so dass $A \cdot x = b$ und
+$(A + A_d)(x + x_d) = (b + b_d)$. Dann gilt:
+\begin{align*}
+\frac{\|x_d\|}{\|x\|} = \frac{\cond(A)}{1 - \cond(A) \cdot \frac{\|A_d\|}{\|A\|}} \cdot
+\left( \frac{\|A_d\|}{\|A\|} + \frac{\|b_d\|}{\|b\|} \right)
+\end{align*}
 \end{Satz}
 \begin{proof}
   TODO Michael

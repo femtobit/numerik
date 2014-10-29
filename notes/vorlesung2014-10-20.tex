@@ -1,8 +1,82 @@
-
 \subsection{Konditionen einer Matrix}
-TODO: Vorlesung 3 nehme ich mir noch vor! - Michael
 
+Sei $A \in \Gl_n(\KK), \; b \in \KK^n $ mit einem linearen Gleichungsssystem (LGS)
+$A \cdot x = b$. Wir betrachten nun ein "`gestörtes Problem"' $A \cdot \tilde{x} = \tilde{b}$,
+wobei $\tilde{b}$ von $b$ durch Meß- oder Rundungsfehler abweicht: Wir definieren
+$x_d := \tilde{x} - x$ und $b_d := \tilde{b} - b$. Damit wird:
+\begin{align*}
+  & A \cdot x_d = b_d \quad \Rightarrow \quad x_d = A^{-1} \cdot b_d \\
+  & \Rightarrow \quad \|x_d\| \le \|A^{-1}\| \cdot \|b_d\| \\
+  & \| b \| = \| A \cdot x \| \le \|A\| \cdot \|x\|\\
+  & \Rightarrow \quad \|x \| \ge \|A^{-1}\| \cdot \|b\|
+\intertext{damit kann man den relativen Fehler abschätzen:}
+ & \frac{\|x_d\|}{\|x\|} \le  \|A\| \cdot \|A^{-1}\| \cdot \frac{\|b_d\|}{\|b\|}
+\end{align*}
+
+\begin{Definition}[Kondition]
+  Für $A \in \Gl_n(\KK)$ heißt $\cond(A) :=  \|A^{-1}\|\cdot\|A\|$ die Kondition von $A$.
+\end{Definition}
+\begin{Bemerkungen}
+\quad \\
+  \begin{enumerate}
+    \item[a)] Sprechweise: Eine Matrix $A$ heißt gut / schlecht konditioniert, wenn
+    $\cond(A)$ klein / groß ist.
+    \item[b)] Wegen $1 = \|I\| = \|A^{-1} \cdot A\| \le \|A^{-1}\|\cdot\|A\| = \cond(A)$
+    gilt stets $\cond(A) \ge 1 \; \forall A \in \Gl_n(\KK)$ und für alle
+    Matrizennormen $\|\cdot\|$.
+    \item[c)] Unitäre Matrizen $U \in \U_n(\KK)$ haben stets $\cond(U) = 1$
+    \item[d)] Für das obige Problem gilt: $\frac{\|x_d\|}{\|x\|} \le
+      \cond (A) \cdot \frac{\|b_d\|}{\|b\|}$.
+    \item[e)] Veranschaulichung: [Bild: Einheitskreis im $\RR^n$ wird durch
+    eine Matrix $A$ in eine schmale schräg gestellte Ellipse mit der großen bzw.
+    kleinen Halbachse $a$ bzw. $b$ transformiert]. Die "`maximale Streckung"'
+    ist $a = \max_{\|x\| = 1} \| A \cdot x\| = \|A\|$, die "`minimale Streckung"' ist
+    \begin{align*}
+    b &= \min_{\|x\| = 1} \| A \cdot x\| =
+    \left( \max_{\|x\| = 1} \frac{1}{\| A \cdot x\|} \right)^{-1} =
+    \left( \max_{\|x\| \ne 0} \frac{\|x\|}{\| A \cdot x\|} \right)^{-1} \\
+    \intertext{Substitution  $y = A^{-1} \cdot x$}
+     &= \left( \max_{\|y\| \ne 0} \frac{\|A^{-1} \cdot y\|}{\|y\|} \right)^{-1}
+     = \frac{1}{\|A^{-1}\|}
+    \end{align*}
+  \end{enumerate}
+\end{Bemerkungen}
+
+Konsequenz: $\cond(A) = \frac{\text{maximale Streckung des Einheitskreises}}
+{\text{minimale Streckung des Einheitskreises}}$
+
+\begin{Lemma}[Störungslemma]
+  TODO Michael
+\end{Lemma}
+\begin{proof}
+  TODO Michael
+\end{proof}
+
+\begin{Satz}
+  TODO Michael
+\end{Satz}
+\begin{proof}
+  TODO Michael
+\end{proof}
 
 \subsection{Elementarmatrizen}
-TODO: Vorlesung 3 nehme ich mir noch vor! - Michael
+
+\begin{Definition}[Dyade, Elementarmatrix]
+  TODO Michael
+\end{Definition}
+
+\begin{Bemerkungen}
+\quad \\
+  \begin{enumerate}
+    \item[a)]
+  \end{enumerate}
+\end{Bemerkungen}
+
+\begin{Lemma}
+  TODO Michael
+\end{Lemma}
+\begin{proof}
+  TODO Michael
+\end{proof}
+
 

@@ -119,18 +119,18 @@ Eine Matrix $W \in \KK^{n \times n}$ heißt
   \begin{enumerate}
     \item[a)] Dyaden haben die Form $W = u \cdot v^*$ mit $u, v \in \KK^n\setminus \lbrace 0 \rbrace$
     \item[b)] Elementamatrizen haben die Form $W = I + u \cdot v^*$
-    \item[c)] Rechenregeln: $A(u \cdot v*) = (A u) \cdot v^*$ und
+    \item[c)] Rechenregeln: $A(u \cdot v^*) = (A u) \cdot v^*$ und
       $A (I + u \cdot v^*) = A + (A \cdot u) \cdot v^*$
   \end{enumerate}
 Aufwand: Die Berechnung von $(A \cdot u) \cdot v^*$ erfordert $O(n^2)$ Mulitplikationen.
-Beachte: $A\cdot (u \cdot v*)$ erfordert $O(n^3)$ Mulitplikationen, analog
+Beachte: $A\cdot (u \cdot v^*)$ erfordert $O(n^3)$ Mulitplikationen, analog
 $u \cdot v^* \cdot A$ und $ (I + u \cdot v^*) \cdot A$.
 \end{Bemerkungen}
 
 \begin{Lemma}
 Sei $A \in \Gl_n(\KK), \; u, v \in \KK^n$, dann gilt:
   \begin{enumerate}
-    \item[(i)] $A + u  v* \in \Gl_n(\KK) \quad \Rightarrow \quad 1 + v^* A^{-1} u \ne 0$
+    \item[(i)] $A + u  v^* \in \Gl_n(\KK) \quad \Rightarrow \quad 1 + v^* A^{-1} u \ne 0$
     \item[(ii)] $A + v^* A u \ne 0  \quad \Rightarrow \quad
       (A + uv^*) = A^{-1} - \frac{A^{-1} u v^* A}{1 + v^*A^{-1}u}$
   \end{enumerate}

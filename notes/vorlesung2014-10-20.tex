@@ -80,32 +80,79 @@ Sei $A \in \Gl_n(\KK), \; A_d \in \KK^{n \times n}$  mit  $\|A^{-1}\| \cdot \|A_
 Seien $b, b_d \in \KK^n$  und  $x, x_d \in \KK^n$, so dass $A \cdot x = b$ und
 $(A + A_d)(x + x_d) = (b + b_d)$. Dann gilt:
 \begin{align*}
-\frac{\|x_d\|}{\|x\|} = \frac{\cond(A)}{1 - \cond(A) \cdot \frac{\|A_d\|}{\|A\|}} \cdot
+\frac{\|x_d\|}{\|x\|} = \frac{\cond(A)}{1 - \cond(A) \cdot \|A_d\|/\|A\|} \cdot
 \left( \frac{\|A_d\|}{\|A\|} + \frac{\|b_d\|}{\|b\|} \right)
 \end{align*}
 \end{Satz}
 \begin{proof}
-  TODO Michael
+Aus $\|A^{-1}\| \cdot \|A_d\| \le 1$ folgt nach dem Störungslemma
+$A + A_d \in \Gl_n(\KK)$. Dann gilt:
+\begin{align*}
+A \cdot x & = b \;  ; \quad (x + x_d) = (A + A_d)^{-1} (b + b_d) \quad \Rightarrow \\
+\|x_d\| & = \| (A + A_d)^{-1} (b + b_d) - A^{-1} b \| =
+   \| (A + A_d)^{-1} (b + b_d -(A +  A_d) A^{-1} b) \| \\
+  & = \| (A + A_d)^{-1} (b + b_d - b - A_d A^{-1} b) \| \\
+  & \le \| (A + A_d)^{-1}\| \cdot \| b_d - A_d x \| \le
+  \| (A + A_d)^{-1}\| \cdot \left( \|b_d\| + \|A_d\| \cdot \|x\|  \right)
+\intertext{Mit dem Störungslemma ergibt sich daraus}
+  & \le \frac{\|A^{-1}\|}{ 1 - \|A^{-1}\| \cdot \|A_d\|} \left( \|b_d\| + \|A_d\| \cdot \|x\| \right) \\
+  & =  \frac{\cond(A)}{ 1 - \cond(A) \cdot \|A_d\|/\|A\|}
+      \cdot \left( \frac{\|b_d\|}{\|A\|} + \frac{\|A_d\|}{\|A\|} \cdot \|x\| \right) \\
+  & = \|x\| \cdot \frac{\cond(A)}{ 1 - \cond(A) \cdot \|A_d\|/\|A\|}
+     \cdot \left( \frac{\|b_d\|}{\|A\| \cdot \|x\| } + \frac{\|A_d\|}{\|A\|} \right) \\
+  & \le \|x\| \cdot \frac{\cond(A)}{ 1 - \cond(A) \cdot \|A_d\|/\|A\|}
+     \cdot \left( \frac{\|b_d\|}{\|b\| } + \frac{\|A_d\|}{\|A\|} \right)
+\end{align*}
 \end{proof}
 
 \subsection{Elementarmatrizen}
 
 \begin{Definition}[Dyade, Elementarmatrix]
-  TODO Michael
+Eine Matrix $W \in \KK^{n \times n}$ heißt
+\begin{enumerate}
+  \item[a)] "`Dyade"' falls $\rang(W) = 1$ ist und
+  \item[b)] "`Elementarmatrix"' falls $W - I$ eine Dyade ist.
+\end{enumerate}
 \end{Definition}
-
 \begin{Bemerkungen}
 \quad \\
   \begin{enumerate}
-    \item[a)]
+    \item[a)] Dyaden haben die Form $W = u \cdot v^*$ mit $u, v \in \KK^n\setminus \lbrace 0 \rbrace$
+    \item[b)] Elementamatrizen haben die Form $W = I + u \cdot v^*$
+    \item[c)] Rechenregeln: $A(u \cdot v*) = (A u) \cdot v^*$ und
+      $A (I + u \cdot v^*) = A + (A \cdot u) \cdot v^*$
   \end{enumerate}
+Aufwand: Die Berechnung von $(A \cdot u) \cdot v^*$ erfordert $O(n^2)$ Mulitplikationen.
+Beachte: $A\cdot (u \cdot v*)$ erfordert $O(n^3)$ Mulitplikationen, analog
+$u \cdot v^* \cdot A$ und $ (I + u \cdot v^*) \cdot A$.
 \end{Bemerkungen}
 
 \begin{Lemma}
-  TODO Michael
+Sei $A \in \Gl_n(\KK), \; u, v \in \KK^n$, dann gilt:
+  \begin{enumerate}
+    \item[(i)] $A + u  v* \in \Gl_n(\KK) \quad \Rightarrow \quad 1 + v^* A^{-1} u \ne 0$
+    \item[(ii)] $A + v^* A u \ne 0  \quad \Rightarrow \quad
+      (A + uv^*) = A^{-1} - \frac{A^{-1} u v^* A}{1 + v^*A^{-1}u}$
+  \end{enumerate}
+Die letzte Identität ist ein Spezialfall der Sherman-Morrison-Woodbury-Formel.
 \end{Lemma}
 \begin{proof}
-  TODO Michael
+\quad \\
+  \begin{enumerate}
+    \item["`$\Rightarrow$"'] Sei $1 + v^* A^{-1} u \ne 0 \quad \Rightarrow $
+    \begin{align*}
+    & (1 + u v^*)\cdot \left(A^{-1} - \frac{A^{-1} u v^* A}{1 + v^*A^{-1}u}  \right) =
+    I + u v^*A^{-1} - \frac{u v^* A^{-1}}{1 + v^*A^{-1} u} -
+       \frac{u v^* A^{-1}u v^* A^{-1}}{1 +  v^*A^{-1} u} \\
+    & = I + \frac{1}{1 + v^*A^{-1}u} \left( u v^* A^{-1} + u v^* A^{-1} u v^* A^{-1} -
+      u v^* A^{-1} - u v^* A^{-1} u v^* A^{-1} \right) = I
+    \end{align*}
+
+    \item["`$\Leftarrow$"'] Angenommen $1 + v^* A^{-1} u = 0 \quad \Rightarrow $
+    \begin{align*}
+      & u \ne 0 \Rightarrow A^{-1} u \ne 0 \quad \Rightarrow \\
+      & (A + u v^*) (A^{-1} u) = u + \underbrace{v* A^{-1} u}_{= -1} = 0 \quad \Rightarrow \\
+     &  A + u v^* \notin \Gl_n(\KK) \qquad \text{Widerspruch!}
+    \end{align*}
+  \end{enumerate}
 \end{proof}
-
-

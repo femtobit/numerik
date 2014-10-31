@@ -115,6 +115,12 @@ Aufwand: Im k-ten Schritt $(k=1, \cdots,n)$
 \begin{weitere Bemerkungen}\hfill
 	\begin{itemize}
 		\item[a)]QR-Zerlegung gehört zu \glqq stabilen Algorithmus\grqq, d.h. es gibt keine zusätzliche Fehlerverstärkung.
+Beweis: Für $A \ in \Gl_n(\RR); \; A = Q \cdot R$ gilt:
+\begin{align*}
+  \condb(A) &= \sqrt{\frac{\lambda_{max}(A^T \cdot A)}{\lambda_{min}(A^T \cdot A)}} =
+\sqrt{\frac{\lambda_{max}(R^T \cdot Q^T \cdot Q \cdot R)}{\lambda_{min}(R^T \cdot Q^T \cdot Q \cdot R)}} \\
+&= \sqrt{\frac{\lambda_{max}(R^T \cdot R)}{\lambda_{min}(R^T \cdot R)}} = \condb(R)
+\end{align*}
 		\item[b)]$R^T$ ist \glqq Cholesky-artiger\grqq Faktor von $A^TA$ da $R^TR=A^TA$ (vgl. A)\\ i.A. $R^T \neq L$, jedoch $R^T=DL$ für $D=(sign(r_{11}),\cdots,sign(r_{nn}))$
 		\item[c)]Ausblick: lineare Ausgleichsrechnung (später mehr)\\
 		$A \in\RR^{m\times n}, rang(A)=n$\\

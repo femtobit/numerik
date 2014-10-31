@@ -1,5 +1,5 @@
 \begin{Algorithmus}[Cholesky-Zerlegung]\hfill\newline
-	Eingabe: $A > 0, A \in \KK^{n\times n}$ (benutzt die \glqq untere lnke Hälfte \grqq von A),\\
+	Eingabe: $A > 0, A \in \KK^{n\times n}$ (benutzt die \glqq untere linke Hälfte \grqq von A),\\
 	Ausgabe: $ L \in \Gl_n(\KK)$ untere $\triangle$-Matrix mit $l_{kk} >0 \forall k\in \{1,\cdots,n\} \text{ und } A=LL^*$ 
 	\quad
 	\begin{codebox}
@@ -89,7 +89,7 @@ Nun Durchführung der QR-Zerlegung nach Householder $A=(a_1,\cdots,a_n); a_1,\cd
 			\Rightarrow \text{für } v_2 = \begin{pmatrix}0\\v_2^{(2)}\end{pmatrix}\in \RR^m \text{ gilt } Q_{v_2}Q_{v_1}A=\left(
 			\begin{array}{c|ccc} r_{11} & x & \cdots & x\\ \hline
 			0 & & & \\
-			\vdots & &Q_{v_2}^{(2)}A^{(2)} &\\
+			\vdots & &Q_{v_2^{(2)}}A^{(2)} &\\
 			0 & & &
 			\end{array}\right) = \left(
 			\begin{array}{ccccc} r_{11} & x & \cdots &\cdots & x\\
@@ -100,5 +100,25 @@ Nun Durchführung der QR-Zerlegung nach Householder $A=(a_1,\cdots,a_n); a_1,\cd
 			\end{array}\right)$
 			$Q=Q\cdot Q_{v_2}$\\
 \end{itemize}
-Aufwand:
-%TODO Annika
+Aufwand: Im k-ten Schritt $(k=1, \cdots,n)$
+		\begin{itemize}
+			\item[-]Bestimmen von $v_k: m-k+2$ Multiplikationen + 1 Wurzel
+			\item[-]Berechnen von $Q_{v_k^{(k)}}A^k: (m-k+1)(n-k+1)$ Multiplikationen
+			\item[-] Berechnen von $QQ_{v_k}: (m-k+1)n$ Multiplikationen\\
+			\item[$\Rightarrow$]$\sum O(mn^2) \text{ Multiplikationen } + O(n) Wurzeln$
+		\end{itemize}\hfill\\
+		
+\begin{Bemerkung}
+	Vorherige Schrittfolge erfordert, dass $a_{11}^{(k)} \neq 0 \;\forall k=1,\cdots,n$.
+	Dies kann mit Pivotisierung umgangen werden. 
+\end{Bemerkung}\hfill
+\begin{weitere Bemerkungen}\hfill
+	\begin{itemize}
+		\item[a)]QR-Zerlegung gehört zu \glqq stabilen Algorithmus\grqq, d.h. es gibt keine zusätzliche Fehlerverstärkung.
+		\item[b)]$R^T$ ist \glqq Cholesky-artiger\grqq Faktor von $A^TA$ da $R^TR=A^TA$ (vgl. A)\\ i.A. $R^T \neq L$, jedoch $R^T=DL$ für $D=(sign(r_{11}),\cdots,sign(r_{nn}))$
+		\item[c)]Ausblick: lineare Ausgleichsrechnung (später mehr)\\
+		$A \in\RR^{m\times n}, rang(A)=n$\\
+		Problem: Finde $\hat{x} \in \RR$ s.d. $\|A\hat{x}-b\|_2=\underset{x\in\RR^n}{min}\|Ax-b\|_2$\\
+		Mit $A=QR$ und $\|Qy\|_2=\|y\|_2 \;\forall < \in \RR^n \text{ gilt }\\ \|Ax-b\|_2^2=\|Q^T(Ax-b)\|_2^2=\|\begin{pmatrix}R_1\\0\end{pmatrix}x-\begin{pmatrix}c\\d\end{pmatrix}\|_2^2 = \|R_1x-c\|_2^2 + \|d\|^2$. Dieser Ausdruck ist minimal, wenn $R_1x=c$
+	\end{itemize}
+\end{weitere Bemerkungen}

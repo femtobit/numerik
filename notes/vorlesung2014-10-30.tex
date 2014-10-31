@@ -1,5 +1,5 @@
-\begin{Algorithmus}[Cholesky-Zerlegung]
-	Eingabe: $A > 0, A \in \KK^{n\times n}$ (benutzt die \glqq untere lnke Hälfte \grqq von A),
+\begin{Algorithmus}[Cholesky-Zerlegung]\hfill\newline
+	Eingabe: $A > 0, A \in \KK^{n\times n}$ (benutzt die \glqq untere lnke Hälfte \grqq von A),\\
 	Ausgabe: $ L \in \Gl_n(\KK)$ untere $\triangle$-Matrix mit $l_{kk} >0 \forall k\in \{1,\cdots,n\} \text{ und } A=LL^*$ 
 	\quad
 	\begin{codebox}
@@ -40,4 +40,65 @@ Aufwand:\begin{itemize}
 \end{Beispiel}
 
 \subsection{QR-Zerlegung}
+$A \in \RR^{m \times n} \text{ mit rang}(A) = n$\\
+\newline
+Ziel: Berechne $Q \in O_n(\RR)\quad
+				R=\begin{pmatrix}
+				R_1\\0
+				\end{pmatrix}$ wobei $R_1$ obere $\triangle$-Matrix,
+				$A=QR$ "QR-Zerlegung"\\
+\newline
+Nutzen für LGS $Ax=b: QRx = b\\ \Rightarrow \begin{pmatrix} R_1\\0\end{pmatrix}x= Q^Tb = \begin{pmatrix}c\\d\end{pmatrix} \text{ mit } c\in \RR^n, d \in \RR^{m-n}$\\
+\newline
+Dann: \begin{itemize}
+	\item[(i)]Lösbarkeit $\Leftrightarrow d=0$
+	\item[(ii)]Lösung erfüllt dann $R_1x=c$ ($\rightsquigarrow$Rückwärtseinsetzen)
+\end{itemize}
+Erinnerung: Householder-Spiegelung
+\begin{align*}
+&Q_v=I -\frac{2}{v^Tv}vv^T \;(v\in\RR^m)\\
+&Q_v=Q_v^T, Q_v^2=I \quad (\Rightarrow Q_v \in O_m(\RR))
+\end{align*}\\
+Vorgehensweise: Sukzessive Multiplikation von links mit Householder-Matrizen s.d.\\ $ Q_{v_n}, \cdots, Q_{v_1} A =\begin{pmatrix}R_1\\0\end{pmatrix}\\
+\Rightarrow A =QR \text{ für } R= \begin{pmatrix}R_1\\0\end{pmatrix} \text{ und } Q=Q_{v_1},\cdots,Q_{v_n} $
+\begin{Lemma}
+	$x \in \RR^m \text{ mit } x_1 \neq 0$\\
+	\newline Dann gilt für $v = \frac{x}{\|x\|_2}+sign(x_1)e_1$
+	\begin{itemize}
+		\item[a)]$\|v\|=sqrt(2)(1+\frac{|x_1|}{\|x\|})^2$
+		\item[b)]$Q_vx=-sign(x_1)\|x\|_2e_1$
+	\end{itemize}
+\end{Lemma}
+\begin{proof}
+	Übungsaufgabe Aufgabe 8
+\end{proof}
+Konsequenz: Für $x \in \RR^m$ wähle $v=\frac{x}{\|x\|_2}+ sign(x_1)e_1
+\Rightarrow Q_vx \in \text{span}\{e_1\}$\\
+\newline
+Nun Durchführung der QR-Zerlegung nach Householder $A=(a_1,\cdots,a_n); a_1,\cdots,a_n \in \RR^m$\\
+\begin{itemize}
+	\item[1.]QR-Schritt: Bestimme $v_1 \in\RR^m$ mit $Q_{v_1}\cdot a_1 = r_{11}\cdot e_1$ für ein $r_{11} \in \RR$\\\newline
+	$\Rightarrow Q_{v_1}A=(Q_{v_1}a_1,\cdots,Q_{v_1}a_n) =\left(
+	\begin{array}{c|ccc} r_{11} & x & \cdots & x\\ \hline
+						 0 & & & \\
+						 \vdots & &A^{(2)} &\\
+						 0 & & &
+	\end{array}\right)\\ Q=Q_{v_1}$
+	\item[2.]QR-Schritt: $A^{(2)}= \left(a_1^{(2)},\cdots,a_{n-1}^{(2)}\right)$\\
+			Bestimme $v_2^{(2)} \in \RR^{m-1}$ mit $Q_{v_2^{(2)}}a_1^{(2)} = r_{22}e_1\\
+			\Rightarrow \text{für } v_2 = \begin{pmatrix}0\\v_2^{(2)}\end{pmatrix}\in \RR^m \text{ gilt } Q_{v_2}Q_{v_1}A=\left(
+			\begin{array}{c|ccc} r_{11} & x & \cdots & x\\ \hline
+			0 & & & \\
+			\vdots & &Q_{v_2}^{(2)}A^{(2)} &\\
+			0 & & &
+			\end{array}\right) = \left(
+			\begin{array}{ccccc} r_{11} & x & \cdots &\cdots & x\\
+			0 & r_{22} & x & \cdots & x\\
+			\vdots & 0 & &\\
+			\vdots & \vdots& &A^{(3)}\\
+			0 & 0 & &
+			\end{array}\right)$
+			$Q=Q\cdot Q_{v_2}$\\
+\end{itemize}
+Aufwand:
 %TODO Annika

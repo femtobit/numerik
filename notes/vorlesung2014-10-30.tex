@@ -30,7 +30,7 @@ Aufwand:\begin{itemize}
 	\begin{align*}&l_{11}= \sqrt{a_{11}} = 1 \quad\Rightarrow l_{21}=\frac{a_{21}}{l_{11}}=2\\
 	&l_{22}= \sqrt{a_{22}-l_{21}^2} = 1\\
 	&l_{31}= \frac{a_{31}}{l_{11}} = 1, l_{32}= \frac{a_{32}-l_{31}l_{21}}{l_{22}} = 0\\
-	&l_{33}= \sqrt{a_{33}-l_{31}^2}-l_{32}^2 = \sqrt{9}=3\\
+	&l_{33}= \sqrt{a_{33}-l_{31}^2-l_{32}^2} = \sqrt{9}=3\\
 	&\Rightarrow L = \begin{pmatrix}
 	1 & 0 & 0\\
 	2 & 1 & 0\\
@@ -60,12 +60,12 @@ Erinnerung: Householder-Spiegelung
 &Q_v=Q_v^T, Q_v^2=I \quad (\Rightarrow Q_v \in O_m(\RR))
 \end{align*}\\
 Vorgehensweise: Sukzessive Multiplikation von links mit Householder-Matrizen s.d.\\ $ Q_{v_n}, \cdots, Q_{v_1} A =\begin{pmatrix}R_1\\0\end{pmatrix}\\
-\Rightarrow A =QR \text{ für } R= \begin{pmatrix}R_1\\0\end{pmatrix} \text{ und } Q=Q_{v_1},\cdots,Q_{v_n} $
+\Rightarrow A =QR \text{ für } R= \begin{pmatrix}R_1\\0\end{pmatrix} \text{ und } Q=Q_{v_1} \cdots Q_{v_n} $
 \begin{Lemma}
-	$x \in \RR^m \text{ mit } x_1 \neq 0$\\
+	$x \in \RR^m \text{ mit } x_1 \neq 0$
 	\newline Dann gilt für $v = \frac{x}{\|x\|_2}+sign(x_1)e_1$
 	\begin{itemize}
-		\item[a)]$\|v\|=sqrt(2)(1+\frac{|x_1|}{\|x\|})^2$
+		\item[a)]$\|v\|=\sqrt{2}\left(1+\frac{|x_1|}{\|x\|_2}\right)^2$
 		\item[b)]$Q_vx=-sign(x_1)\|x\|_2e_1$
 	\end{itemize}
 \end{Lemma}
@@ -79,7 +79,7 @@ Nun Durchführung der QR-Zerlegung nach Householder $A=(a_1,\cdots,a_n); a_1,\cd
 \begin{itemize}
 	\item[1.]QR-Schritt: Bestimme $v_1 \in\RR^m$ mit $Q_{v_1}\cdot a_1 = r_{11}\cdot e_1$ für ein $r_{11} \in \RR$\\\newline
 	$\Rightarrow Q_{v_1}A=(Q_{v_1}a_1,\cdots,Q_{v_1}a_n) =\left(
-	\begin{array}{c|ccc} r_{11} & x & \cdots & x\\ \hline
+	\begin{array}{c|ccc} r_{11} & * & \cdots & *\\ \hline
 						 0 & & & \\
 						 \vdots & &A^{(2)} &\\
 						 0 & & &
@@ -87,13 +87,13 @@ Nun Durchführung der QR-Zerlegung nach Householder $A=(a_1,\cdots,a_n); a_1,\cd
 	\item[2.]QR-Schritt: $A^{(2)}= \left(a_1^{(2)},\cdots,a_{n-1}^{(2)}\right)$\\
 			Bestimme $v_2^{(2)} \in \RR^{m-1}$ mit $Q_{v_2^{(2)}}a_1^{(2)} = r_{22}e_1\\
 			\Rightarrow \text{für } v_2 = \begin{pmatrix}0\\v_2^{(2)}\end{pmatrix}\in \RR^m \text{ gilt } Q_{v_2}Q_{v_1}A=\left(
-			\begin{array}{c|ccc} r_{11} & x & \cdots & x\\ \hline
+			\begin{array}{c|ccc} r_{11} & * & \cdots & *\\ \hline
 			0 & & & \\
 			\vdots & &Q_{v_2^{(2)}}A^{(2)} &\\
 			0 & & &
 			\end{array}\right) = \left(
-			\begin{array}{ccccc} r_{11} & x & \cdots &\cdots & x\\
-			0 & r_{22} & x & \cdots & x\\
+			\begin{array}{ccccc} r_{11} & * & \cdots &\cdots & *\\
+			0 & r_{22} & * & \cdots & *\\
 			\vdots & 0 & &\\
 			\vdots & \vdots& &A^{(3)}\\
 			0 & 0 & &
@@ -118,7 +118,8 @@ Aufwand: Im k-ten Schritt $(k=1, \cdots,n)$
 		\item[b)]$R^T$ ist \glqq Cholesky-artiger\grqq Faktor von $A^TA$ da $R^TR=A^TA$ (vgl. A)\\ i.A. $R^T \neq L$, jedoch $R^T=DL$ für $D=(sign(r_{11}),\cdots,sign(r_{nn}))$
 		\item[c)]Ausblick: lineare Ausgleichsrechnung (später mehr)\\
 		$A \in\RR^{m\times n}, rang(A)=n$\\
-		Problem: Finde $\hat{x} \in \RR$ s.d. $\|A\hat{x}-b\|_2=\underset{x\in\RR^n}{min}\|Ax-b\|_2$\\
-		Mit $A=QR$ und $\|Qy\|_2=\|y\|_2 \;\forall < \in \RR^n \text{ gilt }\\ \|Ax-b\|_2^2=\|Q^T(Ax-b)\|_2^2=\|\begin{pmatrix}R_1\\0\end{pmatrix}x-\begin{pmatrix}c\\d\end{pmatrix}\|_2^2 = \|R_1x-c\|_2^2 + \|d\|^2$. Dieser Ausdruck ist minimal, wenn $R_1x=c$
+		Problem: Finde $\hat{x} \in \RR^n$ s.d. $\|A\hat{x}-b\|_2=\underset{x\in\RR^n}{min}\|Ax-b\|_2$\\
+		Mit $A=QR$ und $\|Qy\|_2=\|y\|_2 \;\forall < \in \RR^n \text{ gilt }\\
+      \|Ax-b\|_2^2=\|Q^T(Ax-b)\|_2^2=\left\|\begin{pmatrix}R_1\\0\end{pmatrix}x-\begin{pmatrix}c\\d\end{pmatrix}\right\|_2^2 = \|R_1x-c\|_2^2 + \|d\|^2$. Dieser Ausdruck ist minimal, wenn $R_1x=c$
 	\end{itemize}
 \end{weitere Bemerkungen}

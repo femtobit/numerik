@@ -1,1 +1,43 @@
+\begin{Algorithmus}[Cholesky-Zerlegung]
+	Eingabe: $A > 0, A \in \KK^{n\times n}$ (benutzt die \glqq untere lnke Hälfte \grqq von A),
+	Ausgabe: $ L \in \Gl_n(\KK)$ untere $\triangle$-Matrix mit $l_{kk} >0 \forall k\in \{1,\cdots,n\} \text{ und } A=LL^*$ 
+	\quad
+	\begin{codebox}
+		\Procname{$\proc{Cholesky-Zerlegung}$}
+		\li $l := 0 \in \KK^{n\times n}$
+		\li \For $k = 1, \ldots, n$:
+		\Do
+		\li $l_{kk} = \left(a_{kk} - \sum_{j=1}^{k-1}|l_{kj}|^{2}\right)^{\frac{1}{2}}$
+		\li \For $i \gets k + 1, \ldots, n$:
+		\Do
+		\li $l_{ik} =\frac{1}{l_{kk}} \left(a_{ik} - \sum_{j=1}^{k-1}l_{ij}\overline{l_{kj}}\right)$
+		\End
+		\End
+	\end{codebox}
+\end{Algorithmus}
+Aufwand:\begin{itemize}
+	\item[a)] Berechnung von $l_{ij}$: $j$ Multiplikationen + 1 Wurzel falls $i=j$ 	\item[b)]$\Rightarrow$ Berechnung von L:\begin{align*}
+	\sum_{i=1}^{n}\sum_{j=1}^{i}j = \sum_{i=1}^{n} \frac{i(i+1)}{2}= \frac{1}{2}\sum_{i=1}^{n} i^2 + \frac{1}{2} \sum_{i=1}^{n} i = \frac{1}{12}n(n+1)(2n+1)+\frac{n(n+1)}{4}  \\= O(n^3) + n\text{ Wurzel}
+	\end{align*}
+\end{itemize}
+\begin{Beispiel}[Cholesky-Zerlegung]
+	\quad
+	$A = \begin{pmatrix}
+	1 & 2 & 1\\
+	2 & 5 & 2\\
+	1 & 2 & 10
+	\end{pmatrix}$\\
+	\begin{align*}&l_{11}= \sqrt{a_{11}} = 1 \quad\Rightarrow l_{21}=\frac{a_{21}}{l_{11}}=2\\
+	&l_{22}= \sqrt{a_{22}-l_{21}^2} = 1\\
+	&l_{31}= \frac{a_{31}}{l_{11}} = 1, l_{32}= \frac{a_{32}-l_{31}l_{21}}{l_{22}} = 0\\
+	&l_{33}= \sqrt{a_{33}-l_{31}^2}-l_{32}^2 = \sqrt{9}=3\\
+	&\Rightarrow L = \begin{pmatrix}
+	1 & 0 & 0\\
+	2 & 1 & 0\\
+	1 & 0 & 3
+	\end{pmatrix}
+	\end{align*}
+\end{Beispiel}
+
+\subsection{QR-Zerlegung}
 %TODO Annika

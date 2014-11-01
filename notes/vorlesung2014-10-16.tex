@@ -110,32 +110,35 @@ Eine Matrix-Norm $\|\cdot\|$ heißt
 \end{Beispiele}
 
 \begin{Definition} [zugeordnete Matrix-Norm]
-  Sei $\| \cdot \|$ eine Norm auf $\KK^{m \times n}$ bzw. auf $\KK^n$, dann ist
-  $\|A\| := \sup_{ x\ne 0} \frac{\| A x \|}{\| x \|} $ eine Norm auf $\KK^{m \times n}$,
-  die   sogenannte von $\| \cdot \|$ "`indizuzierte Matrixnorm"'.
+  Sei $\| \cdot \|$ eine Vektornorm auf auf $\KK^n$, dann ist
+  $\|A\| := \sup_{ x\ne 0} \frac{\| A x \|}{\| x \|} $ eine Matrixnorm
+  auf $\KK^{m \times n}$, die sogenannte 
+  \emph{von $\| \cdot \|$ induzierte Matrixnorm}.
 \end{Definition}
 
 \begin{Bemerkungen}
-\quad \\
+\quad
   \begin{enumerate}
     \item[a)] Die Normeigenschaften lassen sich einfach nachprüfen.
-    \item[b)] $\|A\| := \sup_{ x\ne 0} \frac{\| A x \|}{\| x \|} =
-    \sup_{ x\ne 0}  A \frac{\| x \|}{\| x \|} = \sup_{ \|x \| = 1} \| A x \|
-   \overset{*}{=} \max_{ \|x \| = 1} \| A x \| \;$\\
-   (* gilt, weil $ \|x \| = 1$ kompakt ist.)
+    \item[b)] $$\|A\| := \sup_{ x\ne 0} \frac{\| A x \|}{\| x \|} =
+    \sup_{ x\ne 0} \left\| A \frac{x}{\| x \|} \right\| =
+    \sup_{ \|x \| = 1} \| A x \|
+   \overset{(*)}{=} \max_{ \|x \| = 1} \| A x \|.$$
+   $(*)$ gilt, weil die Menge $\{x \in \KK^n : \|x \| = 1\}$ kompakt ist.
   \end{enumerate}
 \end{Bemerkungen}
 
-\begin{Satz} Die von $\| \cdot \|$  induzierte Matrixnorm ist\\
+\begin{Satz} Die von $\| \cdot \|$  induzierte Matrixnorm ist
   \begin{enumerate}
     \item [a)] eine Norm
     \item [b)] verträglich mit $\| \cdot \|$
     \item [c)] submultiplikativ.
   \end{enumerate}
 \end{Satz}
-Beweis:
+\begin{proof}
+\quad
 \begin{enumerate}
-  \item [a)] Norm
+  \item [a)] Norm:
     \begin{itemize}
       \item Positivität: $A \ne 0 \; \Rightarrow \; \exists x \text{ so dass }
     A x \ne 0 \; \Rightarrow \; \frac{\| A x \|}{\| x \|} > 0
@@ -160,6 +163,7 @@ Beweis:
   \text{ (wegen Verträglichkeit) } = \| A \|  \sup_{ x\ne 0}  \| \frac{\| B x \|}{\| x \|}
   = \|A\| \cdot \|B\|$
 \end{enumerate}
+\end{proof}
 
 \begin{Satz}
   Die Spaltensummennorm wird durch $\| \cdot \|_1$ induziert, die Zeilensummennorm
@@ -168,9 +172,9 @@ Beweis:
 Beweis: Übungsblatt 2
 
 \begin{Definition}[Spektralradius]
-Sei $A \in \KK^{m \times n} \; \\
- \rho (A) = \max |\sigma(A)| =  max_{\lambda \in \sigma(A)} |\lambda|$
- heißt Spektralradius.
+Sei $A \in \KK^{m \times n}$.
+$$\rho(A) := \max |\sigma(A)| =  \max_{\lambda \in \sigma(A)} |\lambda|$$
+heißt \emph{Spektralradius von $A$}.
 \end{Definition}
 
 Beachte: Für  $A \in \KK^{m \times n} \; \Rightarrow \; A^* A \ge 0 $ d. h.

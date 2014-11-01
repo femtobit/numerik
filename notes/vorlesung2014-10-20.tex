@@ -1,8 +1,158 @@
-
 \subsection{Konditionen einer Matrix}
-TODO: Vorlesung 3 nehme ich mir noch vor! - Michael
 
+Sei $A \in \Gl_n(\KK), \; b \in \KK^n $ mit einem linearen Gleichungsssystem (LGS)
+$A \cdot x = b$. Wir betrachten nun ein "`gestörtes Problem"' $A \cdot \tilde{x} = \tilde{b}$,
+wobei $\tilde{b}$ von $b$ durch Meß- oder Rundungsfehler abweicht: Wir definieren
+$x_d := \tilde{x} - x$ und $b_d := \tilde{b} - b$. Damit wird:
+\begin{align*}
+  & A \cdot x_d = b_d \quad \Rightarrow \quad x_d = A^{-1} \cdot b_d \\
+  & \Rightarrow \quad \|x_d\| \le \|A^{-1}\| \cdot \|b_d\| \\
+  & \| b \| = \| A \cdot x \| \le \|A\| \cdot \|x\|\\
+  & \Rightarrow \quad \|x \| \ge \|A^{-1}\| \cdot \|b\|
+\intertext{damit kann man den relativen Fehler abschätzen:}
+ & \frac{\|x_d\|}{\|x\|} \le  \|A\| \cdot \|A^{-1}\| \cdot \frac{\|b_d\|}{\|b\|}
+\end{align*}
+
+\begin{Definition}[Kondition]
+  Für $A \in \Gl_n(\KK)$ heißt $\cond(A) :=  \|A^{-1}\|\cdot\|A\|$ die Kondition von $A$.
+\end{Definition}
+\begin{Bemerkungen}
+\quad \\
+  \begin{enumerate}
+    \item[a)] Sprechweise: Eine Matrix $A$ heißt gut / schlecht konditioniert, wenn
+    $\cond(A)$ klein / groß ist.
+    \item[b)] Wegen $1 = \|I\| = \|A^{-1} \cdot A\| \le \|A^{-1}\|\cdot\|A\| = \cond(A)$
+    gilt stets $\cond(A) \ge 1 \; \forall A \in \Gl_n(\KK)$ und für alle
+    Matrizennormen $\|\cdot\|$.
+    \item[c)] Unitäre Matrizen $U \in \U_n(\KK)$ haben stets $\cond(U) = 1$
+    \item[d)] Für das obige Problem gilt: $\frac{\|x_d\|}{\|x\|} \le
+      \cond (A) \cdot \frac{\|b_d\|}{\|b\|}$.
+    \item[e)] Veranschaulichung: [Bild: Einheitskreis im $\RR^n$ wird durch
+    eine Matrix $A$ in eine schmale schräg gestellte Ellipse mit der großen bzw.
+    kleinen Halbachse $a$ bzw. $b$ transformiert]. Die "`maximale Streckung"'
+    ist $a = \max_{\|x\| = 1} \| A \cdot x\| = \|A\|$, die "`minimale Streckung"' ist
+    \begin{align*}
+    b &= \min_{\|x\| = 1} \| A \cdot x\| =
+    \left( \max_{\|x\| = 1} \frac{1}{\| A \cdot x\|} \right)^{-1} =
+    \left( \max_{\|x\| \ne 0} \frac{\|x\|}{\| A \cdot x\|} \right)^{-1} \\
+    \intertext{Substitution  $y = A^{-1} \cdot x$}
+     &= \left( \max_{\|y\| \ne 0} \frac{\|A^{-1} \cdot y\|}{\|y\|} \right)^{-1}
+     = \frac{1}{\|A^{-1}\|}
+    \end{align*}
+  \end{enumerate}
+\end{Bemerkungen}
+
+Konsequenz: $\cond(A) = \frac{\text{maximale Streckung des Einheitskreises}}
+{\text{minimale Streckung des Einheitskreises}}$
+
+\begin{Lemma}[Störungslemma]
+  Sei $A \in \Gl_n(\KK), \; S \in \KK^{n \times n}$ so dass
+  $\|A^{-1}\| \cdot \|S\| < 1$. Dann gilt: $A + S \in \Gl_n(\KK)$ mit
+  $\|(A + S)^{-1}\| \le \frac{\|A^{-1}\|}{1 - \|A^{-1}\| \cdot \|S\|}$.
+\end{Lemma}
+\begin{proof}
+Es gilt $A + S = A(I + A^{-1} S)$ und ferner:
+\begin{align}
+   \nonumber
+   \|(I + A^{-1} S) \cdot y\| &\ge \|y\| - \|A^{-1} \cdot S \cdot y\|  \ge \\
+   \label{stoer1}
+   & \ge \|y\| - \|A^{-1}\| \cdot \| S \| \cdot \|y\| =
+   \underbrace {\left( 1 - \|A^{-1}\| \cdot \|S\| \right)}_{> 0}  \cdot \|y\| \\
+   \nonumber
+   & \Rightarrow \quad I + A^{-1} \cdot S  \in \Gl_n(\KK) \; \text{ ist invertierbar}\\
+   \nonumber
+   & \Rightarrow \quad A + S \in \Gl_n(\KK) \; \text{ ist invertierbar}
+\end{align}
+Mit $y = (I + A^{-1} \cdot S) \cdot x$ folgt aus Gleichung (\ref{stoer1}:
+\begin{align*}
+   \|x\| & \ge \left( 1 - \|A^{-1}\| \cdot \|S\| \right) \cdot
+     \left\| (I + A^{-1} \cdot S)^{-1} \cdot x \right\| \\
+  & \Rightarrow \; \left\| (I + A^{-1} \cdot S)^{-1} \cdot x \right\| \le
+     \frac{1}{1 - \|A^{-1}\| \cdot \|S\|} \cdot \|x\|\\
+     \left\|(A+S)^{-1}\right\|  & = \left\| (I + A^{-1} \cdot S)^{-1} A^{-1} \right\| \le
+     \left\| (I + A^{-1} \cdot S)^{-1} \right\|\cdot \| A^{-1} \| \le
+       \frac{\|A^{-1}\|}{1 - \|A^{-1}\| \cdot \|S\|}
+\end{align*}
+\end{proof}
+
+\begin{Satz}
+Sei $A \in \Gl_n(\KK), \; A_d \in \KK^{n \times n}$  mit  $\|A^{-1}\| \cdot \|A_d\| \le 1$.
+Seien $b, b_d \in \KK^n$  und  $x, x_d \in \KK^n$, so dass $A \cdot x = b$ und
+$(A + A_d)(x + x_d) = (b + b_d)$. Dann gilt:
+\begin{align*}
+\frac{\|x_d\|}{\|x\|} = \frac{\cond(A)}{1 - \cond(A) \cdot \|A_d\|/\|A\|} \cdot
+\left( \frac{\|A_d\|}{\|A\|} + \frac{\|b_d\|}{\|b\|} \right)
+\end{align*}
+\end{Satz}
+\begin{proof}
+Aus $\|A^{-1}\| \cdot \|A_d\| \le 1$ folgt nach dem Störungslemma
+$A + A_d \in \Gl_n(\KK)$. Dann gilt:
+\begin{align*}
+A \cdot x & = b \;  ; \quad (x + x_d) = (A + A_d)^{-1} (b + b_d) \quad \Rightarrow \\
+\|x_d\| & = \| (A + A_d)^{-1} (b + b_d) - A^{-1} b \| =
+   \| (A + A_d)^{-1} (b + b_d -(A +  A_d) A^{-1} b) \| \\
+  & = \| (A + A_d)^{-1} (b + b_d - b - A_d A^{-1} b) \| \\
+  & \le \| (A + A_d)^{-1}\| \cdot \| b_d - A_d x \| \le
+  \| (A + A_d)^{-1}\| \cdot \left( \|b_d\| + \|A_d\| \cdot \|x\|  \right)
+\intertext{Mit dem Störungslemma ergibt sich daraus}
+  & \le \frac{\|A^{-1}\|}{ 1 - \|A^{-1}\| \cdot \|A_d\|} \left( \|b_d\| + \|A_d\| \cdot \|x\| \right) \\
+  & =  \frac{\cond(A)}{ 1 - \cond(A) \cdot \|A_d\|/\|A\|}
+      \cdot \left( \frac{\|b_d\|}{\|A\|} + \frac{\|A_d\|}{\|A\|} \cdot \|x\| \right) \\
+  & = \|x\| \cdot \frac{\cond(A)}{ 1 - \cond(A) \cdot \|A_d\|/\|A\|}
+     \cdot \left( \frac{\|b_d\|}{\|A\| \cdot \|x\| } + \frac{\|A_d\|}{\|A\|} \right) \\
+  & \le \|x\| \cdot \frac{\cond(A)}{ 1 - \cond(A) \cdot \|A_d\|/\|A\|}
+     \cdot \left( \frac{\|b_d\|}{\|b\| } + \frac{\|A_d\|}{\|A\|} \right)
+\end{align*}
+\end{proof}
 
 \subsection{Elementarmatrizen}
-TODO: Vorlesung 3 nehme ich mir noch vor! - Michael
 
+\begin{Definition}[Dyade, Elementarmatrix]
+Eine Matrix $W \in \KK^{n \times n}$ heißt
+\begin{enumerate}
+  \item[a)] "`Dyade"' falls $\rang(W) = 1$ ist und
+  \item[b)] "`Elementarmatrix"' falls $W - I$ eine Dyade ist.
+\end{enumerate}
+\end{Definition}
+\begin{Bemerkungen}
+\quad \\
+  \begin{enumerate}
+    \item[a)] Dyaden haben die Form $W = u \cdot v^*$ mit $u, v \in \KK^n\setminus \lbrace 0 \rbrace$
+    \item[b)] Elementamatrizen haben die Form $W = I + u \cdot v^*$
+    \item[c)] Rechenregeln: $A(u \cdot v^*) = (A u) \cdot v^*$ und
+      $A (I + u \cdot v^*) = A + (A \cdot u) \cdot v^*$
+  \end{enumerate}
+Aufwand: Die Berechnung von $(A \cdot u) \cdot v^*$ erfordert $O(n^2)$ Mulitplikationen.
+Beachte: $A\cdot (u \cdot v^*)$ erfordert $O(n^3)$ Mulitplikationen, analog
+$u \cdot v^* \cdot A$ und $ (I + u \cdot v^*) \cdot A$.
+\end{Bemerkungen}
+
+\begin{Lemma}
+Sei $A \in \Gl_n(\KK), \; u, v \in \KK^n$, dann gilt:
+  \begin{enumerate}
+    \item[(i)] $A + u  v^* \in \Gl_n(\KK) \quad \Rightarrow \quad 1 + v^* A^{-1} u \ne 0$
+    \item[(ii)] $1 + v^* A^{-1} u \ne 0  \quad \Rightarrow \quad
+      (A + uv^*) = A^{-1} - \frac{A^{-1} u v^* A}{1 + v^*A^{-1}u}$
+  \end{enumerate}
+Die letzte Identität ist ein Spezialfall der Sherman-Morrison-Woodbury-Formel.
+\end{Lemma}
+\begin{proof}
+\quad \\
+  \begin{enumerate}
+    \item["`$\Rightarrow$"'] Sei $A + v^* A^{-1} u \ne 0 \quad \Rightarrow $
+    \begin{align*}
+    & (1 + u v^*)\cdot \left(A^{-1} - \frac{A^{-1} u v^* A}{1 + v^*A^{-1}u}  \right) =
+    I + u v^*A^{-1} - \frac{u v^* A^{-1}}{1 + v^*A^{-1} u} -
+       \frac{u v^* A^{-1}u v^* A^{-1}}{1 +  v^*A^{-1} u} \\
+    & = I + \frac{1}{1 + v^*A^{-1}u} \left( u v^* A^{-1} + u v^* A^{-1} u v^* A^{-1} -
+      u v^* A^{-1} - u v^* A^{-1} u v^* A^{-1} \right) = I
+    \end{align*}
+
+    \item["`$\Leftarrow$"'] Angenommen $1 + v^* A^{-1} u = 0 \quad \Rightarrow $
+    \begin{align*}
+      & u \ne 0 \Rightarrow A^{-1} u \ne 0 \quad \Rightarrow \\
+      & (A + u v^*) (A^{-1} u) = u + \underbrace{v* A^{-1} u}_{= -1} = 0 \quad \Rightarrow \\
+     &  A + u v^* \notin \Gl_n(\KK) \qquad \text{Widerspruch!}
+    \end{align*}
+  \end{enumerate}
+\end{proof}

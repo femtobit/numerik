@@ -3,8 +3,8 @@ Geg: $A \in \RR^{m\times n}, b\in \RR^n$\\
 Oftmals:$rang(A,b)>rang(A) \rightsquigarrow \text{Lös}(A,b) = \emptyset$\\
 
 Lineares Ausgleichsproblem:\\
-Finde $\hat{x} \in \RR \text{ mit } \|A\hat{x}-b\|_2 = \underset{x \in \RR^n}{\mathrm{min}}\|Ax-b\|_2$ (LA)\\
-\begin{Exkurs}\textbf{Approximation in Skalarprodukträumen}\\
+Finde $\hat{x} \in \RR \text{ mit } \|A\hat{x}-b\|_2 = \underset{x \in \RR^n}{\mathrm{min}}\|Ax-b\|_2$ (LA)
+\subsubsection{Exkurs: Approximation in Skalarprodukträumen}
 \begin{Definition}
 $L \subset \RR^n$ heißt \glqq affiner Unterraum\grqq wenn $L=v+U$, wobei $v \in \RR^n$, U Untervektorraum (UVR)
 \end{Definition}
@@ -21,6 +21,39 @@ Geg: \begin{itemize}
 	 \end{itemize}
 Finde $\hat{y} \in L s.d. \|\hat{y}-b\|_2 = \underset{y \in L}{min} \|y-b\|_2$ (MIN)\\
 \begin{Satz}
-TODO
+Für einen affinen Unterraum $L=v+U\quad(v\in \RR^n, U\subset \RR^n UVR)$ und ein $b\in \RR^n$ gilt:\\
+\begin{itemize}
+\item[a)]$\hat{y} \in L$ erfüllt (MIN) $\Leftrightarrow \hat{y}-b\in\U^{\perp}$
+\item[b)]$\hat{y}$ mit (MIN) ist eindeutig bestimmt
+\end{itemize}
 \end{Satz}
-\end{Exkurs} 
+\begin{proof}\hfill
+\begin{itemize}
+\item[a)] Sei $y \in L \Rightarrow y=v+u, u\in U$\\Wegen $\RR^n=U \oplus U^{\perp} \text{ gilt } b-v=u_1+U_2, \text{ wobei } u_1\in U, u_2 \in U^{\perp}$\\
+$\|b-y\|_2^{2} =\|(b-v)-(y-v)\|_2^{2}=\|u_1+u_2-u\|_2^{2}=\|-(u+u_1)+u_2\|_2^{2} \overset{Pythagoras}{=}\|u_1-u\|_2^{2} + \|u_2\|^{2}$\\
+Also gilt: $\|b-y\|_2^{2}$ minimal $\Leftrightarrow u_1=u \Leftrightarrow b-y = u_2 \in U^{\perp}$\\
+\item[b)] Sei $\hat{y}$ Lösung von (MIN). Sei $y_2 \in L \text{ mit }\|\hat{y}-b\|_2 =\|y_2-b_2\| \overset{a)}{\Rightarrow} \hat{y}-b,y_2-b \in U^{\perp} \Rightarrow \hat{y}-y_2 \in U^{\perp}$\\
+Andererseits gilt $\hat{y}-y_2 \in U \Rightarrow \hat{y}-y_2=0$
+\end{itemize}
+\end{proof}
+\begin{Satz}
+$A \in \RR^{m \times n}$.Dann gilt:\\\begin{itemize}
+\item[a)]$(ker A)^{\perp} = im A$ (Übungsaufgabe3)
+\item[b)]$A^TA$ symmetrisch
+\item[c)]$ker A^TA = ker A$
+\item[d)]$im A^TA im A^T$
+\item[e)]$A^TA \ge 0 \text{ mit } (A^TA>0 \Leftrightarrow ker A = {0})$
+\item[f)] $\forall \lambda \in \RR\backslash\{0\}: dim ker(\lambda I-A^TA) = dim ker(\lambda I-AA^T)$
+\end{itemize}
+\end{Satz}
+\begin{proof}\hfill
+\begin{itemize}
+\item[c)]$"\supset"$ klar\\
+$" \subset" $ Sei $x \in ker A^TA \Rightarrow 0=x^TA^TAx=\|Ax\|_2^{2} \Rightarrow Ax=0 \Rightarrow \in ker A$
+\item[d)]$im AA^T \overset{a)}{=} (ker(A^TA)^T)^{\perp} = (ker A^TA)^{\perp} \overset{c)}{=} (ker A)^{\perp} \overset{a)}{=} im A^T$
+\item[e)]$A^TA\ge 0 klar$\\$" \Rightarrow"\text{ Sei } ker A^TA =\{0\} \overset{c)}{\Rightarrow}ker\{0\}$\\$"\Leftarrow" \text{ Sei } ker A=\{0\}, x\in \RR^n\backslash\{0\} \Rightarrow x^TA^TAx = \|Ax\|_2^{2} > 0$
+\item[f)] folgt aus ÜA 3
+\end{itemize}
+\end{proof}
+\subsubsection{Zurück zum linearen Ausgleichsproblem}
+TODO

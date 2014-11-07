@@ -32,7 +32,7 @@ Für einen affinen Unterraum $L=v+U\quad(v\in \RR^n, U\subset \RR^n UVR)$ und ei
 \item[a)] Sei $y \in L \Rightarrow y=v+u, u\in U$\\Wegen $\RR^n=U \oplus U^{\perp} \text{ gilt } b-v=u_1+U_2, \text{ wobei } u_1\in U, u_2 \in U^{\perp}$\\
 $\|b-y\|_2^{2} =\|(b-v)-(y-v)\|_2^{2}=\|u_1+u_2-u\|_2^{2}=\|-(u+u_1)+u_2\|_2^{2} \overset{Pythagoras}{=}\|u_1-u\|_2^{2} + \|u_2\|^{2}$\\
 Also gilt: $\|b-y\|_2^{2}$ minimal $\Leftrightarrow u_1=u \Leftrightarrow b-y = u_2 \in U^{\perp}$\\
-\item[b)] Sei $\hat{y}$ Lösung von (MIN). Sei $y_2 \in L \text{ mit }\|\hat{y}-b\|_2 =\|y_2-b_2\| \overset{a)}{\Rightarrow} \hat{y}-b,y_2-b \in U^{\perp} \Rightarrow \hat{y}-y_2 \in U^{\perp}$\\
+\item[b)] Sei $\hat{y}$ Lösung von (MIN). Sei $y_2 \in L \text{ mit }\|\hat{y}-b\|_2 =\|y_2-b_2\| \overset{a)}{\Rightarrow} \hat{y}-b,y_2-b \in U^{\perp} \Rightarrow \hat{y}-y_2 \in U^{\perp}$.
 Andererseits gilt $\hat{y}-y_2 \in U \Rightarrow \hat{y}-y_2=0$
 \end{itemize}
 \end{proof}
@@ -56,4 +56,21 @@ $" \subset" $ Sei $x \in ker A^TA \Rightarrow 0=x^TA^TAx=\|Ax\|_2^{2} \Rightarro
 \end{itemize}
 \end{proof}
 \subsubsection{Zurück zum linearen Ausgleichsproblem}
-TODO
+\begin{align*}
+&A \in \RR^{m \times n}, b \i \RR^n\\
+&\text{(LA): Finde } \hat{x} \in \RR^n s.d. \|A\hat{x}-b\|_2 = \underset{x \in \RR}{\mathrm{min}}\|Ax-b\|_2\\
+&\Leftrightarrow \hat{y}-b \in (im A)^{\perp} = ker A^T\\
+&\Leftrightarrow A^T(\hat{y}-b)=0 \Leftrightarrow A^T(Ax-b)=0\\
+&\Leftrightarrow A^TAx=A^Tb \quad \text{(NGL:\glqq Normalengleichung\grqq)}
+\end{align*}
+\begin{Bemerkung}
+$A^TAx=A^Tb$ ist immer lösbar, da $im A^TA=im A^T$
+\end{Bemerkung}
+\begin{Satz}
+$A \in \RR^{m \times n}, b \in \RR^m.$ Dann gilt:
+\begin{itemize}
+\item[a)]$\|A\hat{x}-b\|_2= \underset{x \in \RR^n}{\mathrm{min}}\|Ax-b\|_2 \Leftrightarrow A^TAx=A^Tb$ (NGL)
+\item[b)] $\mathrm{NGL\;ist\;loesbar\;} (\text{Lös}(A^TA,A^Tb) = \emptyset$)
+\item[c)] $\mathrm{Es\;gibt\;ein\;eindeutiges\;} \hat{x_{*}} \in \RR^n$ mit $ \|\hat{x_{*}}\|_2 = \underset{\hat{x} \text{ erfüllt NGL }}{\mathrm{min}}\|\hat{x}\|$
+\end{itemize}
+\end{Satz}

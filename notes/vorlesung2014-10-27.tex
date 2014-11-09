@@ -6,23 +6,23 @@ Nachrechnen ergibt: Für $i>j$ ist $P_{i,r(i)} G_jP_{i,r(i)}$ eine Gauß-Matrix
 (vertausche $l_{ij}$ und $l_{r(i),j}$).
 
 \begin{itemize}
-\item[$\Rightarrow$] Für $P = P_{n-1,r(n-1)} \dots P_{1,r(1)}$ gilt 
+\item[$\Rightarrow$] Für $P = P_{n-1,r(n-1)} \dots P_{1,r(1)}$ gilt
     $$\widetilde{G}_{n-1} \cdots \widetilde{G}_1 P (A \mid b) = (R \mid c)$$
     mit Gauß-Matrizen $\widetilde{G}_{n-1}, \dots, \widetilde{G}_1$.
 
-\item[$\Rightarrow$] $P (A \mid b) = 
+\item[$\Rightarrow$] $P (A \mid b) =
     \widetilde{G}_1^{-1} \cdots \widetilde{G}_{n-1}^{-1} (R \mid c)$
-    mit $\widetilde{G}_i = I - \widetilde{l_i} e_i^\T 
+    mit $\widetilde{G}_i = I - \widetilde{l_i} e_i^\T
          \Rightarrow \widetilde{G}_i^{-1} = I + \widetilde{l_i} e_i^\T$
 \end{itemize}
 
 Nachrechnen ergibt
-$L := \widetilde{G}_1^{-1} \dots \widetilde{G}_{n-1}^{-1} = 
-\begin{pmatrix} 
-\frac{1}{l_{11}} & & 0 \\ 
-\vdots & & \vdots \\ 
+$L := \widetilde{G}_1^{-1} \dots \widetilde{G}_{n-1}^{-1} =
+\begin{pmatrix}
+\frac{1}{l_{11}} & & 0 \\
+\vdots & & \vdots \\
 & & 1 & \\
-\widetilde{l}_{n1} & \dots & \widetilde{l}_{nn-1} & 1 \\ 
+\widetilde{l}_{n1} & \dots & \widetilde{l}_{nn-1} & 1 \\
 \end{pmatrix}$
 Insgesamt: PA = LR ~~ "`LR-Zerlegung"'
 \begin{itemize}
@@ -37,20 +37,20 @@ $Ax=b \Rightarrow PAx = Pb \Rightarrow LRx = Pb$
 \item[(1)]
 Löse $Ly = b$ durch Vorwärtseinsetzen \\
 Für $i = 1, \dots ,n$ \\
-$y_i = b_{\pi(i)} - \sum_{k = 1}^{i} l_{in} y_n $\\
+$y_i = \left( b_{\pi(i)} - \sum_{k = 1}^{i -1} l_{ik} y_k  \right) / l_{ii}$ \\
 Ende für  ~~ (O($n^2$) Mult. )\\
-($P = (e_{\pi(1)}) \dots e_{\pi(n)}), \pi \in S_n$) 
+($P = (e_{\pi(1)}) \dots e_{\pi(n)}), \pi \in S_n$)
 \item[(2)]
 Löse LGS $Rx = y$ durch Rückwärtseinsetzen (O($n^2$) Mult. )
 \end{enumerate}
 
 \underline{Algorithmus} \\
-Eingabe: $A \in Gl_n (mathbb{K})$ \\
-Ausgabe: LR-Zerlegung von A:  Matrix $ A \in \mathbb{K}^{n \times n}$ und 
+Eingabe: $A \in Gl_n (\KK)$ \\
+Ausgabe: LR-Zerlegung von A:  Matrix $ A \in \KK^{n \times n}$ und
 $\pi \in S_n$ \\
 so dass $PA = LR$ (ursprüngliches A) für \\
 $P = (e_{\pi(1)}) \dots e_{\pi(n)})$ mit \\
-$L = (l_{ij}) \text{ mit } l_{ij} = 
+$L = (l_{ij}) \text{ mit } l_{ij} =
 \begin{cases} \delta_{ij} &: i \le j \\  a_{ij} &: i > j  \end{cases} $ \\
-$R = (r_{ij}) mit r_{ij} = 
+$R = (r_{ij}) mit r_{ij} =
 \begin{cases} a_{ij} &: i \le j \\ 0 &: i > r  \end{cases}$

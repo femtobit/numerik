@@ -1,9 +1,13 @@
 \subsection{Lineare Ausgleichsprobleme, überbestimmte Gleichungssysteme}
 Geg: $A \in \RR^{m\times n}, b\in \RR^n$\\
-Oftmals:$rang(A,b)>rang(A) \rightsquigarrow \text{Lös}(A,b) = \emptyset$\\
+Oftmals: $\rang(A,b)>\rang(A) \rightsquigarrow \text{Lös}(A,b) = \emptyset$\\
 
-Lineares Ausgleichsproblem:\\
-Finde $\hat{x} \in \RR \text{ mit } \|A\hat{x}-b\|_2 = \underset{x \in \RR^n}{\mathrm{min}}\|Ax-b\|_2$ (LA)
+Lineares Ausgleichsproblem: Finde
+\begin{align*}
+\tag{LA}
+\hat{x} \in \RR \text{ mit } \|A\hat{x}-b\|_2 = \underset{x \in \RR^n}{\mathrm{min}}\|Ax-b\|_2
+\end{align*}
+
 \subsubsection{Exkurs: Approximation in Skalarprodukträumen}
 \begin{Definition}
 $L \subset \RR^n$ heißt \glqq affiner Unterraum\grqq wenn $L=v+U$, wobei $v \in \RR^n$, U Untervektorraum (UVR)
@@ -11,19 +15,24 @@ $L \subset \RR^n$ heißt \glqq affiner Unterraum\grqq wenn $L=v+U$, wobei $v \in
 \begin{Beispiel}\hfill
 	\begin{itemize}
 	\item[a)] UVR ist affiner Unterraum
-	\item[b)] Lös$(A,b)$ ist affiner Unterraum falls nicht linear
+	\item[b)] Lös$(A,b)$ ist affiner Unterraum falls nicht leer
 	\end{itemize}
 \end{Beispiel}
 \textbf{Problem:}\\
-Geg: \begin{itemize}
+Gegeben: \begin{itemize}
 	 \item[a)] affiner UR $L=v+U$
 	 \item[b)] $b \in \RR^n$
 	 \end{itemize}
-Finde $\hat{y} \in L s.d. \|\hat{y}-b\|_2 = \underset{y \in L}{min} \|y-b\|_2$ (MIN)\\
+Finde
+\begin{align*}
+\tag{MIN}
+\hat{y} \in L \text{ so dass } \|\hat{y}-b\|_2 = \underset{y \in L}{min} \|y-b\|_2
+\end{align*}
+
 \begin{Satz}
 Für einen affinen Unterraum $L=v+U\quad(v\in \RR^n, U\subset \RR^n UVR)$ und ein $b\in \RR^n$ gilt:\\
 \begin{itemize}
-\item[a)]$\hat{y} \in L$ erfüllt (MIN) $\Leftrightarrow \hat{y}-b\in\U^{\perp}$
+\item[a)]$\hat{y} \in L$ erfüllt (MIN) $\Leftrightarrow \hat{y}-b\in U^{\perp}$
 \item[b)]$\hat{y}$ mit (MIN) ist eindeutig bestimmt
 \end{itemize}
 \end{Satz}
@@ -37,21 +46,21 @@ Andererseits gilt $\hat{y}-y_2 \in U \Rightarrow \hat{y}-y_2=0$
 \end{itemize}
 \end{proof}
 \begin{Satz}
-$A \in \RR^{m \times n}$.Dann gilt:\\\begin{itemize}
-\item[a)]$(ker A)^{\perp} = im A$ (Übungsaufgabe3)
-\item[b)]$A^TA$ symmetrisch
-\item[c)]$ker A^TA = ker A$
-\item[d)]$im A^TA im A^T$
+$A \in \RR^{m \times n}$. Dann gilt:\\\begin{itemize}
+\item[a)]$(\ker A)^{\perp} = \im A$ \quad \text{(Übungsaufgabe3)}
+\item[b)]$A^TA$\; \text{ symmetrisch }
+\item[c)]$\ker A^TA = \ker A$
+\item[d)]$\im A^TA = \im A^T$
 \item[e)]$A^TA \ge 0 \text{ mit } (A^TA>0 \Leftrightarrow ker A = {0})$
-\item[f)] $\forall \lambda \in \RR\backslash\{0\}: dim ker(\lambda I-A^TA) = dim ker(\lambda I-AA^T)$
+\item[f)] $\forall \lambda \in \RR\backslash\{0\}: \dim \ker(\lambda I-A^TA) = \dim \ker(\lambda I-AA^T)$
 \end{itemize}
 \end{Satz}
 \begin{proof}\hfill
 \begin{itemize}
-\item[c)]$"\supset"$ klar\\
-$" \subset" $ Sei $x \in ker A^TA \Rightarrow 0=x^TA^TAx=\|Ax\|_2^{2} \Rightarrow Ax=0 \Rightarrow \in ker A$
-\item[d)]$im AA^T \overset{a)}{=} (ker(A^TA)^T)^{\perp} = (ker A^TA)^{\perp} \overset{c)}{=} (ker A)^{\perp} \overset{a)}{=} im A^T$
-\item[e)]$A^TA\ge 0 klar$\\$" \Rightarrow"\text{ Sei } ker A^TA =\{0\} \overset{c)}{\Rightarrow}ker\{0\}$\\$"\Leftarrow" \text{ Sei } ker A=\{0\}, x\in \RR^n\backslash\{0\} \Rightarrow x^TA^TAx = \|Ax\|_2^{2} > 0$
+\item[c)]$"\supset"$ \; \text{klar}\\
+$" \subset" $ Sei $x \in \ker A^TA \Rightarrow 0=x^TA^TAx=\|Ax\|_2^{2} \Rightarrow Ax=0 \Rightarrow \in \ker A$
+\item[d)]$\im AA^T \overset{a)}{=} (\ker(A^TA)^T)^{\perp} = (ker A^TA)^{\perp} \overset{c)}{=} (\ker A)^{\perp} \overset{a)}{=} im A^T$
+\item[e)]$A^TA\ge 0  \; \text{klar}$\\$" \Rightarrow"\text{ Sei } \ker A^TA =\{0\} \overset{c)}{\Rightarrow}ker\{0\}$\\$"\Leftarrow" \text{ Sei } \ker A=\{0\}, x\in \RR^n\backslash\{0\} \Rightarrow x^TA^TAx = \|Ax\|_2^{2} > 0$
 \item[f)] folgt aus ÜA 3
 \end{itemize}
 \end{proof}
@@ -59,18 +68,18 @@ $" \subset" $ Sei $x \in ker A^TA \Rightarrow 0=x^TA^TAx=\|Ax\|_2^{2} \Rightarro
 \begin{align*}
 &A \in \RR^{m \times n}, b \i \RR^n\\
 &\text{(LA): Finde } \hat{x} \in \RR^n s.d. \|A\hat{x}-b\|_2 = \underset{x \in \RR}{\mathrm{min}}\|Ax-b\|_2\\
-&\Leftrightarrow \hat{y}-b \in (im A)^{\perp} = ker A^T\\
+&\Leftrightarrow \hat{y}-b \in (\im A)^{\perp} = \ker A^T\\
 &\Leftrightarrow A^T(\hat{y}-b)=0 \Leftrightarrow A^T(Ax-b)=0\\
 &\Leftrightarrow A^TAx=A^Tb \quad \text{(NGL:\glqq Normalengleichung\grqq)}
 \end{align*}
 \begin{Bemerkung}
-$A^TAx=A^Tb$ ist immer lösbar, da $im A^TA=im A^T$
+$A^TAx=A^Tb$ ist immer lösbar, da $\im A^TA=\im A^T$
 \end{Bemerkung}
 \begin{Satz}
 $A \in \RR^{m \times n}, b \in \RR^m.$ Dann gilt:
 \begin{itemize}
 \item[a)]$\|A\hat{x}-b\|_2= \underset{x \in \RR^n}{\mathrm{min}}\|Ax-b\|_2 \Leftrightarrow A^TAx=A^Tb$ (NGL)
-\item[b)] $\mathrm{NGL\;ist\;loesbar\;} (\text{Lös}(A^TA,A^Tb) = \emptyset$)
+\item[b)] $\mathrm{NGL\;ist\;loesbar\;} (\Loes(A^TA,A^Tb) = \emptyset$)
 \item[c)] $\mathrm{Es\;gibt\;ein\;eindeutiges\;} \hat{x_{*}} \in \RR^n$ mit $ \|\hat{x_{*}}\|_2 = \underset{\hat{x} \text{ erfüllt NGL }}{\mathrm{min}}\|\hat{x}\|$
 \end{itemize}
 \end{Satz}
@@ -82,7 +91,7 @@ $A \in \RR^{m \times n}, b \in \RR^m.$ Dann gilt:
 \end{proof}
 \begin{Bemerkung}
 	(LA) wird auch häufig als Lösung "Lösung im kleinste-Quadrat-Sinne"
-	\textit{(least squares solution)} bezeichnet. 
+	\textit{(least squares solution)} bezeichnet.
 \end{Bemerkung}
 \begin{Beispiel}
 	Gesucht ist eine Gerade $y=\alpha x+\beta$ durch (0,1),(1,1),(2,1),(5,1)\\
@@ -111,12 +120,12 @@ $A \in \RR^{m \times n}, b \in \RR^m.$ Dann gilt:
 	\end{align*}
 \end{Beispiel}
 \begin{Bemerkung}
-	Wenn $rang A = n$, dann kann (LA) ohne (NGL) mit QR-Zerlegung gelöst werden
+	Wenn $\rang A = n$, dann kann (LA) ohne (NGL) mit QR-Zerlegung gelöst werden
 \end{Bemerkung}
 
 \subsubsection{Singulärwertzerlegung}
 \begin{Satz}
-	Sei $A \in \RR^{m \times n}, r=rang(A)$. Dann existieren $U \in O_m(\RR), V \in O_n(\RR) \text{ sowie } \sigma_1 \ge \ldots \ge \sigma_r>0$, sodass für $\sum=diag(\sigma_1,\ldots,\sigma_r)$ gilt $U^*AV=\begin{pmatrix}
+	Sei $A \in \RR^{m \times n}, r=rang(A)$. Dann existieren $U \in O_m(\RR), V \in O_n(\RR) \text{ sowie } \sigma_1 \ge \ldots \ge \sigma_r>0$, sodass für $\sum=\diag(\sigma_1,\ldots,\sigma_r)$ gilt $U^*AV=\begin{pmatrix}
 	\sum & 0_{r,(n-1)}\\
 	0_{m-r,r} & 0_{m-r,n-r}
 	\end{pmatrix}$\\\glqq Singulärwertzerlegung"\\
@@ -125,7 +134,7 @@ $A \in \RR^{m \times n}, b \in \RR^m.$ Dann gilt:
 Vorbemerkungen zum Beweis:\\
 \begin{itemize}
 	\item[(i)]$\sigma(A^TA)\backslash\{0\} = \sigma(AA^T)\backslash\{0\}\\ \text{dim ker}(\lambda I-A^TA)=\text{dim ker}(\lambda I-AA^T)$
-	\item[(ii)]$rang(A^TA)rang(AA^T)=r\\ \sigma(A^TA) \subset [0,\infty)$
+	\item[(ii)]$\rang(A^TA) = \rang(AA^T)=r\\ \sigma(A^TA) \subset [0,\infty)$
 \end{itemize}
 \begin{proof}
 	Seien $\lambda_1 \ge \ldots \ge \lambda_r\ge\lambda_{r+1}=\ldots=\lambda_n=0$ die Eigenwerte von $A^TA$ (inkl. Vielfache)\\

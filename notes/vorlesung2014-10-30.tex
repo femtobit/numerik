@@ -1,10 +1,11 @@
 \begin{Algorithmus}[Cholesky-Zerlegung]\hfill\newline
 	Eingabe: $A > 0, A \in \KK^{n\times n}$ (benutzt die \glqq untere linke Hälfte \grqq von A),\\
-	Ausgabe: $ L \in \Gl_n(\KK)$ untere $\triangle$-Matrix mit $l_{kk} >0 \forall k\in \{1,\cdots,n\} \text{ und } A=LL^*$ 
+	Ausgabe: $ L \in \Gl_n(\KK)$ untere $\triangle$-Matrix mit $l_{kk} >0 \forall k\in \{1,\cdots,n\} \text{ und } A=LL^*$  Berechne über den Weg $(i,j) = (1,1), (2,1), \cdots , (n,1), (2,2), (2,3), \cdots , (2,n),
+	(3,3), \cdots , (3,n), \cdots , (n,n)$
 	\quad
 	\begin{codebox}
 		\Procname{$\proc{Cholesky-Zerlegung}$}
-		\li $l := 0 \in \KK^{n\times n}$
+		\li $L := 0 \in \KK^{n\times n}$
 		\li \For $k = 1, \ldots, n$:
 		\Do
 		\li $l_{kk} = \left(a_{kk} - \sum_{j=1}^{k-1}|l_{kj}|^{2}\right)^{\frac{1}{2}}$
@@ -107,10 +108,10 @@ Aufwand: Im k-ten Schritt $(k=1, \cdots,n)$
 			\item[-] Berechnen von $QQ_{v_k}: (m-k+1)n$ Multiplikationen\\
 			\item[$\Rightarrow$]$\sum O(mn^2) \text{ Multiplikationen } + O(n) Wurzeln$
 		\end{itemize}\hfill\\
-		
+
 \begin{Bemerkung}
 	Vorherige Schrittfolge erfordert, dass $a_{11}^{(k)} \neq 0 \;\forall k=1,\cdots,n$.
-	Dies kann mit Pivotisierung umgangen werden. 
+	Dies kann mit Pivotisierung umgangen werden.
 \end{Bemerkung}\hfill
 \begin{weitere Bemerkungen}\hfill
 	\begin{itemize}

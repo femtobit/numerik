@@ -142,7 +142,7 @@ Vorbemerkungen zum Beweis:\\
 	Für $i=r+1,\ldots,m$ gilt $u_i^{T}Av_j=\underset{=0}{(Au_i)^T}v_j=0$\\
 	Für $i=1,\ldots,r $ gilt $u_i^{T}Av_j=\frac{1}{\sigma_i}(Av_i)^TAv_j=\frac{1}{\sigma_i}v_i^{T}A^TAv_j=\sigma_i\delta_{ij}$\\\newline
 	Also $U^TAV= \left(\begin{array}{c|c}
-		\begin{matrix}\sigma_1 & &  \\&\ddots & \\ & & \sigma_r\end{matrix} &0\\\hline
-		0 & 0
+		\begin{matrix}\sigma_1 & &  \\&\ddots & \\ & & \sigma_r\end{matrix} &\begin{matrix}& &\\ &\bigzero& \\&&\end{matrix}\\\hline
+		\bigzero &\begin{matrix}& &\\ &\bigzero& \\&&\end{matrix}
 		\end{array}\right)$
 \end{proof}

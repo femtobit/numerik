@@ -74,3 +74,75 @@ $A \in \RR^{m \times n}, b \in \RR^m.$ Dann gilt:
 \item[c)] $\mathrm{Es\;gibt\;ein\;eindeutiges\;} \hat{x_{*}} \in \RR^n$ mit $ \|\hat{x_{*}}\|_2 = \underset{\hat{x} \text{ erfüllt NGL }}{\mathrm{min}}\|\hat{x}\|$
 \end{itemize}
 \end{Satz}
+\begin{proof}
+	\begin{itemize}
+		\item[a) und b)] folgt aus vorigen Überlegungen
+		\item[c)] Es gilt $L=\{\hat{x}\in \RR^n:A^TA\hat{x}=A^Tb\}$ ist affiner UR, Rest folgt dann aus 2.9.1
+	\end{itemize}
+\end{proof}
+\begin{Bemerkung}
+	(LA) wird auch häufig als Lösung "Lösung im kleinste-Quadrat-Sinne"
+	\textit{(least squares solution)} bezeichnet. 
+\end{Bemerkung}
+\begin{Beispiel}
+	Gesucht ist eine Gerade $y=\alpha x+\beta$ durch (0,1),(1,1),(2,1),(5,1)\\
+	$\rightsquigarrow$ gibts nicht\\
+	Suche stattdessen eine Gerade, die die Summe der Quadrate der Abstände zu den Punkten minimiert.\\
+	Minimiere \begin{align*}
+	&\left\|\underbrace{\begin{pmatrix}
+	0 & 1\\1 & 1\\2 & 1\\ 5  & 1
+	\end{pmatrix}}_{=A}\underbrace{\begin{pmatrix}
+	\alpha\\\beta
+	\end{pmatrix}}_{=x}-\underbrace{\begin{pmatrix}
+	2\\1\\1\\1
+	\end{pmatrix}}_{=b}\right\|_2\\\\
+	&\overset{NGL}{\Rightarrow} \begin{pmatrix}
+	30 & 8\\8 & 4
+	\end{pmatrix}\begin{pmatrix}
+	\alpha\\\beta
+	\end{pmatrix}=\begin{pmatrix}
+	8\\5
+	\end{pmatrix}\quad
+	Lsg.\begin{pmatrix}
+	\frac{-1}{7}\\\frac{43}{28}
+	\end{pmatrix}=\begin{pmatrix}
+	\alpha\\\beta
+	\end{pmatrix}
+	\end{align*}
+\end{Beispiel}
+\begin{Bemerkung}
+	Wenn $rang A = n$, dann kann (LA) ohne (NGL) mit QR-Zerlegung gelöst werden
+\end{Bemerkung}
+
+\subsubsection{Singulärwertzerlegung}
+\begin{Satz}
+	Sei $A \in \RR^{m \times n}, r=rang(A)$. Dann existieren $U \in O_m(\RR), V \in O_n(\RR) \text{ sowie } \sigma_1 \ge \ldots \ge \sigma_r>0$, sodass für $\sum=diag(\sigma_1,\ldots,\sigma_r)$ gilt $U^*AV=\begin{pmatrix}
+	\sum & 0_{r,(n-1)}\\
+	0_{m-r,r} & 0_{m-r,n-r}
+	\end{pmatrix}$\\\glqq Singulärwertzerlegung"\\
+	Die Singulärwerte $\sigma_1,\ldots,\sigma_r$ sind durch $A$ eindeutig bestimmt.
+\end{Satz}
+Vorbemerkungen zum Beweis:\\
+\begin{itemize}
+	\item[(i)]$\sigma(A^TA)\backslash\{0\} = \sigma(AA^T)\backslash\{0\}\\ \text{dim ker}(\lambda I-A^TA)=\text{dim ker}(\lambda I-AA^T)$
+	\item[(ii)]$rang(A^TA)rang(AA^T)=r\\ \sigma(A^TA) \subset [0,\infty)$
+\end{itemize}
+\begin{proof}
+	Seien $\lambda_1 \ge \ldots \ge \lambda_r\ge\lambda_{r+1}=\ldots=\lambda_n=0$ die Eigenwerte von $A^TA$ (inkl. Vielfache)\\
+	$v_1,\ldots,v_n$ sei ONS im $R^n$ mit $A^TAv_i=\lambda_iv_i \quad i=1,\ldots,n$\\
+	Setze $\sigma_i =\sqrt{\lambda_i} \quad i=1,\ldots,r \text{ und } u_i=\frac{1}{\sigma_i}Av_i$\\
+	\begin{itemize}
+		\item[a)]Für $k=1,\ldots,r$ gilt $AA^Tu_i=\frac{1}{\sigma_i}A^TAv_i=\frac{1}{\sigma_i}A(\lambda_iv_i)=\lambda_i\left(\frac{1}{\sigma_i}Av_i\right)=\lambda_iu_i$
+		\item[b)]Für $j,k=1,\ldots,r$ gilt $u_j^{T}u_k=\frac{1}{\sigma_j\sigma_k}v_j^{T}A^TAv_k=\frac{\lambda_k}{\sigma_j\sigma_k}v_j^{T}v_k=\delta_{j,k}$
+	\end{itemize}
+	$\Rightarrow \{u_1,\ldots,u_r\}$ ist ein ONS in $\RR^m$ bestehend aus EV von $AA^T$.\\\newline
+	Ergänze zu ONB $\{u_1,\ldots,u_m\}$. Dann gilt $A^Tu_{r+1}=\ldots=A^Tu_m=0$.\\
+	Betrachte $U=(u_1,\ldots,u_m) \in O_m(\RR), V=(v_1,\ldots,v_n) \in O_n(\RR)$\\
+	Betrachte $U^TAv$: Es gilt $(U^TAv)_{i,j}=u_i^{T}Av_j$\\\\
+	Für $i=r+1,\ldots,m$ gilt $u_i^{T}Av_j=\underset{=0}{(Au_i)^T}v_j=0$\\
+	Für $i=1,\ldots,r $ gilt $u_i^{T}Av_j=\frac{1}{\sigma_i}(Av_i)^TAv_j=\frac{1}{\sigma_i}v_i^{T}A^TAv_j=\sigma_i\delta_{ij}$\\\newline
+	Also $U^TAV= \left(\begin{array}{c|c}
+		\begin{matrix}\sigma_1 & &  \\&\ddots & \\ & & \sigma_r\end{matrix} &0\\\hline
+		0 & 0
+		\end{array}\right)$
+\end{proof}

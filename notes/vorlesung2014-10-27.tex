@@ -1,3 +1,4 @@
+
 \subsection{LR-Zerlegung}
 
 \paragraph{Gauß-Verfahren (formal)}
@@ -44,6 +45,7 @@ Ende für  ~~ (O($n^2$) Mult. )\\
 Löse LGS $Rx = y$ durch Rückwärtseinsetzen (O($n^2$) Mult. )
 \end{enumerate}
 
+
 \underline{Algorithmus} \\
 Eingabe: $A \in Gl_n (\KK)$ \\
 Ausgabe: LR-Zerlegung von A:  Matrix $ A \in \KK^{n \times n}$ und
@@ -54,3 +56,41 @@ $L = (l_{ij}) \text{ mit } l_{ij} =
 \begin{cases} \delta_{ij} &: i \le j \\  a_{ij} &: i > j  \end{cases} $ \\
 $R = (r_{ij}) mit r_{ij} =
 \begin{cases} a_{ij} &: i \le j \\ 0 &: i > r  \end{cases}$
+Initialisieren: Permutationsvektor $\pi = (1,2, \dots, n)$\\
+Für $k = 1, \dots, n-1$ \\
+
+\begin{enumerate}
+\item[(a)] Bestimme $r \in \{k, \dots, n \} $ mit $ |a_{ik}|
+= max_{i= k, \dots, n} |a_{in}|$ (Pivotelement)
+\item[(b)] "`Test auf Singularität"': Falls $a_{rk}=0$, 
+	dann $A \notin Gl_n(\mathbb{K})$ \textsc{stopp}
+\item[(c)] 
+Falls $k \notin r$: Vertausche k-te und r-te Zeile in A:
+
+\begin{algorithm}
+\begin{algorithmic}
+
+\Function{Zeilenvertauschen}{A}
+%\If {$j \gets 1 $}
+	%\State \Call{$Vertausche$}{$a, a$}
+%\EndIf
+\State \Call{Vertausche}{$\pi(k),\pi(r)$}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\item[(d)] 
+%\begin{algorithm}
+%\begin{algorithmic}
+%\For {$i = k+1, \dots, n$}
+%\State $a_{ik} \gets \frac{a_{ik}}{a_{kk}}$ 
+%\For {$j = k+1, \dots, n$}
+%\State $a_{ij} \gets a_{ij} - a_{ik} \cdot a_{kj}$
+%\EndFor 
+%\EndFor 
+%\end{algorithmic}
+%\end{algorithm}
+\item[(e)]
+Letzter Test auf Singularität\\
+Falls $a_{nn}=0$, dann $A \notin Gl_n(\mathbb{K})$ \textsc{stopp}
+\end{enumerate}

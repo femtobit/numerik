@@ -56,7 +56,7 @@ $L = (l_{ij}) \text{ mit } l_{ij} =
 \begin{cases} \delta_{ij} &: i \le j \\  a_{ij} &: i > j  \end{cases} $ \\
 $R = (r_{ij}) mit r_{ij} =
 \begin{cases} a_{ij} &: i \le j \\ 0 &: i > r  \end{cases}$
-<<<<<<< HEAD
+
 Initialisieren: Permutationsvektor $\pi = (1,2, \dots, n)$\\
 Für $k = 1, \dots, n-1$ \\
 
@@ -68,17 +68,16 @@ Für $k = 1, \dots, n-1$ \\
 \item[(c)] 
 Falls $k \notin r$: Vertausche k-te und r-te Zeile in A:
 
-\begin{algorithm}
-\begin{algorithmic}
-
-\Function{Zeilenvertauschen}{A}
-%\If {$j \gets 1 $}
-	%\State \Call{$Vertausche$}{$a, a$}
-%\EndIf
-\State \Call{Vertausche}{$\pi(k),\pi(r)$}
-\EndFunction
-\end{algorithmic}
-\end{algorithm}
+%\begin{algorithm}
+%\begin{algorithmic}
+%\Function{Zeilenvertauschen}{A}
+%\For {$j \gets 1, \dots, n$}
+	%\State \Call{$Vertausche$}{$a_{kj}, a_{rj}$}
+%\EndFor
+%\State \Call{Vertausche}{$\pi(k),\pi(r)$}
+%\EndFunction
+%\end{algorithmic}
+%\end{algorithm}
 
 \item[(d)] 
 %\begin{algorithm}
@@ -95,11 +94,86 @@ Falls $k \notin r$: Vertausche k-te und r-te Zeile in A:
 Letzter Test auf Singularität\\
 Falls $a_{nn}=0$, dann $A \notin Gl_n(\mathbb{K})$ \textsc{stopp}
 \end{enumerate}
-=======
+Bem.:
+\begin{enumerate}
+\item[(a)]
+Vorteile von LR gegenüber Gauß-Verfahren: Auch wenn 
+$Ax^{(i)}= b^{(i)} \in \mathbb{K}^n$ gelöst werden muss, dann muss 
+LR-Zerlegung nur einmal berechnet werden (danach nur Vorwärts und 
+Rückwärts Einsetzen)
+\item[(b)]
+Aufwand von LR-Zerlegung: $O(n^3)$ Mult.
+\item[(c)]
+LR-Zerl. kann zur Bestimmung von $A^{-1}$ benutzt werden, da 
+$A^{-1}= (x^{(1)} \cdots x^{(n)})$ wobei $Ax^{(i)}= e_i$ \\
+(Aufwand $O(n^3) + O(n^2)= O(n^3)$ Mult. 
+\end{enumerate}
 
-TODO: Hier fehlt noch was
+Bsp.:
+\begin{align*}
+A= 
+&\begin{pmatrix}
+1  &  2  & 1 \\
+-3 & -5  & 1 \\
+-7 & -12 & -2
+\end{pmatrix} \\
+\text{Pivot} \rightarrow
+&\begin{pmatrix}
+-7 & -12 & -2 \\
+-3 & -5  & -1 \\
+1 & 2 & 1
+\end{pmatrix}
+ \pi = \begin{pmatrix} 3 & 3 & 1\end{pmatrix} \\
+\text{1. Schritt:} 
+&\begin{pmatrix}
+-7           & -12         &           -2 \\
+\frac{3}{7}  & \frac{1}{7} & -\frac{1}{7} \\
+-\frac{1}{7} & \frac{2}{7} & \frac{5}{7}  
+\end{pmatrix}
+\rightarrow^{\text{Pivot}}
+\begin{pmatrix}
+-7           & -12         &           -2  \\
+-\frac{1}{7} & \frac{2}{7} &  \frac{5}{7}  \\
+\frac{3}{7}  & \frac{1}{7} & -\frac{1}{7} 
+\end{pmatrix} 
+ \pi = \begin{pmatrix} 3 & 1 & 2 \end{pmatrix} \\
+\text{2. Schritt}
+&\begin{pmatrix}
+-7           & -12         &          -2  \\
+-\frac{1}{7} & \frac{2}{7} &  \frac{5}{7} \\
+\frac{3}{7}  & \frac{1}{7} & -\frac{1}{2} 
+\end{pmatrix} \\
+\text{Also}
+&\begin{pmatrix}
+0 & 0 & 1\\
+1 & 0 & 0\\
+0 & 1 & 0
+\end{pmatrix} 
+\begin{pmatrix}
+1  &   2 &  1 \\
+-3 &  -5 & -1 \\
+-7 & -12 & -2 
+\end{pmatrix} \\
+=
+&\begin{pmatrix}
+           1 &           0 & 0 \\
+-\frac{1}{7} &           1 & 0 \\
+ \frac{3}{7} & \frac{1}{2} & 1
+\end{pmatrix} 
+\begin{pmatrix}
+-7 &         -12 &           1 \\
+ 0 & \frac{2}{7} &  \frac{5}{7}\\
+ 0 &          0  & -\frac{1}{2}
+\end{pmatrix}
+\end{align*}
 
+Bem.:
+\begin{enumerate}
+\item[(a)]
+LR-Zerlegung ist one Pivotisierung möglich $\Leftrightarrow$
+ Alle Hauptabschnittsdeterminanten $\neq 0$
+\item[(b)]
+Falls existent, dann ist LR-Zerlegung ohne Pivotisierung eindeutg (Übung)
+\end{enumerate}
 \subsection{Cholesky-Zerlegung}
 
-TODO: Hier fehlt noch was
->>>>>>> 3da03cf607ab486969223396a819447e622d0ffd

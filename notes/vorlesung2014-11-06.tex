@@ -1,6 +1,26 @@
-Diese Vorlesung ist reserviert für Michael
+Es gibt also $U \in \U_m(\RR), V \in \U_n(\RR)$ mit
+\begin{align*}
+  & A = U \left(\begin{array}{c|c} \varSigma & 0  \\ \hline 0 & 0 \end{array} \right) V^T \; \text{ mit } \; \varSigma = \diag(\sigma_1, \cdots , \sigma_r) \text{ und }\\
+  & r = \rang(A) \; ; \quad \sigma_1\ge \sigma_2\ge\sigma_1\ge  \cdots , \sigma_r > 0
+\end{align*}
+Noch zu zeigen: Die Singulärwerte sind eindeutig bestimmt durch $A$.
+(Achtung! $U$ und $V$ sind nicht eindeutig., Das gitl nurr wenn die $\sigma_i$
+paarweise verscheiden sind.)
 
-TODO: Fortsetzung Singulärwertzerlegung
+Beweis: Sei
+\begin{align*}
+  & U_1 \left(\begin{array}{c|c} \varSigma_1 & 0  \\ \hline 0 & 0 \end{array} \right) V_1^T =
+A = U_2 \left(\begin{array}{c|c} \varSigma_2 & 0  \\ \hline 0 & 0 \end{array} \right) V_2^T \\
+& \Rightarrow A^T A = V_1^T \left(\begin{array}{c|c} \varSigma_1 & 0  \\ \hline 0 & 0 \end{array} \right) V_1 = V_2^T \left(\begin{array}{c|c} \varSigma_2 & 0  \\ \hline 0 & 0 \end{array} \right) V_2 \\
+& \Rightarrow \; \text{Die Quadrate der Singulärwerte sind Eigenwerte von } A^T A\\
+& \Rightarrow \; \varSigma_1^2 = \varSigma_1^2  \quad \text{Die Eigenwerte sind der Größe nach sortiert}\\
+& \Rightarrow \;  \varSigma_1 = \varSigma_1 \quad \text{Da A positiv definit ist}
+\end{align*}
+Die Singulärwertzerlegung (SVD = single value decomposition) findet ihre Anwendung im
+linesaren Ausgleichsproblem (LA)
+
+
+Hier mache ich weiter: Michael
 
 \subsection{Pseudoinverse (Moore-Penrose-Inverse)}
 

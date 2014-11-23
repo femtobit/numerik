@@ -11,13 +11,13 @@ Beweis: Sei
 \begin{align*}
   & U_1 \left(\begin{array}{c|c} \varSigma_1 & 0  \\ \hline 0 & 0 \end{array} \right) V_1^T =
 A = U_2 \left(\begin{array}{c|c} \varSigma_2 & 0  \\ \hline 0 & 0 \end{array} \right) V_2^T \\
-& \Rightarrow A^T A = V_1^T \left(\begin{array}{c|c} \varSigma_1 & 0  \\ \hline 0 & 0 \end{array} \right) V_1 = V_2^T \left(\begin{array}{c|c} \varSigma_2 & 0  \\ \hline 0 & 0 \end{array} \right) V_2 \\
+& \Rightarrow A^T A = V_1^T \left(\begin{array}{c|c} \varSigma_1^2 & 0  \\ \hline 0 & 0 \end{array} \right) V_1 = V_2^T \left(\begin{array}{c|c} \varSigma_2^2 & 0  \\ \hline 0 & 0 \end{array} \right) V_2 \\
 & \Rightarrow \; \text{Die Quadrate der Singulärwerte sind Eigenwerte von } A^T A\\
 & \Rightarrow \; \varSigma_1^2 = \varSigma_1^2  \quad \text{Die Eigenwerte sind der Größe nach sortiert}\\
-& \Rightarrow \;  \varSigma_1 = \varSigma_1 \quad \text{Da A positiv definit ist}
+& \Rightarrow \;  \varSigma_1 = \varSigma_1 \quad \text{weil A positiv definit ist}
 \end{align*}
 Die Singulärwertzerlegung (SVD = single value decomposition) findet ihre Anwendung im
-linesaren Ausgleichsproblem (LA)
+linearen Ausgleichsproblem (LA).
 
 
 Hier mache ich weiter: Michael

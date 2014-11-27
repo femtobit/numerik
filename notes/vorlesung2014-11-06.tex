@@ -17,14 +17,44 @@ A = U_2 \left(\begin{array}{c|c} \varSigma_2 & 0  \\ \hline 0 & 0 \end{array} \r
 & \Rightarrow \;  \varSigma_1 = \varSigma_1 \quad \text{weil A positiv definit ist}
 \end{align*}
 Die Singulärwertzerlegung (SVD = single value decomposition) findet ihre Anwendung im
-linearen Ausgleichsproblem (LA).
+linearen Ausgleichsproblem (LA): Gesucht ist ein $\hat{x}\in \RR^n$ so dass
+\begin{align*}
+\tag{LA}
+\|A\hat{x}-b\|_2 & = \min_{x \in \RR^n}\|Ax-b\|_2
+\intertext{Mit geeigneten Abbildungen $U, V \in \U^n$ gilt dann, da $U, V$ linientreu abbilden:}
+\|A\hat{x}-b\|_2^2 & = \| U^T A x - U^T b\|_2^2 =  \| U^T A V (V^T x) - U^T b\|_2^2
+= \left\| \begin{pmatrix}\varSigma & 0 \\ 0 & 0 \end{pmatrix} V^T x - U^T b \right\|_2^2\\
+& = \sum_{i = 1}^r \left(\sigma_i(V^T x)_i - (U^T b_i)\right)^2 + \sum_{i = r +1}^n \left(U^T b_i\right)^2\\
+&= \sum_{i = 1}^r \left(\sigma_i v_i^T x_i - U^T b \right)^2 +  \sum_{i = r +1}^n \left(U^T b_i\right)^2
+\end{align*}
+Der Ausruck wird minimal wenn der erste Summand verschwindet. Folgerungen:
+\begin{itemize}
+  \item[a)]
+  \begin{align*}
+    & \hat{x} \text{ löst das lineare Ausgleichsproblem}\\
+    & \Leftrightarrow \quad v_i^T \hat{x} = \frac{1}{\sigma_i} U^T b \quad i = 1, \cdots , r\\
+    & \Leftrightarrow \quad V^T \hat{x} =
+    \begin{pmatrix}
+    \frac{1}{\sigma_1} u_1^T b\\ \cdots \\ \frac{1}{\sigma_r} u_r^T b \\
+    \alpha_{r + 1} \\ \cdots \\ \alpha_n
+    \end{pmatrix} \quad \text{für $\alpha_{r + 1}, \cdots , \alpha_n \in \RR$ beliebig}\\
+    & \Leftrightarrow \quad \hat{x} = V \cdot
+    \begin{pmatrix}
+    \frac{1}{\sigma_1} u_1^T b\\ \cdots \\ \frac{1}{\sigma_r} u_r^T b \\
+    \alpha_{r + 1} \\ \cdots \\ \alpha_n
+    \end{pmatrix}
+  \end{align*}
+  \item[b)]
+\end{itemize}
 
 
-Hier mache ich weiter: Michael
+
+
+
 
 \subsection{Pseudoinverse (Moore-Penrose-Inverse)}
 
-TODO
+Hier mache ich weiter: Michael
 
 \subsection{Iterations-Verfahren}
 

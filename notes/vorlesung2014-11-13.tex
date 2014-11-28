@@ -8,6 +8,38 @@ TODO
 
 TODO
 
-\subsubsection{CG-Verfahren}
+\subsubsection{Conjugate-Gradient-Verfahren}
+\begin{Lemma}
+$A \in \KK^{n\times n}$, $A > 0$. Dann ist die Abbildung $$(x,y) \mapsto x^* A y$$
+ein Skalarprodukt im $\KK^n$.
+\end{Lemma}
+\begin{proof}
+Nachrechnen.
+\end{proof}
+Wir schreiben $\langle x, y \rangle_A := x^*Ay$ und
+${\|x\|}_A := \sqrt{\langle x, y \rangle_A}$.
+${\|\cdot\|}_A$ ist eine Norm.
 
-TODO
+\begin{Algorithmus}[CG-Verfahren] \quad\\\
+Eingabe: $A \in \KK^{n\times n}$, $A > 0$, $b \in \KK^n$, 
+  Startwert $x^0 \in \KK^n$.\\
+Ausgabe: Approximation von $x = A^{-1}b$.
+\begin{codebox}
+\Procname{$\proc{CG-Verfahren}$}
+\li $r^0 \gets b - Ax^0$
+\li $d^0 \gets r^0$
+\li $k \gets 0$
+\li \Repeat
+    \li $\alpha^k \gets (r^{k\,\T} r^k) / (d^{k\,\T} A d^k)$
+    \li $x^{k+1} \gets x^k + \alpha^k d^k$
+    \li $r^{k+1} \gets b - A x^{k+1}$
+    %\li \If $\|r^{k+1}\| < \varepsilon$
+    %  \Then
+    %  \li \Return $x^{k+1}$
+    %\End
+    \li $\gamma^k \gets (r^{k+1\,\T} A d^k) / (d^{k\,\T} A d^k)$
+    \li $d^{k+1} \gets r^{k+1} + \gamma^k d^k$
+    \li $k \gets k + 1$
+  \End
+\end{codebox}
+\end{Algorithmus}

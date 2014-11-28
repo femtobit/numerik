@@ -1,7 +1,56 @@
-TODO Fortsetzung cg-Verfahren und Beweis
+\begin{Satz}\label{satz:CG-Orthogonal}
+Sei $A \in \RR^{n\times n}$, $A > 0$, $b \in \RR^n.$
+
+Dann gilt beim CG-Verfahren: Ist $r^{(\ell)} \ne 0$, dann ist
+$\{d^{(0)}, \ldots, d^{(\ell)}\}$ $A$-orthogonal, d.h. 
+    $$d^{(i)\,\T} A d^{(j)} = 0\text{ für alle }i \ne j$$
+und $d^{(0)}, \ldots, d^{(\ell)} \in \RR^n \setminus \{0\}.$
+\end{Satz}
+Beweis in STiNE.
+
+\begin{Korollar}
+Nach spätestens $n$ Schritten ist $r^{(\ell)} = 0.$
+\end{Korollar}
+\begin{proof}
+Angenommen, $r^{(0)}, \ldots, r^{(n)} \ne 0.$ Dann gilt nach Satz \ref{satz:CG-Orthogonal}:
+$\mathcal D := \{d^{(0)}, \ldots, d^{(n)}\}$ ist $A$-orthogonales System mit
+$d^{(0)}, \ldots, d^{(n)} \in \RR^n \setminus \{0\}.$
+
+Daraus folgt: $\mathcal D$ ist ein linear unabhängiges System der Größe $n+1$ im
+$\RR^n$. Widerspruch.
+\end{proof}
+
+\begin{Bemerkungen}
+\quad
+\begin{itemize}
+  \item[a)] Das Residuum ist häufig schon nach wenigen Schritten klein. Das
+    Verfahren kann vorzeitig abgebrochen werden.
+  \item[b)] (ohne Beweis) Sei $x^0 = 0$. Dann ist $x^k$ die Bestapproximation
+    von $x = A^{-1}b$ im Raum
+      $$\{b, Ab, A^2 b, \ldots, A^{k-1} b\} \quad\text{(Krylov-Raum)}$$
+    bezüglich der Norm $\|\cdot\|_A$.
+    Damit wird die Normdifferenz in jedem Schritt kleiner, genauer:
+    $(r^k)$ fällt monoton.
+  \item[c)] Der Aufwand in jedem Schritt beträgt $O(n^2)$ Multiplikationen.
+\end{itemize}
+\end{Bemerkungen}
+
+[TODO: Beispiel]
 
 \section{Nichtlineare Gleichungen}
-
-\subsection{Problemstellung, Erinnerung}
-
+\subsection{Einleitung}
+Gegeben: $F\colon \RR^n \supset U \to \RR^n$. \\
+Ziel: Finde $x_* \in U$ mit $F(x_*) = 0$. \\
+Methode: Iterationsverfahren $x^{(k+1)} = \phi(x^{(k)})$.
+\begin{Bemerkungen}[Erinnerungen]
+\quad
+\begin{itemize}
+  \item[a)] $(x^{(k)})$ konvergiert mit Ordnung $p > 0$ gegen $x$,
+    gdw. es ein $L > 0$ gibt, so dass $$\|x^{(k+1)} - x\| \le L\|x^{(k)} - x\|^p.$$
+  \item[b)] $U \in \RR^n$ offen, $F: U \to \RR^n$ partiell differenzierbar.
+    $$F'(x) := \left( \frac{\partial F_i}{\partial x_j}(x)\right) \quad \text{(Jacobi-Matrix)}$$
+    $f\colon U \to \RR$ partiell differenzierbar:
+      $$\nabla f(x) = (f'(x))^\T \quad \text{(Gradient)}.$$
+\end{itemize}
+\end{Bemerkungen}
 TODO

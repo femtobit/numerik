@@ -59,10 +59,107 @@ Dabei ist $A^+$ die Pseudoinverse von $A$, siehe nächster Abschnitt.
 
 
 \subsection{Pseudoinverse (Moore-Penrose-Inverse)}
+Ziel ist die Verallgemeinerung des Konzepts der inversen Matrix auf $\RR^{m \times n}$,
+insbesondere auf $R^{m \times n} \setminus \Gl_n(\RR)$.
+\begin{Definition}[Pseudoinverse oder Moore-Penrose-Inverse]
+Sei $A \in \RR^{m \times n}$, dann heißt $A^+ \in \RR^{n \times m}$ "`Pseudoinverse von $A$"'
+falls:
+ \begin{enumerate}
+   \item $(A A^+) = (A A+)^T \in \RR^{m \times m}$
+   \item $(A+ A) = (A^+ A)^T \in \RR^{n \times n}$
+   \item $A^+ A A^+ = A$
+   \item $A A^+ A = A$
+ \end{enumerate}
+Diese Bedingungen heißen Penrose Bedingungen.
+\end{Definition}
 
-Hier mache ich weiter: Michael
+\begin{Bemerkung}
+  Für $A \in \Gl_n(\RR)$ ist $A^{-1}$ die Penrose-Inverse von $A$.
+\end{Bemerkung}
+
+\begin{Satz}
+  Sei $A \in R^{m \times n}$, dann existiert eine eindeutige Pseudoinverse $A^+$ von $A$.
+\end{Satz}
+\begin{proof}
+\quad \\
+\begin{enumerate}
+  \item[Eindeutigkeit:] Seien $A_1^+, A_2^+$ Pseudoinverse von $A$, dann gilt:
+  \begin{align*}
+    A_1^+ &\overset{(3)}= A_1^+ A A_1^+ \overset{(1)}=A_1^T(A A_1^+)^T = A_1^+(A_1^+)^T A^T
+    = A_1^+ (A_1^+)^T A^T (A_2^+)^T A^T\\
+    &= A_1^+ (A A_1^+)^T (A A_2^+)^T = A_1^+ A A_1^+ A A_2^+ = A_1^+ A A_2^+
+    = (A_1^+ A)^T A_2^+ \\
+    &= (A_1^+ A)^T A_2^+ A A_2^+ = (A_1^+ A)^T (A_2^+ A)^T A_2^+
+    = A^T (A_1^+)^T A^T (A_2^+)^T A_2^+\\
+    &= (A A_1^+ A)^T (A_2^+)^T = A^T (A_2^+)^T A_2^+ = A_2^+ A A_2^+ = A_2^+
+  \end{align*}
+  \item[Existenz:]Betrachte die Singulärwertzerlegung (SVD)
+  \begin{align*}
+     & \qquad A = U \begin{pmatrix}\varSigma & 0 \\ 0 & 0 \end{pmatrix} V^T\; \text{ und } \;
+     A^+ = V \begin{pmatrix}\varSigma^{-1} & 0 \\ 0 & 0 \end{pmatrix} U^T\;\text{ damit wird } \\
+     1. \quad & A A^+ = U \begin{pmatrix}\varSigma & 0 \\ 0 & 0 \end{pmatrix} V^T
+     V \begin{pmatrix}\varSigma^{-1} & 0 \\ 0 & 0 \end{pmatrix} U^T =
+     U \begin{pmatrix}I_r & 0 \\ 0 & 0 \end{pmatrix} U^T \quad \text{ ist symmetrisch}\\
+     2. \quad & A^+ A = V \begin{pmatrix}I_r & 0 \\ 0 & 0 \end{pmatrix} V^T \quad \text{ analog} \\
+     3. \quad & A^+ A A^+ = V \begin{pmatrix}\varSigma^{-1} & 0 \\ 0 & 0 \end{pmatrix} U^T
+      U \begin{pmatrix}\varSigma & 0 \\ 0 & 0 \end{pmatrix} V^T
+     V \begin{pmatrix}\varSigma^{-1} & 0 \\ 0 & 0 \end{pmatrix} U^T\\
+     &\qquad \qquad = V \begin{pmatrix}\varSigma^{-1} & 0 \\ 0 & 0 \end{pmatrix} U^T = A^+\\
+     4. \quad & A A^+ A \quad \text{analog zu 3.}
+  \end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{Bemerkungen}
+ \begin{enumerate}
+   \item [a)] Es gilt $\|A\|_2 = \varSigma_1$  (größter Singulärwert). Somit: $\|A^+\|_2 = 1 / \varSigma_1$
+   \item [b)] Wenn $\ker(A) = \{ \emptyset \}$ dann ist $A^+ = (A^T A)^{-1} A^T$
+ \end{enumerate}
+\end{Bemerkungen}
+
+\begin{Beispiel}
+  $A = \begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix} \; \Rightarrow \;
+  A^+ = \frac{1}{2}\begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix}$
+\end{Beispiel}
+
+Beachte: Im allgemeinen gilt nicht $(A B)^+ = B^+ A^+$, denn beispielsweise für
+$A = B = \begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix}$ wird
+$A B = \begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix};  \; \Rightarrow \;
+(A B)^+ = \frac{1}{2}\begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix}$ \\
+aber $B^+ A^+ = \frac{1}{4}\begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix} = \frac{1}{4}\begin{pmatrix} 1 & 0 \\ 1 & 0 \end{pmatrix} \ne (A B)^+$
+
+\begin{Bemerkung}
+  Im linearen Ausgleichsproblem (LA) gilt $\hat{x} = A^+ b$.
+\end{Bemerkung}
+
 
 \subsection{Iterations-Verfahren}
+Zunächst einige Hilfssätze:
+\begin{Satz}[Banachscher Fixpunktsatz] (als Light-Version im $\RR^n$) Sei $K \subset \KK^n$
+abgeschlossen und  $\Phi: K \rightarrow K$ eine Kontraktion, d.h. $\exists L < 1$ so dass
+$\|\Phi(y) - \Phi(x) \| \le L \| y - x\| \; \forall x, y \in \KK$. Dans gilt:
+\begin{enumerate}
+  \item[a)] Es existiert genau ein Fixpunkt $\hat{x} \in \KK$ mit $\Phi(\hat{x}) = \hat{x}$.
+  \item[b)] Die Folge $(x_k)$ mit $(x_{k+1}) = \Phi(x_k)$ konvergiert gegen
+  $\hat{x}$ für alle $x_0 \in \KK$ und $\forall k \in \NN$ gilt:
+  \begin{align*}
+    \| x_k - \hat{x}\| & \le L^k \frac{1}{1 - L} \|x_1 - x_0\| \quad \text{a priori Abschätzung} \\
+    \| x_k - \hat{x}\| & \le L \frac{1}{1 - L} \|x_k - x_{k -1}\| \quad \text{a postriori Abschätzung}
+  \end{align*}
+\end{enumerate}
+\end{Satz}
+
+\begin{Lemma}
+  Sei $T \in \Gl_n(\KK)$ und $\| \cdot \|$ eine Norm auf $\KK^n$ mit $\| \cdot \|$
+  als zugehöriger Matrixnorm. Dann gilt:
+\begin{enumerate}
+  \item[a)] $\|x\|_T := \|T x\|$ ist Norm auf $\KK^n$
+  \item[b)] Die zugehörige Matrixnorm ist $\|A\|_T = \|T A T^{-1}\|$
+\end{enumerate}
+\end{Lemma}
 
 
-TODO
+
+Hier mache ich noch ein bischen weiter: Michael
+
+

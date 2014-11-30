@@ -157,9 +157,40 @@ $\|\Phi(y) - \Phi(x) \| \le L \| y - x\| \; \forall x, y \in \KK$. Dans gilt:
   \item[b)] Die zugehörige Matrixnorm ist $\|A\|_T = \|T A T^{-1}\|$
 \end{enumerate}
 \end{Lemma}
+\begin{proof}
+\quad \\
+\begin{enumerate}
+  \item[a)] Nachrechnen
+  \item[b)] Es gilt: $\sup_{x \ne 0} \frac{\|A x\|_T}{\|x\|_T} =
+  \sup_{x \ne 0} \frac{\|A T x\|}{\|T x\|}$. Mit der Substitution $y = T x; \; x = T^{-1} y$  ergibt das $\sup_{x \ne 0} \frac{\|T A T^{-1} y\|}{\|y\|}$
+\end{enumerate}
+\end{proof}
 
-
-
-Hier mache ich noch ein bischen weiter: Michael
-
-
+\begin{Lemma}
+  Sei $A \in \CC^{n \times n}$, dann gilt:
+  \begin{enumerate}
+  \item[a)] Für alle zugeordneten Matrixnormen gilt: $\|A\| \ge \rho(A)$ (Spektralradius)
+  \item[b)] $\forall \epsilon > 0 \;\exists$ zugeordnete Matrixnorm $\| \cdot \|$, so dass
+  $\|A\| \le \rho(A) + \epsilon$.
+  \end{enumerate}
+\end{Lemma}
+\begin{proof}
+\quad \\
+\begin{enumerate}
+  \item[a)] Sei $\lambda \in \rho(A)$ mit $|\lambda| = \rho(A)$. Sei $y \in \CC^n \setminus \{\emptyset\}$ mit $A y = \lambda y$. Dann gilt $\|A\| = \sup_{x \ne 0} \frac{\|A x\|}{\|x\|}
+  \ge \frac{\|A y\|}{\|y\|} = |\lambda| = \rho(A)$
+    \item[b)] Nach dem vorigen Lemma können wir o.B.d.A. annehmen, dass \\
+    $A =
+    \begin{pmatrix}
+      \lambda_1  I_1 + N_{n 1} & 0 & 0\\\vdots & \ddots & \vdots \\
+      0 & 0 & \lambda_k  I_k + N_{n k}
+    \end{pmatrix}$ wobei $N_i =
+    \begin{pmatrix}
+      0 & 1 & 0 & \cdots & 0\\
+      0 & 0 & 1 & \cdots & 0\\
+      \vdots &  & \ddots & \ddots &  \vdots\\
+       &  &  & 0 & 1 \\
+      0 & \cdots & \cdots  & 0 & 0
+    \end{pmatrix}$
+\end{enumerate}
+\end{proof}

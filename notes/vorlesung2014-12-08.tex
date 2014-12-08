@@ -1,0 +1,28 @@
+\begin{Lemma} 
+$n \in \NN, \omega_n = e^{\frac{2 \pi i}{n}} $ \\
+Dann gilt für $k,l \in \{0, \dots, n-1\}$ \\
+\[ \frac{1}{n} \sum_{j=0}^{n-1} (\omega_n^{k-l})^j = \delta_{kl}. \] \\
+\end{Lemma}
+
+Beweis: 
+\begin{align*}
+k&= l~~ \checkmark \\
+l &\neq k ~~ \omega_n^{k-l} = e^{\frac{2 \pi i}{n}(k-l)} \neq 1
+\end{align*}
+\begin{align*}
+\text{und } \omega_n^{(k-l)n} &= e^{2 \pi i (k-l)} \\
+&= (e^{2 \pi i})^{k-l} = 1^{k-l} = 1.
+\end{align*}
+
+\[ \Rightarrow \sum_{j=0}^{n-1} (\omega_n^{k-l})^j = 
+\frac{1-\omega_n^n}{1-\omega_n} = 0 \]   \hfill $\Box$ 
+
+\begin{Satz} (trigonometrische Interpolation mit äquidistanten 
+Stützstellen) \\
+Seien $n \in \NN$, $x_k = \frac{2 \pi k}{n}$, $k = 0, \dots, n-1$ 
+und $f_0, \dots, f_{n-1} \in \CC.$ Dann ist \\
+$p \in T_{n-1}$ mit $p(x) = f_k$ $(k=0,\dots, n)$ 
+gegeben durch $p(x) = \sum_{j=0}^{n-1} c_j e^{ijx}$ \\
+wobei $c_j = \frac{1}{n} \sum_{k=0}^{n-1} \omega_n^{-jk} f_k$
+
+\end{Satz}
